@@ -1,4 +1,4 @@
-#Lolstatter
+#[Lolstatter](http://www.rosshamish.netau.net/lol/)
 (this is a bad name, [suggest one!](mailto:ross.anderson87@gmail.com?subject=[GitHub] [Lol-Stats] Name Suggestion))
 
 ####A free online statistics tracker for League of Legends

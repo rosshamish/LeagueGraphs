@@ -1,23 +1,26 @@
 #Lolstatter
-(name still undecided, [suggest one!](mailto:ross.anderson87@gmail.com?subject=[GitHub] [Lol-Stats] Name Suggestion))
-
----
+(this is a bad name, [suggest one!](mailto:ross.anderson87@gmail.com?subject=[GitHub] [Lol-Stats] Name Suggestion))
 
 ##A free online statistics tracker for League of Legends
 
-Here's how it works: 
-1. Statistics are available for your 10 most recently played games.
-2. Each time you come to [lolstatter](http://www.rosshamish.netau.net/lol/) and enter your Summoner Name (e.g. mine is RossHamish
-3. 
+**Here's how it works:**
 
-###Lolstatter (if that's what we're calling it for now) is still HEAVILY in beta, 
+- Statistics are available for your 10 most recently played games.
+- Each time you come to [lolstatter](http://www.rosshamish.netau.net/lol/) and enter your Summoner Name (e.g. mine is RossHamish), the site will nom on each recent game that it *hasn't seen before*.
+- Therefore, about *every 6-8 games* you play, [come let the site nom your data](http://www.rosshamish.netau.net/lol/).
+
+*TL;DR* - After you finish playing League for the night, [slap your profile into the system](http://www.rosshamish.netau.net/lol/).
+
+---
+
+**The site is still heavily in beta.**
 
 Please give it some slack while it is in development :) 
 
 If you notice something wrong, some weird formatting or data or wrong values, seriously anything, please [email me!](mailto:ross.anderson87@gmail.com?subject=[GitHub] [Lol-Stats] Bug Report)
 
 ---
-Planned Features:
+**Planned Features:**
 
 - Data availability via tables and custom searching.
 - Custom analysis
@@ -30,7 +33,8 @@ Planned Features:
 
 ---
 
-Known deficiencies: (besides it not actually being functional)
+**Known deficiencies:** (besides it not actually being functional yet)
+
 - Data currently only available for NA servers
     - This is easily fixable, but for now simplicity is king.
 - I don't have money to pay for server space to handle lots of people.

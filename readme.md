@@ -1,4 +1,7 @@
-Lol Online Stats Database and Tracker
+###Lolstatter
+(name still up for suggestion)
+##A free statistics tracker for League of Legends
+#Supported: all game types (normal AND ranked)
 
 ---
 

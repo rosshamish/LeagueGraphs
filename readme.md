@@ -3,6 +3,8 @@
 
 ##A free online statistics tracker for League of Legends
 
+---
+
 **Here's how it works:**
 
 - Statistics are available for your 10 most recently played games.

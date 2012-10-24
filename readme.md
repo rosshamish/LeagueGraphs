@@ -7,7 +7,7 @@
 
 Here's how it works: 
 1. Statistics are available for your 10 most recently played games.
-2. Each time you come to [lolstatter](www.rosshamish.netau.net/lol/) and enter your Summoner Name (e.g. mine is RossHamish
+2. Each time you come to [lolstatter](http://www.rosshamish.netau.net/lol/) and enter your Summoner Name (e.g. mine is RossHamish
 3. 
 
 ###Lolstatter (if that's what we're calling it for now) is still HEAVILY in beta, 
@@ -38,4 +38,4 @@ Known deficiencies: (besides it not actually being functional)
 
 ---
 
-All data is generously provided by [Riot Games](www.leagueoflegends.com) through the wonderful [Elophant API](www.elophant.com/developers/).
+All data is generously provided by [Riot Games](http://www.leagueoflegends.com) through the wonderful [Elophant API](http://www.elophant.com/developers/).

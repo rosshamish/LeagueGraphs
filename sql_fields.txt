@@ -1,11 +1,13 @@
 /**
  * Fields
 
-48 Fields
+50 Fields
+
+accountId - int
+summonerName - string
 
 ranked - bool
 level - int
-experienceEarned - int
 userServerPing - int
 createDate - string
 gameId - int **use this to eliminate duplicates

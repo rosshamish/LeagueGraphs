@@ -30,7 +30,7 @@ If you notice something wrong, some weird formatting or data or wrong values, se
     - What is the relationship between the number of wards I buy and my winrate?
     - How often do I win with item A vs item B?
     - [Suggest a data point](mailto:ross.anderson87@gmail.com?subject=[GitHub] [Lol-Stats] Data Suggestion)
-- Graph support (likely using the very cool [xkcd.js](http://dan.iel.fm/xkcd/))
+- Graph support (likely using [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/))
 - [Suggest a feature](mailto:ross.anderson87@gmail.com?subject=[GitHub] [Lol-Stats] Feature Request)
 
 ---

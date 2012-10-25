@@ -67,7 +67,6 @@ function getEloData($base_url, $region, $key, $request, $params, $json) {
     $json_response = curl_exec($ch);
     curl_close($ch);
     
-    
     if ($json) {
         return $json_response;
     } else {
@@ -75,12 +74,6 @@ function getEloData($base_url, $region, $key, $request, $params, $json) {
         return (array)$returned_data;
     }
 }
-
-
-
-
-
-
 
 
 function updateRow($region, $key, $base_url, $host, $username, $password, $database, $summoner_array) {

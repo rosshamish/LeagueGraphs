@@ -37,8 +37,7 @@ $(function() {
                     return;
                 } else {
                     $('#updates').html('<h2> Account Info Grabbed! </h2>');
-                    $('#debug').html(phpdata);
-                    var rec_games = JSON.parse(phpdata);
+                    
                 }
             }
         });

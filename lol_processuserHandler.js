@@ -16,8 +16,6 @@ $(function() {
             return false;
         }
         
-        $("#search_form").fadeOut(500);
-        
         // Use Ajax to process the form submission
         var dataString = "summonerName=" + summonerName;
         var returnedData = null;
@@ -27,9 +25,15 @@ $(function() {
             data: dataString,
             success: function(phpdata) {
                 if (phpdata == 'null') {
-                    $('#updates').html('nope, didnt work');
+                    $('#updates').append('<br><strong>Either your summoner name was typed incorrectly,'
+                                       + 'or the Elophant data server is temporarily unavailable.</strong> '
+                                       + '<br>Please check your spelling and try again. '
+                                       + '<br>If your spelling is correct, please try again later.'
+                                       + '<br>Name is case insensitive, eg RossHamiSH is the same as rosshAMish is the same as RossHamish');
+                    $('input#summonerName').focus().select();
                     return;
                 } else {
+                    $("#search_form").fadeIn(500);
                     $('#updates').html('<h2> Account Info Grabbed! </h2>');
                     $('#debug').html(phpdata);
                     var rec_games = JSON.parse(phpdata);

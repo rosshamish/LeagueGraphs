@@ -115,6 +115,15 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
         $queueType = '7357'; // string
         $subType = '7357'; // string
         
+        $teammate0 = '0'; // string
+        $teammate0champ = '0'; // string
+        $teammate1 = '0'; // string
+        $teammate1champ = '0'; // string
+        $teammate2 = '0'; // string
+        $teammate2champ = '0'; // string
+        $teammate3 = '0'; // string
+        $teammate3champ = '0'; // string
+        
         $championId = 7357; // int
         $spell1 = 7357; // int
         $spell2 = 7357; // int
@@ -173,7 +182,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
             $all_games = (array)$rec_arr[$i_key];
             
             // for each game in gamestatistics, start with the MOST RECENT (9/9) moving towards OLDEST (0/9);
-            for($game_num=9; $game_num >= 0; $game_num--) {
+            for($game_num = count($all_games)-1; $game_num >= 0; $game_num--) {
                 $cur_game = (array)$all_games[$game_num];
                 
                 // for each field in the current game
@@ -183,16 +192,39 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                     if ($field == 'fellowPlayers') {
                         // get the players array
                         $players = (array)$cur_game[$field];
-                        
+                        $teammatesCount = 0;
                         // for each player
                         for ($p_id=0; $p_id < count($players); $p_id++) {
                             // get the current player
                             $cur_player = (array)$players[$p_id];
+                            // if this person is on my team, then add them to teammates
+                            $my_teamId = $cur_game['teamId'];
+                            if ($cur_player['teamId'] == $my_teamId) {
+                                switch($teammatesCount) {
+                                    case 0: // this is the first teammate found 
+                                        $teammate0 = $cur_player['summonerName'];
+                                        $teammate0champ = $cur_player['championId'];
+                                        break;
+                                    case 1: // this is the second teammate found
+                                        $teammate1 = $cur_player['summonerName'];
+                                        $teammate1champ = $cur_player['championId'];
+                                        break;
+                                    case 2: // this is the third teammate found
+                                        $teammate2 = $cur_player['summonerName'];
+                                        $teammate2champ = $cur_player['championId'];
+                                        break;
+                                    case 3: // this is the fourth teammate found
+                                        $teammate3 = $cur_player['summonerName'];
+                                        $teammate3champ = $cur_player['championId'];
+                                        break;
+                                }
+                                $teammatesCount++;
+                            }
                             // for each field in the current player
                             foreach ($cur_player as $p_field => $p_value) {
                                 $str_p_value = var_export($p_value, TRUE);
                                 
-                                // echo "cur_player => $p_id, p_field => $p_field, p_value => $str_p_value <br>";
+                                echo "cur_player => $p_id, p_field => $p_field, p_value => $str_p_value <br>";
                             }
                         }
                     // else if it is statistics
@@ -417,6 +449,14 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                         '$gameTypeEnum',
                         '$queueType',
                         '$subType',
+                        '$teammate0',
+                        '$teammate0champ',
+                        '$teammate1',
+                        '$teammate1champ',
+                        '$teammate2',
+                        '$teammate2champ',
+                        '$teammate3',
+                        '$teammate3champ',
                         '$championId',
                         '$spell1',
                         '$spell2',
@@ -484,6 +524,15 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                     $queueType = '7357'; // string
                     $subType = '7357'; // string
                     
+                    $teammate0 = '0'; // string
+                    $teammate0champ = '0'; // string
+                    $teammate1 = '0'; // string
+                    $teammate1champ = '0'; // string
+                    $teammate2 = '0'; // string
+                    $teammate2champ = '0'; // string
+                    $teammate3 = '0'; // string
+                    $teammate3champ = '0'; // string
+                    
                     $championId = 7357; // int
                     $spell1 = 7357; // int
                     $spell2 = 7357; // int
@@ -550,5 +599,7 @@ if (!$keys) {
 }
 
 updateRow($r_region, $r_key, $r_base_url, $host, $username, $password, $database, $summoner_arr);
+
+
 
 ?>

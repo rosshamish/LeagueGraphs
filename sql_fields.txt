@@ -3,6 +3,8 @@
 
 50 Fields
 
+pkey- int **'gameId' + 'accountId'
+
 accountId - int
 summonerName - string
 
@@ -23,10 +25,11 @@ timeInQueue - int
 premadeTeam - bool
 premadeSize - int
 gameMode - string
+gameType - string
 gameTypeEnum - string ('MATCHED_GAME')
 queueType - string
 subType - string **subqueue - what is a subqueue?
-
+2012-10-25 04:14:22Z
 
 championId - int **converted to champion NAME before presentation
 spell1 - int
@@ -70,7 +73,7 @@ physicalDamageTaken - int
 magicDamageTaken - int
 
 timeSpentDead - int
-
+*/
 
 
 

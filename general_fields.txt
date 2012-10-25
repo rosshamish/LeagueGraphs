@@ -1,0 +1,24 @@
+ranked
+
+general field => gameType, general value => 'MATCHED_GAME' 
+general field => experienceEarned, general value => 0 
+ 
+general field => gameMapId, general value => 1 
+general field => leaver, general value => false 
+general field => spell1, general value => 14 
+general field => spell2, general value => 4 
+general field => gameTypeEnum, general value => 'MATCHED_GAME' 
+
+
+general field => level, general value => 29 
+general field => createDate, general value => '2012-10-18 04:41:56Z' 
+general field => userServerPing, general value => 127 
+general field => premadeSize, general value => 4 
+general field => gameId, general value => 551993897 
+general field => timeInQueue, general value => 10 
+general field => ipEarned, general value => 251 
+general field => gameMode, general value => 'CLASSIC' 
+general field => subType, general value => 'NORMAL' 
+general field => queueType, general value => 'NORMAL' 
+general field => premadeTeam, general value => false 
+general field => championId, general value => 42 

@@ -36,8 +36,9 @@ $(function() {
                     $('input#summonerName').focus().select();
                     return;
                 } else {
-                    $('#updates').html('<h2> Account Info Grabbed! </h2>');
-                    
+                    $('#updates').html('<h2> ' + phpdata + ' new games data-fyed</h2>');
+                    $.getScript("grapher.js");
+                    //get_graph([0, 1, 2], [4, 5, 10]);
                 }
             }
         });

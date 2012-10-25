@@ -82,6 +82,9 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
     mysql_connect($host, $username, $password);
     @mysql_select_db($database) or die( "Unable to select database");
     
+    // Count how many games are grabbed/nommed/parsed.
+    $gamesSuccessfullyParsed = 0;
+    
     // reset fields before the initial iteration
     if (true) {
         /** Fields can be found at sql_fields.txt */
@@ -220,7 +223,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                             foreach ($cur_player as $p_field => $p_value) {
                                 $str_p_value = var_export($p_value, TRUE);
                                 
-                                echo "cur_player => $p_id, p_field => $p_field, p_value => $str_p_value <br>";
+                                // echo "cur_player => $p_id, p_field => $p_field, p_value => $str_p_value <br>";
                             }
                         }
                     // else if it is statistics
@@ -489,7 +492,8 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 
                 
                 // execute the query
-                $q_err = mysql_query($query) or die(mysql_error());
+                $q_err = mysql_query($query) or die(strval($gamesSuccessfullyParsed));
+                $gamesSuccessfullyParsed++;
                 
                 // clear all the values back to test or 7357 or 0
                 if (true) {
@@ -572,6 +576,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 }
             
             }
+            echo $gamesSuccessfullyParsed;
         }
     }
     mysql_close();

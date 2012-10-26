@@ -29,9 +29,9 @@ if (count($champs) > 0) {
 for ($i=0; $i < count($champs); $i++) {
     $cur_champ = (array)$champs[$i];
     $id = mysql_real_escape_string($cur_champ['id']);
-    $name = mysql_real_escape_string($cur_champ['name']);
     // fix single quotes in champs names to escape them with \'
-    $name = str_replace("'", "g", $name);
+    // it was having problems with things like Cho 'Gath
+    $name = mysql_real_escape_string($cur_champ['name']);
     
     $query = "INSERT INTO champs VALUES (
                             '$id',

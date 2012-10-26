@@ -34,7 +34,8 @@ Released   : 20120902
 <body>
 	<div id="header">
 		<h1>LolStatter</h1>
-		<p>by RossHamish</p>
+		<p>by <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a></p>
+		<p>Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">Elophant.com</a></p>
 	</div>
 	<!-- end #header -->
 	
@@ -50,6 +51,23 @@ Released   : 20120902
 						<p>How it works: each time <strong>after you finish playing a session</strong> of games, come to this site and
 						   <strong>enter your summoner name</strong>. The engine will compile your stats, add them to the database, then
 						   show you your overall statistics.</p>
+						<!--Check for Internet Explorer-->
+						<script type="text/javascript">
+
+						if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) { //test for MSIE x.x;
+							var ieversion=new Number(RegExp.$1) // capture x.x portion and store as a number
+							if (ieversion>=5) {
+							 document.write("<p>Looks like you're using Internet Explorer. This site will not work properly (if at all) on Internet Explorer, sadly :(<br>" +
+							       "If I get more time/resources in the future I'll add support for Internet Explorer, but for now I " +
+							       "<strong>strongly</strong> suggest switching to " +
+							       "<strong><a href=\"http://support.google.com/chrome/bin/answer.py?hl=en&answer=95346\" target=\"_blank\" title=\"Google Chrome Download\">Google Chrome, here." +
+							       "</a></strong></p>");
+							 $("input#summonerName").attr('val', 'test');
+							}
+						}
+						
+						</script>
+						
 						<div id="debug"></div>
 						<div id="updates"></div>
 						<div id="search_form">
@@ -73,7 +91,7 @@ Released   : 20120902
 	
 <div id="footer-content"></div>
 <div id="footer">
-	<p>Copyright (c) 2012 rosshamish.netau.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org">FCT</a>.</p>
+	<p>Copyright (c) 2012 rosshamish.netau.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org" title="Free CSS Templates">FCT</a>.</p>
 </div>
 <!-- end #footer -->
 </body>

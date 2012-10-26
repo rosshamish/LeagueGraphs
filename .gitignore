@@ -4,9 +4,10 @@
 sensitive_data.php
 
 #################
-## Old Code
+## Unwanted/Old/Unnecessary Code
 #################
 old_code
+test_code
 
 #################
 ## Eclipse

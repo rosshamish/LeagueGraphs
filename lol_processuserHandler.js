@@ -21,6 +21,8 @@ $(function() {
         // Use Ajax to process the form submission
         var dataString = "summonerName=" + summonerName;
         var returnedData = null;
+        // Set the loader gif
+        $("#loading").html("<center><img src=/images/ajax-loader.gif /> Nomming data...</center>");
         $.ajax({  
             type: "POST",
             url: "lol_processuser.php",
@@ -36,17 +38,24 @@ $(function() {
                     $('input#summonerName').focus().select();
                     return;
                 } else {
+                    // split the return string of form numGames:summonerName
+                    var numGames = phpdata.split(":")[0];
+                    var name = phpdata.split(":")[1];
                     // Tell the user how many games have been added to their file
-                    $('#updates').html('<h2> ' + phpdata + ' new games data-fyed</h2>');
+                    $('#updates').html('<center><h2> ' + numGames + ' new games data-fyed</h2></center>');
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
                         // Get data from SQL
-                        get_graph([0, 1, 2, 3, 4], [-10, -2, 0, 2, 10]);                        
+                        get_graph(name, "numDeaths", "premadeSize");                      
                     });
                     
                 }
+                // we're done loading!
+                $("#loading").html("");
             }
         });
+        
+        
         return false;
     });
 });

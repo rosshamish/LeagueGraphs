@@ -492,7 +492,8 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 
                 
                 // execute the query
-                $q_err = mysql_query($query) or die(strval($gamesSuccessfullyParsed));
+                $q_err = mysql_query($query)
+                        or die(strval($gamesSuccessfullyParsed) . ":" . $summoner_array['name']);
                 $gamesSuccessfullyParsed++;
                 
                 // clear all the values back to test or 7357 or 0
@@ -576,11 +577,13 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 }
             
             }
-            echo $gamesSuccessfullyParsed;
+            
+            echo strval($gamesSuccessfullyParsed) . ":" . $summoner_array['name'];
         }
     }
     mysql_close();
 }
+
 
 
 

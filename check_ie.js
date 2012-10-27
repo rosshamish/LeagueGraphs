@@ -7,4 +7,7 @@ if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) { //test for MSIE x.x;
                "<strong><a href=\"http://support.google.com/chrome/bin/answer.py?hl=en&answer=95346\" target=\"_blank\" title=\"Google Chrome Download\">Google Chrome, here." +
                "</a></strong></p>");
         }
+        $(document).ready(function() {
+                $("#search_form").attr("disabled", "disabled");     
+        });
 }

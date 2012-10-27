@@ -36,9 +36,14 @@ $(function() {
                     $('input#summonerName').focus().select();
                     return;
                 } else {
+                    // Tell the user how many games have been added to their file
                     $('#updates').html('<h2> ' + phpdata + ' new games data-fyed</h2>');
-                    $.getScript("grapher.js");
-                    //get_graph([0, 1, 2], [4, 5, 10]);
+                    // Get the grapher
+                    $.getScript("grapher.js", function(data, textStatus) {
+                        // Get data from SQL
+                        get_graph([0, 1, 2, 3, 4], [-10, -2, 0, 2, 10]);                        
+                    });
+                    
                 }
             }
         });

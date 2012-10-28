@@ -1,6 +1,9 @@
 /**
  * Do the hard work of the graphing and such
  */
+function ascending(a,b) {
+    return (a-b);
+}
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
 function get_graph(summoner_name, x_field, y_field) {
@@ -13,35 +16,33 @@ function get_graph(summoner_name, x_field, y_field) {
         data: dataString,
         success: function(phpdata) {
             
-            var x_array = new Array();
-            var y_array = new Array();
-            var assoc = new Object();
+            var data = [];
+            var x_array = [];
+            var y_array = [];
             
             var pairs = phpdata.split(",");
             for (var i=0; i< pairs.length; i++) {
                 var bothvals = pairs[i].split(":");
-                var x = bothvals[0];
-                var y = bothvals[1];
-                assoc[x] = y;
+                var xval = bothvals[0];
+                var yval = bothvals[1];
                 x_array.push(x);
+                y_array.push(y);
             }
-            x_array.sort(function(a,b) {return (a-b);});
-            for (var i=0; i < x_array.length; i++) {
-                y_array.push(assoc[x_array[i]]);
-            }
-
+            var orig_x_array = x_array;
+            x_array.sort(ascending);
+            
             var xmin = Math.min.apply(Math, x_array);
             var xmax = Math.max.apply(Math, x_array);
             var xrange = Math.abs(xmax - xmin);
             
             // Build the plot.
             var plot = xkcdplot();
-            plot("#graph", "New x label", "New y label", "Fancy Title");
+            plot("#graph", "New x label", "New y label", "Fancy Title");            
             
-            var data = x_array.map(function (x_val) {
-                        var index = $.inArray(x_val, x_array);
-                        return {x: x_val, y: y_array[index]};
-                    });
+            for (var i=0; i < x_array.length; i++) {
+                data.push({'x': x_array[i], 'y': y_array[i]});
+            }
+            
             // Add the lines.
             plot.plot(data, {stroke: "green"});
             

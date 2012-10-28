@@ -30,13 +30,12 @@ $(function() {
             success: function(phpdata) {
                 if (phpdata == 'null') {
                     $("#search_form").fadeIn(500);
-                    $('#updates').append('<br><strong>Either your summoner name was typed incorrectly,'
+                    $('#updates').html('<br><strong>Either your summoner name was typed incorrectly,'
                                        + 'or the Elophant data server is temporarily unavailable.</strong> '
                                        + '<br>Please check your spelling and try again. '
                                        + '<br>If your spelling is correct, please try again later.'
                                        + '<br>Name is case insensitive, eg RossHamiSH is the same as rosshAMish is the same as RossHamish');
                     $('input#summonerName').focus().select();
-                    return;
                 } else {
                     // split the return string of form numGames:summonerName
                     var numGames = phpdata.split(":")[0];
@@ -46,9 +45,8 @@ $(function() {
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
                         // Get data from SQL
-                        get_graph(name, "numDeaths", "premadeSize");                      
+                        get_graph(name, "numDeaths", "championsKilled");                      
                     });
-                    
                 }
                 // we're done loading!
                 $("#loading").html("");

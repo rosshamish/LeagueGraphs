@@ -38,19 +38,38 @@ function get_graph(summoner_name, x_field, y_field) {
             }
             x_array.sort(ascending);
             
-            // domain and range
+            /** deal with "time" being the desired x value */
+            // if time is the desired x-axis (i.e. gameId)
+            if (x_field == "gameId") {
+                // gameIds are already sorted ascending, i.e. in time -> order, so just set
+                // their values to reasonable integers
+                for (var i=0; i < x_array.length; i++) {
+                    // set x values to 0 through the length
+                    x_array[i] = i;
+                }
+            }
+            
+            /** domain and range */
+            // set domain
             var xmin = Math.min.apply(Math, x_array);
             var xmax = Math.max.apply(Math, x_array);
             var xrange = Math.abs(xmax - xmin);
-            
+            // set range
             var ymin = Math.min.apply(Math, y_array);
             var ymax = Math.max.apply(Math, y_array);
             var yrange = Math.abs(ymax - ymin);
             
             // Build the plot.
+            // TODO sanitize the axes names, instead of timeSpentDead have it be Time Spent Dead
             var plot = xkcdplot();
-            var title = x_field + " vs. " + y_field + " for " + summoner_name;
-            plot("#graph", x_field, y_field, title);            
+            if (x_field == 'gameId') {
+                var x_axis = 'time';
+            } else {
+                var x_axis = x_field;
+            }
+            var y_axis = y_field;
+            var title = x_axis + " vs. " + y_axis + " for " + summoner_name;
+            plot("#graph", x_axis, y_axis, title);            
             
             // build the data
             for (var i=0; i < x_array.length; i++) {
@@ -64,7 +83,7 @@ function get_graph(summoner_name, x_field, y_field) {
             $("#debug").append(s);
             
             // Add the lines.
-            plot.plot(data, {stroke: "green"});
+            plot.plot(data, {stroke: "blue"});
             
             // Render the image.
             plot.xlim([xmin - (xrange / 10), xmax + (xrange / 10)])

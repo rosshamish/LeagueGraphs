@@ -48,16 +48,16 @@ function get_graph(summoner_name, x_field, y_field) {
             var title = x_field + " vs. " + y_field + " for " + summoner_name;
             plot("#graph", x_field, y_field, title);            
             
+            // build the data
             for (var i=0; i < x_array.length; i++) {
                 data.push({'x': x_array[i], 'y': y_array[i]});
             }
+            // print out the data
             var s = "<br>=== data ===";
             for (var i=0; i < data.length; i++) {
                 s += "<br>i: " + i + ", x: " + data[i].x + ", y: " + data[i].y;
             }
             $("#debug").append(s);
-            
-            
             
             // Add the lines.
             plot.plot(data, {stroke: "green"});

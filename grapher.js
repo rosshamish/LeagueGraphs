@@ -1,9 +1,17 @@
 /**
  * Do the hard work of the graphing and such
  */
+
+/**
+ * a function for sort() that will arrange elements in ascending order
+ */
 function ascending(a,b) {
     return (a-b);
 }
+
+/**
+ * Prints an array in a standard format to <div id="debug"></div>
+ */
 function print_arr(arr, arrname) {
     var debug_string = "<br>" + "== " + arrname + " ==";
     for (var i=0; i < arr.length; i++) {
@@ -11,6 +19,13 @@ function print_arr(arr, arrname) {
     }
     debug_string += "<br>======<br><br>";
     $("#debug").append(debug_string);
+}
+/**
+ *  Takes an SQL field and returns a string containing a more user-friendly name
+ *  for the field.
+ */
+function sanitize_field_name(field) {
+    // TODO write this function
 }
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
@@ -60,7 +75,6 @@ function get_graph(summoner_name, x_field, y_field) {
             var yrange = Math.abs(ymax - ymin);
             
             // Build the plot.
-            // TODO sanitize the axes names, instead of timeSpentDead have it be Time Spent Dead
             var plot = xkcdplot();
             if (x_field == 'gameId') {
                 var x_axis = 'time';

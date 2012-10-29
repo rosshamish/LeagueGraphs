@@ -36,12 +36,16 @@ function get_graph(summoner_name, x_field, y_field) {
                 x_array.push(xval);
                 y_array.push(yval);
             }
-            var orig_x_array = x_array;
             x_array.sort(ascending);
             
+            // domain and range
             var xmin = Math.min.apply(Math, x_array);
             var xmax = Math.max.apply(Math, x_array);
             var xrange = Math.abs(xmax - xmin);
+            
+            var ymin = Math.min.apply(Math, y_array);
+            var ymax = Math.max.apply(Math, y_array);
+            var yrange = Math.abs(ymax - ymin);
             
             // Build the plot.
             var plot = xkcdplot();
@@ -63,7 +67,9 @@ function get_graph(summoner_name, x_field, y_field) {
             plot.plot(data, {stroke: "green"});
             
             // Render the image.
-            plot.xlim([xmin - (xrange / 10), xmax + (xrange / 10)]).draw();
+            plot.xlim([xmin - (xrange / 10), xmax + (xrange / 10)])
+                .ylim([ymin - (yrange / 10), ymax + (yrange / 10)])
+                .draw();
         }
     });
     

@@ -44,7 +44,7 @@ $(function() {
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
                         // Get data from SQL
-                        get_graph(name, "sightWardsBoughtInGame", "assists");                      
+                        get_graph(name, "championsKilled", "goldEarned");                      
                     });
                     
                     // Finally, inform the user.

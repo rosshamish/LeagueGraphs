@@ -5,10 +5,12 @@ function ascending(a,b) {
     return (a-b);
 }
 function print_arr(arr, arrname) {
-    $("#debug").append("<br>" + arrname);
+    var debug_string = "<br>" + "== " + arrname + " ==";
     for (var i=0; i < arr.length; i++) {
-        
+        debug_string += "<br> i: " + i + ", val: " + arr[i];
     }
+    debug_string += "<br>======<br><br>";
+    $("#debug").append(debug_string);
 }
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
@@ -31,15 +33,11 @@ function get_graph(summoner_name, x_field, y_field) {
                 var bothvals = pairs[i].split(":");
                 var xval = bothvals[0];
                 var yval = bothvals[1];
-                x_array.push(x);
-                y_array.push(y);
+                x_array.push(xval);
+                y_array.push(yval);
             }
             var orig_x_array = x_array;
             x_array.sort(ascending);
-            
-            $("#debug").append("haha");
-            
-            print_arr(x_array, "x_array"); 
             
             var xmin = Math.min.apply(Math, x_array);
             var xmax = Math.max.apply(Math, x_array);
@@ -47,11 +45,19 @@ function get_graph(summoner_name, x_field, y_field) {
             
             // Build the plot.
             var plot = xkcdplot();
-            plot("#graph", "New x label", "New y label", "Fancy Title");            
+            var title = x_field + " vs. " + y_field + " for " + summoner_name;
+            plot("#graph", x_field, y_field, title);            
             
             for (var i=0; i < x_array.length; i++) {
                 data.push({'x': x_array[i], 'y': y_array[i]});
             }
+            var s = "<br>=== data ===";
+            for (var i=0; i < data.length; i++) {
+                s += "<br>i: " + i + ", x: " + data[i].x + ", y: " + data[i].y;
+            }
+            $("#debug").append(s);
+            
+            
             
             // Add the lines.
             plot.plot(data, {stroke: "green"});

@@ -40,13 +40,16 @@ $(function() {
                     // split the return string of form numGames:summonerName
                     var numGames = phpdata.split(":")[0];
                     var name = phpdata.split(":")[1];
-                    // Tell the user how many games have been added to their file
-                    $('#updates').html('<center><h2> ' + numGames + ' new games data-fyed</h2></center>');
+                    
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
                         // Get data from SQL
-                        get_graph(name, "numDeaths", "championsKilled");                      
+                        get_graph(name, "sightWardsBoughtInGame", "assists");                      
                     });
+                    
+                    // Finally, inform the user.
+                     // Tell the user how many games have been added to their file
+                    $('#updates').html('<center><h2> ' + numGames + ' new games data-fyed</h2></center>');
                 }
                 // we're done loading!
                 $("#loading").html("");

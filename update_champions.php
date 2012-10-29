@@ -10,7 +10,6 @@ mysql_selectdb($database);
 
 // Get the data from the url
 $url = $r_base_url . $r_region . "/champions?key=" . $r_key;
-echo "url => $url <br>";
 $ch = curl_init($url);                                                                  
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $json_response = curl_exec($ch);
@@ -32,7 +31,7 @@ for ($i=0; $i < count($champs); $i++) {
     // fix single quotes in champs names to escape them with \'
     // it was having problems with things like Cho 'Gath
     $name = mysql_real_escape_string($cur_champ['name']);
-    
+    echo "id: $id, name: $name <br>";
     $query = "INSERT INTO champs VALUES (
                             '$id',
                             '$name'

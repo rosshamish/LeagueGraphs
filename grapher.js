@@ -4,6 +4,12 @@
 function ascending(a,b) {
     return (a-b);
 }
+function print_arr(arr, arrname) {
+    $("#debug").append("<br>" + arrname);
+    for (var i=0; i < arr.length; i++) {
+        
+    }
+}
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
 function get_graph(summoner_name, x_field, y_field) {
@@ -15,7 +21,7 @@ function get_graph(summoner_name, x_field, y_field) {
         url: phpurl,
         data: dataString,
         success: function(phpdata) {
-            
+            $("#debug").append(phpdata + "<br>");
             var data = [];
             var x_array = [];
             var y_array = [];
@@ -30,6 +36,10 @@ function get_graph(summoner_name, x_field, y_field) {
             }
             var orig_x_array = x_array;
             x_array.sort(ascending);
+            
+            $("#debug").append("haha");
+            
+            print_arr(x_array, "x_array"); 
             
             var xmin = Math.min.apply(Math, x_array);
             var xmax = Math.max.apply(Math, x_array);

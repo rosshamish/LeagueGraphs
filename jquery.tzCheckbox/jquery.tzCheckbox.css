@@ -1,0 +1,79 @@
+.tzCheckBox{
+	background:url('background.png') no-repeat right bottom;
+	display:inline-block;
+	min-width:60px;
+	height:33px;
+	white-space:nowrap;
+	position:relative;
+	cursor:pointer;
+	margin-left:14px;
+}
+
+.tzCheckBox.checked{
+	background-position:top left;
+	margin:0 14px 0 0;
+}
+
+.tzCheckBox .tzCBContent{
+	color: white;
+	line-height: 31px;
+	padding-right: 38px;
+	text-align: right;
+}
+
+.tzCheckBox.checked .tzCBContent{
+	text-align:left;
+	padding:0 0 0 38px;
+}
+
+.tzCBPart{
+	background:url('background.png') no-repeat left bottom;
+	width:14px;
+	position:absolute;
+	top:0;
+	left:-14px;
+	height:33px;
+	overflow: hidden;
+}
+
+.tzCheckBox.checked .tzCBPart{
+	background-position:top right;
+	left:auto;
+	right:-14px;
+}
+
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	background:url('../img/page_bg.png') repeat-x;
+	font:13px/1.3 'Segoe UI',Arial, sans-serif;
+	color:#999;
+}
+
+#page{
+	width:550px;
+	margin: 150px auto 100px;
+}
+
+form ul{
+	list-style:none;
+}
+
+form li{
+	padding: 15px;
+}
+
+form li:nth-child(even){
+	background:url('../img/line_bg.png') repeat-y center center;
+}
+
+form label{
+	width:370px;
+	font-size:20px;
+	color:#bbb;
+	display: inline-block;
+}
+

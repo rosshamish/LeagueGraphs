@@ -1,13 +1,22 @@
 <!DOCTYPE HTML PUBLIC "- //W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<link rel="stylesheet" type="text/css" href="/form.css" />
-<link rel="stylesheet" type="text/css" href="/style.css" />
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="form.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
 
+<!-- jquery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- form handling -->
 <script type="text/javascript" src="lol_processuserHandler.js"></script>
 
+<!-- Graphing -->
 <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
 <script type="text/javascript" src="xkcd.js"></script>
+
+<!-- Checkboxes -->
+<link rel="stylesheet" type="text/css" href="jquery.tzCheckbox/jquery.tzCheckbox.css" />
+<script type="text/javascript" src="jquery.tzCheckbox/jquery.tzCheckbox.js"></script>
+<script type="text/javascript" src="jquery.tzCheckbox/script.js"></script>
 
 <!--============================================================================================-->
 
@@ -61,10 +70,12 @@ Released   : 20120902
 				<div id="content">
 					<div class="post">
 						<h2 class="title"><a href="#">Welcome to LolStatter</a></h2>
+						<div id="intro">
 						<p>This is <strong>_suggest a name_</strong>, a free <strong>normal game</strong> stat tracker for League of Legends.</p>
 						<p>How it works: each time <strong>after you finish playing a session</strong> of games, come to this site and
 						   <strong>enter your summoner name</strong>. The engine will compile your stats, add them to the database, then
 						   show you your overall statistics.</p>
+						</div>
 						
 						<!--Check for Internet Explorer-->
 						<script type="text/javascript" src="/check_ie.js"></script>
@@ -79,7 +90,7 @@ Released   : 20120902
 								</fieldset>
 							</form>	
 						</div>
-						<div id="checkboxes"></div>
+						<div class="tzCheckbox" id="checkboxes"></div>
 						<div id="graph"></div>
 						<div id="debug" class="debug">-Debug-<br><br></div>
 						<div class="debug">-------</div>

@@ -44,18 +44,38 @@ $(function() {
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
                         // Get data from SQL
-                        get_graph(name, "gameId", "championsKilled");                      
+                        get_graph(name, "gameId", "sightWardsBoughtInGame");
+                        $(".title").remove();
+                        $("#intro").remove();
+                        
+                        
+                        // we're done loading!
+                       
+                        
+                        // Finally, inform the user.
+                        // Tell the user how many games have been added to their file
+                        $('#updates').html('<center><h2> ' + numGames + ' new games data-fyed</h2></center>');
                     });
-                    
-                    // Finally, inform the user.
-                     // Tell the user how many games have been added to their file
-                    $('#updates').html('<center><h2> ' + numGames + ' new games data-fyed</h2></center>');
                 }
-                // we're done loading!
-                $("#loading").html("");
+                $("#loading").empty();
             }
         });
-        
+         $("#checkboxes").html('<ul>' +
+                                              '<li>' +
+                                              '<label for="goldEarned">Gold Earned</label><input type="checkbox" id="goldEarned" name="goldEarned" />' +
+                                              '</li>' +
+                                              '<li>' +
+                                              '<label id="thislabel" for="championsKilled">Champion Kills</label><input type="checkbox" id="championsKilled" name="championsKilled" checked />' +
+                                              '</li>' +
+					      '<li>' +
+                                              '<label for="numDeaths">Deaths</label><input type="checkbox" id="numDeaths" name="numDeaths" />' +
+                                              '</li>' + 
+					      '<li>' +
+                                              '<label for="assists">Assists</label><input type="checkbox" id="assists" name="assists" />' +
+                                              '</li>' + 
+					      '</ul>');
+                        $('input[type=checkbox]').tzCheckbox({labels:['Enable','Disable']});
+                        $('#thislabel').hide();
         
         return false;
     });

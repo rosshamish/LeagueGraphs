@@ -79,7 +79,7 @@ function get_graph(summoner_name, x_field, y_field) {
             if (x_field == 'gameId') {
                 var x_axis = 'time';
             } else {
-                var x_axis = x_field;
+                var x_axis = x_field; 
             }
             var y_axis = y_field;
             var title = x_axis + " vs. " + y_axis + " for " + summoner_name;

@@ -181,6 +181,55 @@ hr {
 	float: right;
 }
 
+/* Sidebar */
+
+#sidebar {
+	width: 200px;
+	margin-bottom: 10px;
+	color: #FFFFFF;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 20px 0px 0px 25px;
+	list-style: none;
+}
+
+#sidebar li {
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar li ul {
+	margin-bottom: 40px;
+	padding: 0px 15px;
+}
+
+#sidebar li li {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	line-height: 35px;
+	border-bottom: 1px #A3F389 dashed;
+}
+
+#sidebar h2 {
+	width: 185px;
+	height: 32px;
+	padding: 6px 0px 0px 15px;
+	background: url(images/img04.jpg) no-repeat left top;
+	font-size: 18px;
+	color: #FFFFFF;
+}
+
+#sidebar a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+#sidebar a:hover {
+	text-decoration: none;
+}
+
 /* Footer */
 
 #footer {
@@ -206,7 +255,7 @@ hr {
 
 @font-face {
     font-family: "xkcd";
-    src: url('http://antiyawn.com/uploads/Humor-Sans.ttf');
+    src: url('fonts/Humor-Sans.ttf');
 }
 
 #graph {

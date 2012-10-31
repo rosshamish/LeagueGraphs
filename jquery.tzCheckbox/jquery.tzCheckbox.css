@@ -7,6 +7,7 @@
 	position:relative;
 	cursor:pointer;
 	margin-left:14px;
+	line-height: normal;
 }
 
 .tzCheckBox.checked{
@@ -42,38 +43,29 @@
 	right:-14px;
 }
 
-*{
-	margin:0;
-	padding:0;
+#checkboxes ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
-body{
-	background:url('../img/page_bg.png') repeat-x;
-	font:13px/1.3 'Segoe UI',Arial, sans-serif;
-	color:#999;
-}
-
-#page{
-	width:550px;
-	margin: 150px auto 100px;
-}
-
-form ul{
-	list-style:none;
-}
-
-form li{
+#checkboxes li{
+	list-style: none;
 	padding: 15px;
 }
 
-form li:nth-child(even){
-	background:url('../img/line_bg.png') repeat-y center center;
-}
+#checkboxes { text-align: center; }
+#checkboxes ul { list-style: none; }
+#checkboxes ul li { display: inline; }
 
-form label{
+/*form li:nth-child(even){
+	background:url('/images/line_bg.png') repeat-y center center;
+}*/
+
+#checkboxes label{
 	width:370px;
 	font-size:20px;
 	color:#bbb;
 	display: inline-block;
+	display: none;
 }
-

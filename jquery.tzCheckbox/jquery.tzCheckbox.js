@@ -15,8 +15,9 @@
 			if(originalCheckBox.data('on')){
 				labels[0] = originalCheckBox.data('on');
 				labels[1] = originalCheckBox.data('off');
+			} else {
+				labels = [$(this).attr('id'), $(this).attr('id')];
 			}
-			else labels = options.labels;
 
 			// Creating the new checkbox markup:
 			var checkBox = $('<span>',{

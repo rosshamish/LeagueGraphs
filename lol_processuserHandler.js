@@ -43,28 +43,30 @@ $(function() {
                     
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
-                        // Get data from SQL
-                        get_graph(name, "gameId", "sightWardsBoughtInGame");
-                        $(".title").remove();
-                        $("#intro").remove();
-                        
-                        
                         // we're done loading!
                         $("#checkboxes").html('<ul>' +
                                                '<li>' +
-                                               '<label for="goldEarned">Gold Earned</label><input type="checkbox" id="goldEarned" name="goldEarned" />' +
+                                               '<label for="goldEarned">Gold Earned</label><input type="checkbox" class="checkbox" id="goldEarned" name="goldEarned" />' +
                                                '</li>' +
                                                '<li>' +
-                                               '<label for="championsKilled">Champion Kills</label><input type="checkbox" id="championsKilled" name="championsKilled" checked />' +
+                                               '<label for="championsKilled">Champion Kills</label><input type="checkbox" class="checkbox" id="championsKilled" name="championsKilled" checked />' +
                                                '</li>' +
                                                '<li>' +
-                                               '<label for="numDeaths">Deaths</label><input type="checkbox" id="numDeaths" name="numDeaths" />' +
+                                               '<label for="numDeaths">Deaths</label><input type="checkbox" class="checkbox" id="numDeaths" name="numDeaths" />' +
                                                '</li>' + 
                                                '<li>' +
-                                               '<label for="assists">Assists</label><input type="checkbox" id="assists" name="assists" />' +
+                                               '<label for="assists">Assists</label><input type="checkbox" class="checkbox" id="assists" name="assists" />' +
                                                '</li>' + 
                                                '</ul>');
-                         $('input[type=checkbox]').tzCheckbox({labels:['Enable','Disable']});
+                        
+                        // Get data from SQL
+                        get_graph(name, "gameId", "championsKilled");
+                        
+                        $(".title").remove();
+                        $("#intro").remove();
+                        // this is dirty and wrong, but i'm passing the summoner name in through the tzCheckbox options.
+                        // shoot me.
+                        $('input[type=checkbox]').tzCheckbox({labels:[name, name]});
                         
                         // Finally, inform the user.
                         // Tell the user how many games have been added to their file

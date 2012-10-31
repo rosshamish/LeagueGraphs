@@ -18,7 +18,7 @@ function print_arr(arr, arrname) {
         debug_string += "<br> i: " + i + ", val: " + arr[i];
     }
     debug_string += "<br>======<br><br>";
-    $("#debug").append(debug_string);
+    //$("#debug").append(debug_string);
 }
 /**
  *  Takes an SQL field and returns a string containing a more user-friendly name
@@ -38,7 +38,7 @@ function get_graph(summoner_name, x_field, y_field) {
         url: phpurl,
         data: dataString,
         success: function(phpdata) {
-            $("#debug").append(phpdata + "<br>");
+            //$("#debug").append(phpdata + "<br>");
             var data = [];
             var x_array = [];
             var y_array = [];
@@ -76,13 +76,16 @@ function get_graph(summoner_name, x_field, y_field) {
             
             // Build the plot.
             var plot = xkcdplot();
+            var y_axis = y_field;
             if (x_field == 'gameId') {
                 var x_axis = 'time';
+                var title = y_axis + " per game for " + summoner_name;
             } else {
-                var x_axis = x_field; 
+                var x_axis = x_field;
+                var title = x_axis + " vs. " + y_axis + " for " + summoner_name;
             }
-            var y_axis = y_field;
-            var title = x_axis + " vs. " + y_axis + " for " + summoner_name;
+            
+            $("#graph").empty();
             plot("#graph", x_axis, y_axis, title);            
             
             // build the data
@@ -94,7 +97,7 @@ function get_graph(summoner_name, x_field, y_field) {
             for (var i=0; i < data.length; i++) {
                 s += "<br>i: " + i + ", x: " + data[i].x + ", y: " + data[i].y;
             }
-            $("#debug").append(s);
+            //$("#debug").append(s);
             
             // Add the lines.
             plot.plot(data, {stroke: "blue"});

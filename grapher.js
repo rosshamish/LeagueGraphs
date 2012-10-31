@@ -31,13 +31,14 @@ function sanitize_field_name(field) {
 // TODO allow more than one set of y-values on a range of x-values
 function get_graph(summoner_name, x_field, y_field) {
     // get the data from x_field and y_field from an ajax post request to phpurl
-    var phpurl = "get_graph_data.php";
-    var dataString = "summonerName=" + summoner_name + "&x_field=" + x_field + "&y_field=" + y_field;
     $.ajax({
         type: "POST",
-        url: phpurl,
-        data: dataString,
+        url: "get_graph_data.php",
+        data: { summonerName : summoner_name,
+                x_field : x_field,
+                y_field : y_field },
         success: function(phpdata) {
+            //$("#debug").append('phpdata => ' + phpdata);
             //$("#debug").append(phpdata + "<br>");
             var data = [];
             var x_array = [];

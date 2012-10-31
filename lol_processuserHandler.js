@@ -5,6 +5,18 @@ $(document).ready(function() {
     $("input#summonerName").focus();
 });
 
+/** do quicker checkbox making */
+function checkbox(name, id, checked) {
+    if (name == '' ) {
+        var el = '</ul> <ul>';
+    } else {
+        var el = '<li>' +
+            '<label for="' + id + '">' + name + '</label><input type="checkbox" class="checkbox" id="' + id + '" name="' + id + '"' + (checked ? "checked" : "") + '/>' +
+            '</li>';
+    }
+    return el;
+}
+
 // Form submission on button click
 $(function() {
     $("input#submit_btn").click(function() {
@@ -44,20 +56,27 @@ $(function() {
                     // Get the grapher
                     $.getScript("grapher.js", function(data, textStatus) {
                         // we're done loading!
+                        
+                        
                         $("#checkboxes").html('<ul>' +
-                                               '<li>' +
-                                               '<label for="goldEarned">Gold Earned</label><input type="checkbox" class="checkbox" id="goldEarned" name="goldEarned" />' +
-                                               '</li>' +
-                                               '<li>' +
-                                               '<label for="championsKilled">Champion Kills</label><input type="checkbox" class="checkbox" id="championsKilled" name="championsKilled" checked />' +
-                                               '</li>' +
-                                               '<li>' +
-                                               '<label for="numDeaths">Deaths</label><input type="checkbox" class="checkbox" id="numDeaths" name="numDeaths" />' +
-                                               '</li>' + 
-                                               '<li>' +
-                                               '<label for="assists">Assists</label><input type="checkbox" class="checkbox" id="assists" name="assists" />' +
-                                               '</li>' + 
+                                               checkbox('Gold Earned', 'goldEarned') +
+                                               checkbox('', '') +
+                                               checkbox('Champions Killed', 'championsKilled', true) + 
+                                               checkbox('Deaths', 'numDeaths') +
+                                               checkbox('Assists', 'assists') +
+                                               checkbox('Creep Score', 'minionsKilled') +
+                                               checkbox('', '')  +
+                                               checkbox('Damage Dealt', 'totalDamageDealt') +
+                                               checkbox('Damage Taken', 'totalDamageTaken') +
+                                               checkbox('', '') +
+                                               checkbox('Time Spent Dead', 'totalTimeSpentDead') +
+                                               checkbox('Sight Wards Bought', 'sightWardsBoughtInGame') +
+                                               
+                                               checkbox('IP Earned', 'ipEarned') +
+                                               checkbox('Premade Group Size', 'premadeSize') +
+                                               
                                                '</ul>');
+                        
                         
                         // Get data from SQL
                         get_graph(name, "gameId", "championsKilled");

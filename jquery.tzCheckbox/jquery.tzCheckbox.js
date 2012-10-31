@@ -39,8 +39,6 @@
 					// it has been deduced that checkBox.text() returns the SQL field. Hooray! 
 					$('#debug').append(checkBox.text() + '<br>');
 					get_graph(options.labels[0], 'gameId', checkBox.text());
-					
-					
 				}
 				
 				// Synchronizing the original checkbox:

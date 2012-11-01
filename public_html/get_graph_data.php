@@ -9,6 +9,7 @@ mysql_connect($host, $username, $password);
 mysql_selectdb($database);
 
 $name = $_POST['summonerName'];
+//$debug->debug('name', null, LOG);
 $x = $_POST['x_field'];
 $y = $_POST['y_field'];
 

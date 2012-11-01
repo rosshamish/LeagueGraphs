@@ -61,9 +61,9 @@ var count = 0;
 var tenminutes = 1000 * 60 * 10;
 var thirtyminutes = 1000 * 60 * 30;
 var hour = 1000 * 60 * 60;
-var interval = thirtyminutes;
+var interval = hour;
 updateNext(); // call it the first time
-setInterval(updateNext, hour); // set up the interval
+setInterval(updateNext, interval); // set up the interval
 
 document.write("<h2>Database auto-updater</h2><br>");
 document.write("...working...<br><h1>Currently doing one update every " + interval / (1000 * 60) + " minutes</h1>");

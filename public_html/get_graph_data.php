@@ -13,7 +13,7 @@ $name = $_POST['summonerName'];
 $x = $_POST['x_field'];
 $y = $_POST['y_field'];
 
-$query = "SELECT $x,$y FROM games WHERE summonerName='$name' ORDER BY gameID DESC";
+$query = "SELECT $x,$y FROM games WHERE summonerName='$name' ORDER BY gameID ASC";
 
 $result = mysql_query($query);
 

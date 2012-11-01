@@ -415,10 +415,21 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 if (true) {
                     /* Fields can be found at sql_fields.txt */
                     
+                    /** Do fixes on fields that report weird values HERE */
+                    
                     // fix the killing spree (if it isn't > 1, it doesn't get returned by Elophant)
                     // therefore, if you have at least one kill but no killing spree, your spree must be 1.
                     if ($championsKilled > 0 && $largestKillingSpree == 0) {
                         $largestKillingSpree = 1;
+                    }
+                    // fix the premade size value - for some reason, when you play a ranked 5v5
+                    // game it gets reported as zero. Obviously this isn't right.
+                    if ($queueType == 'RANKED_TEAM_5x5') {
+                        $premadeSize = 5;
+                    }
+                    // fix weird custom game thing where it gets reported as 0
+                    if ($premadeSize == 0) {
+                        $premadeSize = 1;
                     }
                     // Set the accountId
                     $accountId = $summoner_array['acctId'];

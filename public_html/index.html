@@ -1,123 +1,183 @@
-<!DOCTYPE HTML> 
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Analolzer »</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css' />
 
-<!-- stylesheets -->
-<link rel="stylesheet" type="text/css" href="form.css" />
-<link rel="stylesheet" type="text/css" href="style.css" />
-<link rel="stylesheet" type="text/css" href="jquery.tzCheckbox/jquery.tzCheckbox.css" />
+    <!-- Le styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
-<!-- jquery -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- form handling -->
-<script type="text/javascript" src="lol_processuserHandler.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <!-- Le javascript -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="lol_processuserHandler.js"></script>
+    <script type="text/javascript" src="checkboxes.js"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+    <script type="text/javascript" src="xkcd.js"></script>
+    <script type="text/javascript" src="grapher.js"></script>
+    <script type="text/javascript" src="boostrap/js/bootstrap.min.js"></script>
 
-<!-- Graphing -->
-<script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
-<script type="text/javascript" src="xkcd.js"></script>
 
-<!-- Checkboxes -->
-<script type="text/javascript" src="jquery.tzCheckbox/jquery.tzCheckbox.js"></script>
-<script type="text/javascript" src="jquery.tzCheckbox/script.js"></script>
+    <!-- Fav and touch icons -->
+    
+    <!-- Start Google Analytics Code -->
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-35852559-1']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
+    <!-- End Google Analytics Code -->
+  </head>
 
-<!--============================================================================================-->
+  <body>
 
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Analolzer</a>
+          <div class="nav-collapse collapse">
+	    <p class="navbar-text pull-right">
+	      powered by <a href="http://www.elophant.com" class="navbar-link">elophant.com</a>
+	    </p>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
-Name       : Emerald 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20120902
+    <div class="container-fluid"> 
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="hero-unit">
+            <h1>Analolzer</h1>
+            <div id="intro">
+	      <h3>This is <strong>Analolzer</strong>, a free statistics tracker for League of Legends.</h3>
+		<h4>How it works:</h4>
+		<p>
+		Once your summoner name is entered here <strong>once</strong>, your stats will be tracked automatically forever and ever afterwards.
+		Every player <em>known to the site</em> gets nommed at least once a day.<br>
+		<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>
+		</p>
+	    </div>
+	    <div id="updates"></div>
+	    <div id="search_form" class="input-append">
+	      <form name="search_form" action="" method="">
+		<legend> Enter your summoner name and be known.</legend>
+		<input class="span2" id="summonerName" type="text" placeholder="RossHamish">
+		<button id="submit_btn" class="btn" type="submit">Go!</button>
+	      </form>
+	    </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span8">
+              <h2>Graph</h2>
+	      <div id="graph">
+		
+	      </div>
+            </div><!--/span-->
+            <div class="span4">
+              <h3>Graph Options</h3>
+	      <form id="checkboxes" name="checkboxes">
+		<ul class="unstyled">
 
--->
-<html>
-<head>
-<meta name="description" content="" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Lolstatter</title>
-<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css' />
-<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
-<!-- Start Google Analytics Code -->
-<script type="text/javascript">
+		    <label class="checkbox inline" for="goldEarned">
+		    <input type="checkbox" class="checkbox" id="goldEarned" name="goldEarned">Gold Earned
+		    </label>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-35852559-1']);
-  _gaq.push(['_trackPageview']);
+		</ul>
+		<ul class="unstyled">
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+		    <label class="checkbox inline" for="championsKilled">
+		    <input type="checkbox" class="checkbox" id="championsKilled" name="championsKilled" checked>Champions Killed
+		    </label>
 
-</script>
-<!-- End Google Analytics Code -->
-</head>
-<body>
-	<div id="header">
-		<h1>LolStatter</h1>
-		<p>by <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a></p>
-		<p>Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">Elophant.com</a></p>
-	</div>
-	<!-- end #header -->
-	
-	
-	<div id="page">
-		<div id="page-bgtop">
-			<div id="page-bgbtm">
-				<!-- start content -->
-				<div id="content">
-					<div class="post">
-						<h2 class="title"><a href="#">Welcome to LolStatter</a></h2>
-						<div id="intro">
-						<p>This is <strong>_suggest a name_</strong>, a free <strong>normal game</strong> stat tracker for League of Legends.</p>
-						<p>How it works: each time <strong>after you finish playing a session</strong> of games, come to this site and
-						   <strong>enter your summoner name</strong>. The engine will compile your stats, add them to the database, then
-						   show you your overall statistics.</p>
-						</div>
-						
-						<!--Check for Internet Explorer-->
-						<script type="text/javascript" src="/check_ie.js"></script>
-						
-						<div id="updates"></div>
-						<div id="loading"></div>
-						<div id="search_form">
-							<form name="search_form" action="" method="">
-								<fieldset>
-									<p> Summoner Name:   <input type="text" name="summonerName" id="summonerName" /></p>
-									<p><input type="submit" class="button" id="submit_btn"/></p>
-								</fieldset>
-							</form>	
-						</div>
-						
-						<div id="graph"></div>
-						<div id="debug" class="debug">-Debug-<br><br></div>
-						<div class="debug">-------</div>
-					</div>
-				</div>
-				<!-- end content -->
-				<!-- start sidebar -->
-				<div id="sidebar">
-					<ul>
-						<li>
-							<h2>Categories</h2>
-							<form id="checkboxes" name="checkboxes" action=""  method=""></form>
-						</li>
-					</ul>
-				</div>
-				<!-- end sidebar -->
-				
-				<div style="clear:both"> </div>
-			</div>
-		</div>
-	</div>
-	
-	
-<div id="footer-content"></div>
-<div id="footer">
-	<p>Copyright (c) 2012 rosshamish.netau.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org" title="Free CSS Templates">FCT</a>.</p>
-</div>
-<!-- end #footer -->
-</body>
-</html>
+		    <label class="checkbox inline" for="numDeaths">
+		    <input type="checkbox" class="checkbox" id="numDeaths" name="numDeaths">Deaths
+		    </label>
+		  
+		    <label class="checkbox inline" for="assists">
+		    <input type="checkbox" class="checkbox" id="assists" name="assists">Assists
+		    </label>
+
+		    <label class="checkbox inline" for="minionsKilled">
+		    <input type="checkbox" class="checkbox" id="minionsKilled" name="minionsKilled">Creep Score
+		      </label>
+
+		</ul>
+		<ul class="unstyled">
+		    <label class="checkbox inline" for="totalDamageDealt">
+		      <input type="checkbox" class="checkbox" id="totalDamageDealt" name="totalDamageDealt">Damage Dealt
+		    </label>
+		    
+		    <label class="checkbox inline" for="totalDamageTaken">
+		    <input type="checkbox" class="checkbox" id="totalDamageTaken" name="totalDamageTaken">Damage Taken
+		    </label>
+		</ul>
+		
+		<ul class="unstyled">
+		  <label class="checkbox inline" for="totalTimeSpentDead">
+		  <input type="checkbox" class="checkbox" id="totalTimeSpentDead" name="totalTimeSpentDead">Time Spent Dead
+		  </label>
+		  
+		  <label class="checkbox inline" for="sightWardsBoughtInGame">
+		    <input type="checkbox" class="checkbox" id="sightWardsBoughtInGame" name="sightWardsBoughtInGame">Sight Wards Bought
+		  </label>
+		  
+		  <label class="checkbox inline" for="ipEarned">
+		    <input type="checkbox" class="checkbox" id="ipEarned" name="ipEarned">IP Earned
+		  </label>
+		
+		</ul>
+		
+		<ul class="unstyled">
+		  <label class="checkbox inline" for="premadeSize">
+		    <input type="checkbox" class="checkbox" id="premadeSize" name="premadeSize">Premade Group Size
+		  </label>
+		</ul>
+	      </form>
+	      
+            </div><!--/span-->
+          </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>© <a href="http://www.github.com/RossHamish">RossHamish</a> 2012. Powered by <a href="http://www.elophant.com">elophant.com</a></p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+</body></html>

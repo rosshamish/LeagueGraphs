@@ -107,7 +107,7 @@ function xkcdplot() {
                               .text(ylabel);
 
         // And a title.
-        el.append("text").attr("class", "title")
+        el.append("text").attr("class", "x label") // x label for formatting. messy but whatever.
                               .attr("text-anchor", "end")
                               .attr("x", width)
                               .attr("y", 0)

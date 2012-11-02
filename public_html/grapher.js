@@ -27,6 +27,7 @@ function print_arr(arr, arrname) {
 function sanitize_field_name(field) {
     // TODO write this function
 }
+
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
 function get_graph(summoner_name, x_field, y_field) {

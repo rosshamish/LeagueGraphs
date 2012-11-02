@@ -13,42 +13,18 @@
         fwrite($fh, $stringData);
         fclose($fh);
     }
-?>
-
-<?php
-    // it is running, yo
-    
-    require_once('sensitive_data.php');
-    mysql_connect($host, $username, $password);
-    mysql_selectdb($database);
-    
-    $query = "SELECT DISTINCT summonerName FROM games";
-    
-    $result = mysql_query($query);
-    
-    if ($result) {
-        $count = 0;
-        $numRows = mysql_num_rows($result);
-        while($row = mysql_fetch_array($result)) {
-          $count++;
-          $arr[] = $row['summonerName'];
-        }
-    }
-    $arr_json = json_encode($arr);
-    
-    mysql_close();
-?>
-
-        
+?>        
         
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-    // set up the "i'm done using this now goddammit" notice
-window.onbeforeunload = function yaya() {
-    return "haha";
-}
 
 $(document).ready(function() {
+    
+document.write("<h1>Database auto-updater</h1><br>");
+document.write("<h2></h2>");
+document.write("<div id='updateTimer'></div>");
+document.write("<div id='playerUpdates'></div>");
+
 
 // each call to this function is worth 2 api calls
 function updateNext() {
@@ -60,8 +36,8 @@ function updateNext() {
     success: function(phpdata) {
         var games = phpdata.split(":");
         games = games[0];
-        document.write('--<br>');
-        document.write(names_arr[count] + '(player #' + count + ') updated! ' + games + ' new games grabbed.<br>');
+        $("#playerUpdates").prepend('--<br>');
+        $("#playerUpdates").prepend(names_arr[count] + ' (db#' + count + ') updated! ' + games + ' new games grabbed.<br>');
         count++;
         if (count >= names_arr.length) {
             count = 0;
@@ -80,12 +56,17 @@ function updateTimer() {
         timer = interval;
     }
 }
-var names_arr = <?php echo $arr_json ?>;
+var names_arr = [];
+$.ajax({
+    type: "POST",
+    url: "auto-getsummonernames.php",
+    dataType: "json",
+    success: function(phpdata) {
+        names_arr = phpdata;
+    }
+});
 var count = 0;
 var timer = 0;
-document.write("<h1>Database auto-updater</h1><br>");
-document.write("<h2></h2>");
-document.write("<div id='updateTimer'></div>");
 
 var tenminutes = 1000 * 60 * 10;
 var thirtyminutes = 1000 * 60 * 30;

@@ -3,7 +3,8 @@
 		
 		return this.each(function(){
 			var checkBox = $(this);
-
+	
+			checkBox.unbind('change');
 			checkBox.change(function(){
 				
 				checkBox.toggleClass('checked');

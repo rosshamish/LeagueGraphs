@@ -26,10 +26,8 @@ $(document).ready(function() {
                                            
                                            '</ul>');
     
-    
-    // This sets up click events. Using "kralka" as the default.
-    $('input[type=checkbox]').tzCheckbox("SomePlayer");
-    
+    // This sets up click events. Using "SomePlayer" as the default.
+    $('input[type=checkbox]').tzCheckbox("SomePlayer");    
 });
 
 /** do quicker checkbox making */

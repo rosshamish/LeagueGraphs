@@ -28,17 +28,8 @@ $(document).ready(function() {
     
     
     // This sets up click events. Using "kralka" as the default.
-    $('input[type=checkbox]').tzCheckbox("kralka");
-  
-    var names_arr = [];
-    $.ajax({
-      type: "POST",
-      url: "auto-getsummonernames.php",
-      dataType: "json",
-      success: function(phpdata) {
-          names_arr = phpdata;
-      }
-    });
+    $('input[type=checkbox]').tzCheckbox("SomePlayer");
+    
 });
 
 /** do quicker checkbox making */
@@ -74,12 +65,14 @@ $(function() {
             data: dataString,
             success: function(phpdata) {
                 if (phpdata == 'null') {
-                    $("#search_form").fadeIn(500);
                     $('#updates').html('<br><strong>Either your summoner name was typed incorrectly,'
                                        + 'or the Elophant data server is temporarily unavailable.</strong> '
                                        + '<br>Please check your spelling and try again. '
                                        + '<br>If your spelling is correct, please try again later.'
                                        + '<br>Name is case insensitive, eg RossHamiSH is the same as rosshAMish is the same as RossHamish');
+                    $('#search_form').addClass('error');
+                    $("#graph").empty();
+                    
                     $('input#summonerName').focus().select();
                 } else {
                     // split the return string of form numGames:summonerName
@@ -93,6 +86,8 @@ $(function() {
                     
                     $(".title").remove();
                     $("#intro").remove();
+                    $("#updates").remove();
+                    $('#search_form').addClass('success');
                     // this is dirty and wrong, but i'm passing the summoner name in through the tzCheckbox options.
                     // shoot me. This sets up click events for the CURRENT USER.
                     $('input[type=checkbox]').tzCheckbox(name);

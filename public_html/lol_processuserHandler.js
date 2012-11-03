@@ -29,6 +29,16 @@ $(document).ready(function() {
     
     // This sets up click events. Using "kralka" as the default.
     $('input[type=checkbox]').tzCheckbox("kralka");
+  
+    var names_arr = [];
+    $.ajax({
+      type: "POST",
+      url: "auto-getsummonernames.php",
+      dataType: "json",
+      success: function(phpdata) {
+          names_arr = phpdata;
+      }
+    });
 });
 
 /** do quicker checkbox making */

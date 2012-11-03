@@ -26,6 +26,7 @@
     
     <!-- Le javascript -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="num_summoners_being_tracked.js"></script>
     <script type="text/javascript" src="lol_processuserHandler.js"></script>
     <script type="text/javascript" src="checkboxes.js"></script>
     <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
@@ -93,12 +94,13 @@
 		<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>
 		</p>
 	    </div>
+	    <div id="num_summoners_being_tracked"></div>
 	    <div id="updates"></div>
-	    <div id="search_form" class="input-append">
-	      <form name="search_form" action="" method="">
+	    <div id="search_form" class="input">
+	      <form name="search_form" class="form-inline" action="" method="">
 		<legend> Enter your summoner name. Be known.</legend>
 		<input class="span2" id="summonerName" type="text" placeholder="RossHamish">
-		<button id="submit_btn" class="btn" type="submit">Go!</button>
+		<button id="submit_btn" class="btn btn-primary" type="submit">Go!</button>
 	      </form>
 	    </div>
           </div>
@@ -112,66 +114,53 @@
             <div class="span4">
               <h3>Graph Options</h3>
 	      <form id="checkboxes" name="checkboxes">
-		<ul class="unstyled">
-
-		    <label class="checkbox inline" for="goldEarned">
-		    <input type="checkbox" class="checkbox" id="goldEarned" name="goldEarned">Gold Earned
-		    </label>
-
-		</ul>
-		<ul class="unstyled">
-
-		    <label class="checkbox inline" for="championsKilled">
-		    <input type="checkbox" class="checkbox" id="championsKilled" name="championsKilled" checked>Champions Killed
-		    </label>
-
-		    <label class="checkbox inline" for="numDeaths">
-		    <input type="checkbox" class="checkbox" id="numDeaths" name="numDeaths">Deaths
-		    </label>
-		  
-		    <label class="checkbox inline" for="assists">
-		    <input type="checkbox" class="checkbox" id="assists" name="assists">Assists
-		    </label>
-
-		    <label class="checkbox inline" for="minionsKilled">
-		    <input type="checkbox" class="checkbox" id="minionsKilled" name="minionsKilled">Creep Score
-		      </label>
-
-		</ul>
-		<ul class="unstyled">
-		    <label class="checkbox inline" for="totalDamageDealt">
-		      <input type="checkbox" class="checkbox" id="totalDamageDealt" name="totalDamageDealt">Damage Dealt
-		    </label>
-		    
-		    <label class="checkbox inline" for="totalDamageTaken">
-		    <input type="checkbox" class="checkbox" id="totalDamageTaken" name="totalDamageTaken">Damage Taken
-		    </label>
-		</ul>
-		
-		<ul class="unstyled">
-		  <label class="checkbox inline" for="totalTimeSpentDead">
-		  <input type="checkbox" class="checkbox" id="totalTimeSpentDead" name="totalTimeSpentDead">Time Spent Dead
-		  </label>
-		  
-		  <label class="checkbox inline" for="sightWardsBoughtInGame">
-		    <input type="checkbox" class="checkbox" id="sightWardsBoughtInGame" name="sightWardsBoughtInGame">Sight Wards Bought
-		  </label>
-		  
-		  <label class="checkbox inline" for="ipEarned">
-		    <input type="checkbox" class="checkbox" id="ipEarned" name="ipEarned">IP Earned
-		  </label>
-		
-		</ul>
-		
-		<ul class="unstyled">
-		  <label class="checkbox inline" for="premadeSize">
-		    <input type="checkbox" class="checkbox" id="premadeSize" name="premadeSize">Premade Group Size
-		  </label>
-		</ul>
 	      </form>
 	      
             </div><!--/span-->
           </div><!--/row-->
+	  <div class="row-fluid">
+	    <div class="span8">
+	      <h2>Table</h2>
+	      <div id="table">
+		<table class="table">
+		<thead>
+		  <tr>
+		    <th>#</th>
+		    <th>Game Date</th>
+		    <th>Some Field</th>
+		    <th>Another Category</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>1</td>
+		    <td>Mark</td>
+		    <td>Otto</td>
+		    <td>@mdo</td>
+		  </tr>
+		  <tr>
+		    <td>2</td>
+		    <td>Jacob</td>
+		    <td>Thornton</td>
+		    <td>@fat</td>
+		  </tr>
+		  <tr>
+		    <td>3</td>
+		    <td>Larry</td>
+		    <td>the Bird</td>
+		    <td>@twitter</td>
+		  </tr>
+		</tbody>
+	      </table>
+	      </div><!--/div table-->
+	    </div><!--/div span-->
+	    <div class="span4">
+	      <h2>Something Else</h2>
+	      <div>
+		
+	      </div><!--/div-->
+	    </div><!--/div span-->
+	  </div><!--/row-->
 
       <hr>
 

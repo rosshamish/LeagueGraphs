@@ -8,10 +8,8 @@
 **Here's how it works:**
 
 - Statistics are accessible for any player's 10 most recent games.
-
 - Once your name has been entered *once* on [LeagueGraphs](http://www.rosshamish.netau.net), it is added to the auto-update php machine.
 - Each player is updated about once or twice a day.
-
 - A manual update happens when you access your data on the site, so graphs/data are guaranteed up-to-date whilst also maintaining long-term consistency.
 
 ---
@@ -45,7 +43,7 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 
 ---
 
-**Known deficiencies:** (besides it not actually being functional yet)
+**Known deficiencies:**
 
 - Data currently only available for NA servers
     - This is easily fixable, but for now simplicity is king.
@@ -55,4 +53,4 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 ---
 
 All data is generously provided by [Riot Games](http://www.leagueoflegends.com) through the wonderful [Elophant API](http://www.elophant.com/developers/) by [Joshua Jones.](http://elophant.com/about)
-Also using [twitter bootstrap](https://github.com/twitter/bootstrap).
+Using [twitter bootstrap](https://github.com/twitter/bootstrap).

@@ -84,7 +84,7 @@ function get_graph(summoner_name, x_field, y_field) {
                           .range([0, width - padding]);
             // set range
             var ymin = Math.min.apply(Math, y_array);
-            var ymax = Math.max.apply(Math, y_array);
+            var ymax = Math.max.apply(Math, y_array); 
             var yScale = d3.scale.linear()
                           .domain([ymin, ymax])
                           .range([height + padding, padding])

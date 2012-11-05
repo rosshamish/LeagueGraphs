@@ -5,7 +5,8 @@
 var width = 800,
     height = 300,
     xlabel = "default x label",
-    ylabel = "default y label";
+    ylabel = "default y label",
+    padding = 50;
     
 // bar graphs
 var bar_padding = 1;
@@ -78,22 +79,20 @@ function get_graph(summoner_name, x_field, y_field) {
             // set domain
             var xmin = Math.min.apply(Math, x_array);
             var xmax = Math.max.apply(Math, x_array);
-            var xrange = Math.abs(xmax - xmin);
+            var xScale = d3.scale.linear()
+                          .domain([xmin, xmax])
+                          .range([0, width - padding]);
             // set range
             var ymin = Math.min.apply(Math, y_array);
             var ymax = Math.max.apply(Math, y_array);
-            var yrange = Math.abs(ymax - ymin);          
+            var yScale = d3.scale.linear()
+                          .domain([ymin, ymax])
+                          .range([height + padding, padding])
             
             // build the data
             for (var i=0; i < x_array.length; i++) {
                 data.push({'x': x_array[i], 'y': y_array[i]});
             }
-            // print out the data
-            var s = "<br>=== data ===";
-            for (var i=0; i < data.length; i++) {
-                s += "<br>i: " + i + ", x: " + data[i].x + ", y: " + data[i].y;
-            }
-            //$("#debug").append(s);
             
             /* Do the graph */
             // Empty the old graph
@@ -111,9 +110,6 @@ function get_graph(summoner_name, x_field, y_field) {
             
             // Append the necessary elements
             /* Bar Graph Option */
-            function scaledy(y) {
-                return (y / (ymax * 5/4)) * height;
-            }
             var svg = d3.select("#graph")
               .append("svg")
                 .attr("width", width)
@@ -127,16 +123,16 @@ function get_graph(summoner_name, x_field, y_field) {
                     return (width / data.length) - bar_padding;
                     })
                 .attr("height", function(d) {
-                    return scaledy(d.y);
+                    return height - yScale(d.y);
                     })
                 .attr("x", function(d, i) {
-                    return i * (width / data.length);
+                    return xScale(d.x);
                     })
                 .attr("y", function(d) {
-                    return (height - scaledy(d.y));
+                    return yScale(d.y);
                     })
                 .attr("fill", function(d) {
-                    return d3.hsl(115, 0.85, d.y / (ymax*2));
+                    return d3.hsl(249, 0.85, d.y / (ymax*2));
                     });
                 
             svg.selectAll("text")
@@ -144,8 +140,10 @@ function get_graph(summoner_name, x_field, y_field) {
                 .enter()
                 .append("text")
                 .attr("font-family", "sans-serif")
+                .attr("fill", "white")
+                .attr("text-anchor", "middle")
                 .attr("x", function(d, i) {
-                    return i * (width / data.length);
+                    return xScale(d.x) + ((width / data.length) - bar_padding) / 2;
                     })
                 .text(function(d) {
                         if (d.y > 1000) {
@@ -155,7 +153,7 @@ function get_graph(summoner_name, x_field, y_field) {
                         }
                     })
                 .attr("y", function(d) {
-                    return height - scaledy(d.y);
+                    return yScale(d.y) + 15;
                 });
         }
     });

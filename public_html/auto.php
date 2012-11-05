@@ -54,6 +54,14 @@ function updateTimer() {
     timer -= 1000;
     if (timer <= 0) {
         timer = interval;
+        $.ajax({
+            type: "POST",
+            url: "auto-getsummonernames.php",
+            dataType: "json",
+            success: function(phpdata) {
+                names_arr = phpdata;
+            }
+        });
     }
 }
 var names_arr = [];
@@ -71,13 +79,14 @@ var timer = 0;
 var tenminutes = 1000 * 60 * 10;
 var thirtyminutes = 1000 * 60 * 30;
 var hour = 1000 * 60 * 60;
-var interval = hour;
+var interval = tenminutes;
 updateNext(); // call it the first time
 setInterval(updateNext, interval); // set up the interval
 timer = interval;
 setInterval(updateTimer, 1000); // set up the timer
 
-$("h2").html("Currently set to one update every " + interval / (1000 * 60) + " minutes");
+$("h2").html("Currently set to update one player every every " + interval / (1000 * 60) + " minutes");
+$("h2").append("<h3>Total players: " + names_arr.length + "</h3>");
 
 
 });

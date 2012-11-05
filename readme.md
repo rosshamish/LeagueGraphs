@@ -26,13 +26,17 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 
 - Database consistency and stability.
 - Automatic database updates daily.
-- Data availability in graph format (using [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/))
+- Data availability in graph format
+ - using [d3.js](http://www.d3js.org), learned from [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/))
 
 ---
 
 **Planned Features:**
 
 - Data availability via tables and custom searching.
+- More expressive and better looking graphs
+- More versatile graph manipulation
+- Graph interaction
 - A real domain and web host.
 - Custom analysis
     - What is the relationship between my total gold earned and my time spent dead?

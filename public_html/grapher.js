@@ -50,15 +50,13 @@ function get_graph(summoner_name, x_field, y_field) {
         success: function(phpdata) {
             //$("#debug").append('phpdata => ' + phpdata);
             //$("#debug").append(phpdata + "<br>");
-            var data = [];
+            var data = phpdata;
             var x_array = [];
             var y_array = [];
             
-            var pairs = phpdata.split(",");
-            for (var i=0; i< pairs.length; i++) {
-                var bothvals = pairs[i].split(":");
-                var xval = bothvals[0];
-                var yval = bothvals[1];
+            for (var i=0; i< data.length; i++) {
+                var xval = data.x;
+                var yval = data.y;
                 x_array.push(xval);
                 y_array.push(yval);
             }

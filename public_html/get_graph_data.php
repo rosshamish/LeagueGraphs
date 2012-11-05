@@ -16,17 +16,20 @@ $y = $_POST['y_field'];
 $query = "SELECT $x,$y FROM games WHERE summonerName='$name' ORDER BY gameID ASC";
 
 $result = mysql_query($query);
+$ret_arr = array();
 
 if ($result) {
   $count = 0;
   $numRows = mysql_num_rows($result);
   while($row = mysql_fetch_array($result)) {
     $count++;
-    echo $row[$x] . ":" . $row[$y];
-    if ($count < $numRows)
-      echo ",";
+    $row_array["x"] = $row[$x];
+    $row_array["y"] = $row[$y];
+    array_push($ret_arr, $row_array);
   }
 }
+
+echo json_encode($ret_arr);
 
 mysql_close();
 

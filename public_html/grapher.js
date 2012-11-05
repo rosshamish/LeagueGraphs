@@ -1,6 +1,14 @@
 /**
  * Do the hard work of the graphing and such
  */
+// constants for graphing - change these up here, do NOT change values and hardcode them down there
+var width = 800,
+    height = 300,
+    xlabel = "default x label",
+    ylabel = "default y label";
+    
+// bar graphs
+var bar_padding = 1;
 
 /**
  * a function for sort() that will arrange elements in ascending order
@@ -74,21 +82,7 @@ function get_graph(summoner_name, x_field, y_field) {
             // set range
             var ymin = Math.min.apply(Math, y_array);
             var ymax = Math.max.apply(Math, y_array);
-            var yrange = Math.abs(ymax - ymin);
-            
-            // Build the plot.
-            var plot = xkcdplot();
-            var y_axis = y_field;
-            if (x_field == 'gameId') {
-                var x_axis = 'time';
-                var title = y_axis + " per game for " + summoner_name;
-            } else {
-                var x_axis = x_field;
-                var title = x_axis + " vs. " + y_axis + " for " + summoner_name;
-            }
-            
-            $("#graph").empty();
-            plot("#graph", x_axis, y_axis, title);            
+            var yrange = Math.abs(ymax - ymin);          
             
             // build the data
             for (var i=0; i < x_array.length; i++) {
@@ -101,13 +95,68 @@ function get_graph(summoner_name, x_field, y_field) {
             }
             //$("#debug").append(s);
             
-            // Add the lines.
-            plot.plot(data, {stroke: "blue"});
+            /* Do the graph */
+            // Empty the old graph
+            $("#graph").empty();
             
-            // Render the image.
-            plot.xlim([xmin - (xrange / 10), xmax + (xrange / 10)])
-                .ylim([ymin - (yrange / 10), ymax + (yrange / 10)])
-                .draw();
+            // Build the plot.
+            var y_axis = y_field;
+            if (x_field == 'gameId') {
+                var x_axis = 'time';
+                var title = y_axis + " per game for " + summoner_name;
+            } else {
+                var x_axis = x_field;
+                var title = x_axis + " vs. " + y_axis + " for " + summoner_name;
+            }
+            
+            // Append the necessary elements
+            /* Bar Graph Option */
+            function scaledy(y) {
+                return (y / (ymax * 5/4)) * height;
+            }
+            var svg = d3.select("#graph")
+              .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+            
+            svg.selectAll("rect")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("width", function(d, i) {
+                    return (width / data.length) - bar_padding;
+                    })
+                .attr("height", function(d) {
+                    return scaledy(d.y);
+                    })
+                .attr("x", function(d, i) {
+                    return i * (width / data.length);
+                    })
+                .attr("y", function(d) {
+                    return (height - scaledy(d.y));
+                    })
+                .attr("fill", function(d) {
+                    return d3.hsl(115, 0.85, d.y / (ymax*2));
+                    });
+                
+            svg.selectAll("text")
+                .data(data)
+                .enter()
+                .append("text")
+                .attr("font-family", "sans-serif")
+                .attr("x", function(d, i) {
+                    return i * (width / data.length);
+                    })
+                .text(function(d) {
+                        if (d.y > 1000) {
+                            return Math.round(d.y / 100) / 10 + "k";
+                        } else {
+                            return d.y;
+                        }
+                    })
+                .attr("y", function(d) {
+                    return height - scaledy(d.y);
+                });
         }
     });
     

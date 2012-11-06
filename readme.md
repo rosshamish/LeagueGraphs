@@ -7,9 +7,9 @@
 
 **Here's how it works:**
 
-- Statistics are accessible for any player's 10 most recent games.
-- Once your name has been entered *once* on [LeagueGraphs](http://www.rosshamish.netau.net), it is added to the auto-update php machine.
-- Each player is updated minimum once or twice a day. 
+- The first time you use the site, only your last 10 games will be data-fyed. However:
+ - Once your name has been entered *once* on [LeagueGraphs](http://www.rosshamish.netau.net), it is added to the auto-update php machine.
+ - Each player is updated minimum once or twice a day. 
 - A manual update happens when you access your data on the site, so graphs/data are guaranteed up-to-date whilst also maintaining long-term consistency.
 
 ---

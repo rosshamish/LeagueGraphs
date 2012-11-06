@@ -9,7 +9,7 @@
 
 - Statistics are accessible for any player's 10 most recent games.
 - Once your name has been entered *once* on [LeagueGraphs](http://www.rosshamish.netau.net), it is added to the auto-update php machine.
-- Each player is updated about once or twice a day.
+- Each player is updated minimum once or twice a day. 
 - A manual update happens when you access your data on the site, so graphs/data are guaranteed up-to-date whilst also maintaining long-term consistency.
 
 ---
@@ -27,7 +27,7 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 - Database consistency and stability.
 - Automatic database updates daily.
 - Data availability in graph format
- - using [d3.js](http://www.d3js.org), learned from [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/))
+ - using [d3.js](http://www.d3js.org), initially learned from [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/)
 
 ---
 
@@ -57,4 +57,4 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 ---
 
 All data is generously provided by [Riot Games](http://www.leagueoflegends.com) through the wonderful [Elophant API](http://www.elophant.com/developers/) by [Joshua Jones.](http://elophant.com/about)
-Using [twitter bootstrap](https://github.com/twitter/bootstrap).
+Using [twitter bootstrap](https://github.com/twitter/bootstrap) and [d3.js](http://www.d3js.org).

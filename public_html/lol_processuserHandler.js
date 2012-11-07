@@ -1,5 +1,27 @@
 var tab = '&emsp;&emsp;&emsp;&emsp;';
 
+/** Array range function, for python-like range(0,10) syntax **/
+Array.range= function(a, b, step){
+    var A= [];
+    if(typeof a== 'number'){
+        A[0]= a;
+        step= step || 1;
+        while(a+step<= b){
+            A[A.length]= a+= step;
+        }
+    }
+    else{
+        var s= 'abcdefghijklmnopqrstuvwxyz';
+        if(a=== a.toUpperCase()){
+            b=b.toUpperCase();
+            s= s.toUpperCase();
+        }
+        s= s.substring(s.indexOf(a), s.indexOf(b)+ 1);
+        A= s.split('');        
+    }
+    return A;
+}
+
 // Focus the cursor on the login box on page load.
 $(document).ready(function() {
     $("input#summonerName").focus();
@@ -8,33 +30,42 @@ $(document).ready(function() {
     // Add the checkboxes
     $("#checkboxes").html('<ul class="unstyled">' +
                                            checkbox('Gold Earned', 'goldEarned') +
-                                           checkbox('', '') +
                                            checkbox('Champions Killed', 'championsKilled', true) + 
                                            checkbox('Deaths', 'numDeaths') +
                                            checkbox('Assists', 'assists') +
                                            checkbox('Creep Score', 'minionsKilled') +
-                                           checkbox('', '')  +
                                            checkbox('Damage Dealt', 'totalDamageDealt') +
                                            checkbox('Damage Taken', 'totalDamageTaken') +
                                            checkbox('', '') +
                                            checkbox('Time Spent Dead', 'totalTimeSpentDead') +
                                            checkbox('Sight Wards Bought', 'sightWardsBoughtInGame') +
-                                           checkbox('', '') +
                                            checkbox('IP Earned', 'ipEarned') +
-                                           checkbox('', '') +
                                            checkbox('Premade Group Size', 'premadeSize') +
                                            
                                            '</ul>');
     var champname = "olaf";
-    var id = 121;
+    var id = Array.range(1, 150);
     $.ajax({
         type: "POST",
         url: "get_champ.php",
         data: {identifier: id,
                get: "name"},
-        dataType: "text",
+        dataType: "json",
         success: function(phpdata) {
-            console.log(id + " => " + phpdata);
+            console.log("get_champ.php => " + phpdata);
+            var champnames = phpdata;
+            champnames.sort();
+            $("#champ-select").append('<select multiple="multiple" id="select">');
+            $("#select").append("<option>Any Champion</option>");
+            for (var i=0; i < champnames.length; i++) {
+                console.log("champnames["+i+"] => " + champnames[i]);
+                $("#select").append(select(champnames[i]));
+            }
+            $("#champ-select").append('</select>');
+            $(".typeahead").typeahead({
+                source: ["Akali", "Alistar"]}
+                );
+            
         },
         error: function(p1, p2, p3) {
             console.error("get_champ.php ajax call failed. Errors:");
@@ -59,6 +90,18 @@ function checkbox(name, id, checked) {
     }
     return el;
 }
+
+/** do quicker select option making */
+function select(name) { 
+    if (name == '' ) {
+        var el = '</select> <select multiple="multiple">';
+    } else {
+        var el =
+            '<option value="'+name+'">'+name+'</option>';
+    }
+    return el;
+}
+
 
 // Form submission on button click
 $(function() {

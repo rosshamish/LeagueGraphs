@@ -54,16 +54,19 @@ $(document).ready(function() {
         success: function(phpdata) {
             console.log("get_champ.php => " + phpdata);
             var champnames = phpdata;
-            champnames.sort();
-            $("#champ-select").append('<select multiple="multiple" id="select">');
-            $("#select").append("<option>Any Champion</option>");
-            for (var i=0; i < champnames.length; i++) {
-                console.log("champnames["+i+"] => " + champnames[i]);
-                $("#select").append(select(champnames[i]));
-            }
-            $("#champ-select").append('</select>');
+            /** Adding the <select> field for champions.
+              * Not using this unless I get feedback that it is good */
+            //champnames.sort();
+            //$("#champ-select").append('<select multiple="multiple" id="select">');
+            //$("#select").append("<option>Any Champion</option>");
+            //for (var i=0; i < champnames.length; i++) {
+            //    console.log("champnames["+i+"] => " + champnames[i]);
+            //    $("#select").append(select(champnames[i]));
+            //}
+            //$("#champ-select").append('</select>');
+            /** End </select> field addition */
             $(".typeahead").typeahead({
-                source: ["Akali", "Alistar"]}
+                source: champnames}
                 );
             
         },

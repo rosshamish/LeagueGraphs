@@ -37,14 +37,13 @@ function sanitize_field_name(field) {
     // TODO write this function
 }
 
-var stored_summoner_name = '';
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
 function get_graph(summoner_name, x_field, y_field, champId) {
     if (summoner_name == '') {
-        summoner_name = stored_summoner_name;
+        summoner_name = $.cookie('summoner_name');
     } else {
-        stored_summoner_name = summoner_name;
+        $.cookie('summoner_name', summoner_name);
     }
     if (!champId) {
         champId = '';

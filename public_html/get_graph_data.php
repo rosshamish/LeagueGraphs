@@ -12,8 +12,13 @@ $name = $_POST['summonerName'];
 //$debug->debug('name', null, LOG);
 $x = $_POST['x_field'];
 $y = $_POST['y_field'];
+$champId = $_POST['champId'];
 
-$query = "SELECT $x,$y FROM games WHERE summonerName='$name' ORDER BY gameID ASC";
+if ($champId == '') {
+  $query = "SELECT $x,$y FROM games WHERE summonerName='$name' ORDER BY gameID ASC";
+} else {
+  $query = "SELECT $x,$y FROM games WHERE summonerName='$name' AND championId='$champId' ORDER BY gameID ASC";
+}
 
 $result = mysql_query($query);
 $ret_arr = array();

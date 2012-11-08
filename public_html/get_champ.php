@@ -10,12 +10,17 @@ $ret_arr = array();
 if ($req == 'id') {
   $champ_name = $_POST['identifier'];
   
-  $query = "SELECT id FROM champs WHERE name='$champ_name'";
+  for ($i=0; $i<count($champ_name); $i++) {
+    $query = "SELECT id FROM champs WHERE name='$champ_name'";
   
-  $result = mysql_query($query);
-  if ($result) {
-    $row = mysql_fetch_array($result);
-    echo $row['id'];
+    $result = mysql_query($query);
+    if ($result) {
+      $row = mysql_fetch_array($result);
+      $cur_id = $row['id'];
+      if ($cur_id != '') {
+        array_push($ret_arr, $cur_id);
+      }
+    }
   }
 } else if ($req == 'name') {
   $champ_id = $_POST['identifier'];
@@ -34,11 +39,17 @@ if ($req == 'id') {
     }
   }
 } else {
-  echo "You need to specify a get paramater. It can be either 'name' or 'id'";
+  console.error("In get_champ.php: You need to specify a get paramater. It can be either 'name' or 'id'");
 }
 
-echo json_encode($ret_arr);
-
 mysql_close();
+
+if (count($ret_arr) <= 0) {
+  echo json_encode('');
+} else { 
+  echo json_encode($ret_arr);
+}
+
+
 
 ?>

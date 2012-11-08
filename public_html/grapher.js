@@ -37,16 +37,27 @@ function sanitize_field_name(field) {
     // TODO write this function
 }
 
+var stored_summoner_name = '';
 // Generate some data.
 // TODO allow more than one set of y-values on a range of x-values
-function get_graph(summoner_name, x_field, y_field) {
-    // get the data from x_field and y_field from an ajax post request to phpurl
+function get_graph(summoner_name, x_field, y_field, champId) {
+    if (summoner_name == '') {
+        summoner_name = stored_summoner_name;
+    } else {
+        stored_summoner_name = summoner_name;
+    }
+    if (!champId) {
+        champId = '';
+        console.log('!champId');
+    }
+    // get the data from x_field and y_field from an ajax post request to get_graph_data.php
     $.ajax({
         type: "POST",
         url: "get_graph_data.php",
         data: { summonerName : summoner_name,
                 x_field : x_field,
-                y_field : y_field },
+                y_field : y_field,
+                champId : champId},
         dataType: "json",
         success: function(phpdata) {
             var data = phpdata;

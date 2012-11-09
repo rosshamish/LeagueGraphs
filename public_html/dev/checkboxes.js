@@ -8,13 +8,6 @@
 			checkbox.change(function(){
 				checkbox.toggleClass('checked');
 				var isChecked = checkbox.hasClass('checked');
-				if (checkbox.attr('id') == 'championsKilled') {
-					if (isChecked) {
-						isChecked = false;
-					} else {
-						isChecked = true;
-					}
-				}
 				
 				console.log('filters (before cookiechange): ' + $.parseJSON($.cookie('filters')));				
 				if ($.cookie('filters')) {

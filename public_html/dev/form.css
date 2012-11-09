@@ -1,0 +1,133 @@
+/* Form styles */
+
+fieldset {
+	border: 1px solid #45523A;
+	padding: 3px;
+	padding-left: 10px;
+        padding-top: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-border-radius: 5px;
+	-khtml-border-radius: 5px;
+}
+legend {
+	font-size: 1.5em;
+	color: #45523A;
+	font-weight: bold;
+	margin-left: 110px;
+	padding: 5px 10px;
+	border: 1px solid #45523A;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	text-transform: capitalize;
+}
+form p {
+	padding: 5px 0;
+	position: relative;
+}
+form p:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+form p.nolabel * {
+	margin-left: 110px;
+}
+
+input[type=text], textarea, input[type=password] {
+	border: 1px solid #45523A;
+	color: #45523A;
+	padding: 10px;
+	vertical-align: text-top;
+	width: 300px;
+	-webkit-box-shadow: #d3d3e3 0.1em 0.1em 0.2em;
+	box-shadow: #d3d3e3 0.1em 0.1em 0.2em;
+	-moz-box-shadow: #d3d3e3 0.1em 0.1em 0.2em;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	background: -webkit-gradient(linear, left top, left 25, from(#f8f8ff), color-stop(4%, #e8e8ee), to(#f8f8ff));  
+	background: -moz-linear-gradient(top, #f8f8ff, #dedeee 1px, #e8e8ee 25px); 
+	position: absolute;
+	bottom: 0;
+	left: 110px;
+}
+p.nolabel input[type=text], p.nolabel textarea, p.nolabel input[type=password] {
+	position: relative;
+	left: 0;
+}
+textarea {
+	min-height: 100px;
+	max-width: 300px;
+	min-width: 300px;
+	resize: both;
+}
+button, input[type=submit] {
+	border: 1px solid #45523A;
+	color: #202050;
+	-webkit-box-shadow: #e3e3e3 0.1em 0.1em 0.2em;
+	box-shadow: #e3e3e3 0.1em 0.1em 0.2em;
+	-moz-box-shadow: #e3e3e3 0.1em 0.1em 0.2em;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	background: -webkit-gradient(linear, left top, left 25, from(#f8f8ff), color-stop(4%, #e8e8ee), to(#f8f8ff));  
+	background: -moz-linear-gradient(top, #f8f8ff, #dedeee 1px, #e8e8ee 25px); 
+	padding: 10px;
+}
+input[type=text]:hover, input[type=password]:hover, textarea:hover, input[type=submit]:hover, button:hover, input[type=radio]:hover:before, select:hover {
+	-webkit-box-shadow: #336 0 0 3px;
+	box-shadow: #336 0 0 3px;
+	-moz-box-shadow: #336 0 0 3px;
+	color: #626292;
+}
+
+@-webkit-keyframes pulse {
+	0% {
+		-webkit-box-shadow: #336 0 0 3px;
+		box-shadow: #336 0 0 3px;
+		-moz-box-shadow: #336 0 0 3px;
+	}
+	100% {
+		-webkit-box-shadow: #336 0 0 10px;
+		box-shadow: #336 0 0 10px;
+		-moz-box-shadow: #336 0 0 10px;
+	}
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus, input[type=submit]:focus, button:focus, input[type=radio]:focus:before, .radioreplacement:focus, select:focus {
+	outline: 0;
+	-webkit-box-shadow: #336 0 0 3px;
+	box-shadow: #336 0 0 3px;
+	-moz-box-shadow: #336 0 0 3px;
+	-webkit-animation-name: pulse;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: 9999;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-timing-function: linear;
+}
+input[type=submit]:active button:active {
+	position: relative;
+	top: 1px;
+}
+select {
+	border: 1px solid #626292;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	color: #202050;
+	-webkit-box-shadow: #d3d3e3 0.1em 0.1em 0.2em;
+	box-shadow: #d3d3e3 0.1em 0.1em 0.2em;
+	background: -webkit-gradient(linear, left top, left 25, from(#f8f8ff), color-stop(4%, #e8e8ee), to(#f8f8ff));  
+	background: -moz-linear-gradient(top, #f8f8ff, #dedeee 1px, #e8e8ee 25px); 
+	position: relative;
+	top: 6px;
+	height: 20px;
+}		

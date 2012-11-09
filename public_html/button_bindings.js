@@ -8,6 +8,7 @@ $(function() {
             $("input#summonerName").focus();
             return false;
         }
+        $.cookie('summoner_name', summonerName);
                 
         // Use Ajax to process the form submission
         var dataString = "summonerName=" + summonerName;

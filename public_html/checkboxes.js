@@ -17,12 +17,15 @@
 						isChecked = true;
 					}
 				}
+				var old_cookies = $.parseJSON($.cookie('filters'));
 				if (isChecked) {
-					// it has been deduced that checkBox.text() returns the SQL field. Hooray! 
-					get_graph(summ_name, 'gameId', checkBox.attr('id'));
+					// it has been deduced that checkBox.text() returns the SQL field. Hooray!
+					old_cookies.push(checkBox.attr('id'));
 				} else {
-					var old_cookies = json_decode($.cookie('filters'));
+					var idx = old_cookies.indexOf(checkbox.attr('id'));
+					old_cookies.splice(idx, 1);
 				}
+				get_graph(summ_name, 'gameId', old_cookies);
 			});
 		});
 	};

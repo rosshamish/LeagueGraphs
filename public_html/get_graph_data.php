@@ -12,6 +12,8 @@ $name = $_POST['summonerName'];
 //$debug->debug('name', null, LOG);
 $x = $_POST['x_field'];
 $y = $_POST['y_field'];
+var_dump($y);
+
 $champId = $_POST['champId'];
 
 if ($champId == '') {

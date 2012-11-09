@@ -40,7 +40,7 @@ $(document).ready(function() {
     // Add the checkboxes
     $("#checkboxes").html('<ul class="unstyled">' +
                                            checkbox('Gold Earned', 'goldEarned') +
-                                           checkbox('Champions Killed', 'championsKilled', true) + 
+                                           checkbox('Champions Killed', 'championsKilled') + 
                                            checkbox('Deaths', 'numDeaths') +
                                            checkbox('Assists', 'assists') +
                                            checkbox('Creep Score', 'minionsKilled') +

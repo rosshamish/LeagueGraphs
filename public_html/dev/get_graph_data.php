@@ -49,7 +49,11 @@ if ($result) {
   while($row = mysql_fetch_array($result)) {
     $count++;
     $row_array["x"] = $row[$x];
-    $row_array["y"] = $row[$y];
+    $row_y_arr = array();
+    for ($i=0; $i<count($y_arr); $i++) {
+      array_push($row_y_arr, $row[$y_arr[$i]]);
+    }
+    $row_array["y"] = $row_y_arr;
     array_push($ret_arr, $row_array);
   }
 }

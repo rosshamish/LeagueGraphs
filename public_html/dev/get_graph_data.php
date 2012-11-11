@@ -4,6 +4,8 @@
  * Echoes back data of the form x1:y1,x2:y2,x3:y3
  */
 require_once('sensitive_data.php');
+require_once('PhpConsole.php');
+PhpConsole::start();
 
 mysql_connect($host, $username, $password);
 mysql_selectdb($database);

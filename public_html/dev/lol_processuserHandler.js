@@ -36,6 +36,7 @@ function checkbox(name, id, checked) {
 // All the onload stuff
 $(document).ready(function() {
     $.cookie('filters', null); // clear this pesky cookie, why do ipearned and sightwardsboughtingame always get set for some reason
+    $.cookie('champId', null);
     $("input#summonerName").focus(); // focus on the important input, the name
     // Add the checkboxes
     $("#checkboxes").html('<ul class="unstyled">' +
@@ -53,11 +54,11 @@ $(document).ready(function() {
                                            checkbox('Premade Group Size', 'premadeSize') +
                                            
                                            '</ul>');
-    var id = Array.range(1, 150); // go up to 150 as safety. you never know when champ ids will get huge or something
+    var id_arr = Array.range(1, 150); // go up to 150 as safety. you never know when champ ids will get huge or something
     $.ajax({
         type: "POST",
         url: "get_champ.php",
-        data: {identifier: id,
+        data: {identifier: id_arr,
                get: "name"},
         dataType: "json",
         success: function(phpdata) {

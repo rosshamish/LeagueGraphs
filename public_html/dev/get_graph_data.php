@@ -45,6 +45,10 @@ $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 $result = mysql_query($query);
 $ret_arr = array();
 
+for ($f=0; $f<count($y_arr); $f++) {
+  debug('filter #'.$f.': '.$y_arr[$f]);
+}
+
 if ($result) {
   $count = 0;
   $numRows = mysql_num_rows($result);
@@ -55,7 +59,8 @@ if ($result) {
     for ($i=0; $i<count($y_arr); $i++) {
       array_push($row_y_arr, $row[$y_arr[$i]]);
     }
-    $row_array["y"] = $row_y_arr;
+    $row_array["y"] = $row_y_arr; 
+    $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph
     array_push($ret_arr, $row_array);
   }
 }

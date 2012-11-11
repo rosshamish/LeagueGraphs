@@ -10,6 +10,70 @@ var width = 800,
     
 var colorSwatch = d3.scale.category10();
 
+/* Make variable range scales */
+var minheight = height / 50;
+var maxheight = height * 95/100;
+var yScale = d3.scale.linear()
+              .domain([0, 20])
+              .range([minheight, maxheight]); // default
+var yScale0_5 = d3.scale.linear()
+              .domain([0, 5])
+              .range([minheight, maxheight]); // for premade size
+var yScale0_25 = d3.scale.linear()
+              .domain([0, 25])
+              .range([minheight, maxheight]); // for kills, assists, deaths, sight wards
+var yScale0_200 = d3.scale.linear()
+              .domain([0, 200])
+              .range([minheight, maxheight]); // for cs
+var yScale0_500 = d3.scale.linear()
+              .domain([0, 500])
+              .range([minheight, maxheight]); // for time spent dead, ip earned
+var yScale1k_20k = d3.scale.linear()
+              .domain([1000, 20000])
+              .range([minheight, maxheight]); // for gold earned
+var yScale2k_300k = d3.scale.linear()
+              .domain([2000, 300000])
+              .range([minheight, maxheight]); // for damage dealt
+var yScale2k_60k = d3.scale.linear()
+              .domain([2000, 60000])
+              .range([minheight, maxheight]); // for damage taken
+
+function scale_on_filter(filter, y) {
+    var ret_y = yScale(y);
+    console.log('scaleonfilter filter: ' + filter);
+    switch (filter) {
+        case "premadeSize":
+            ret_y = yScale0_5(y);
+            break;
+        case "championsKilled":
+        case "assists":
+        case "numDeaths":
+        case "sightWardsBoughtInGame":
+            ret_y = yScale0_25(y);
+            break;
+        case "minionsKilled":
+            ret_y = yScale0_200(y);
+            break;
+        case "totalTimeSpentDead":
+        case "ipEarned":
+            ret_y = yScale0_500(y);
+            break;
+        case "goldEarned":
+            ret_y = yScale1k_20k(y);
+            break;
+        case "totalDamageDealt":
+            ret_y = yScale2k_300k(y);
+            break;
+        case "totalDamageTaken":
+            ret_y = yScale2k_60k(y);
+            break;
+        default:
+            ret_y = yScale(y);
+            break;
+    }
+    return ret_y;
+}
+
 // bar graphs
 var bar_padding = 1;
 
@@ -30,7 +94,6 @@ function get_graph(summoner_name, x_field, y_field, champId) {
         $.cookie('summoner_name', summoner_name);
     }
     if (champId == '') {
-        console.log('resetting champ cookie');
         $.cookie('champId', null);
     } else if (!champId) {
         champId = $.cookie('champId');
@@ -140,14 +203,8 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     })
                 .attr("transform", function (d, i) { return "translate(" + xsScale(i) + ")"; });
             
-            // set range
-            //var ymin = Math.min.apply(Math, y_arr[cur_filter]);
-            //var ymax = Math.max.apply(Math, y_arr[cur_filter]); 
-            var yScale = d3.scale.linear()
-                          .domain([0, 20]) // change this to reflect real values
-                          .range([height / 10, height * 9 / 10])
-            
-            /* Bar Graph */                    
+            /* Bar Graph */
+            var filters = $.parseJSON($.cookie('filters'));
             var groups = series.selectAll("rect")
                 .data(Object)
               .enter()
@@ -155,14 +212,15 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 .attr("width", function(d, i) {
                     return xsScale.rangeBand();
                     })
-                .attr("height", function(d) {
-                    return yScale(d.y);
+                .attr("height", function(d, i, j) {
+                    
+                    return scale_on_filter(filters[j], d.y);
                     })
                 .attr("x", function(d, i) {
                     return 0; // this value is handled by the attr('transform')
                     })
-                .attr("y", function(d) {
-                    return height - yScale(d.y);
+                .attr("y", function(d, i, j) {
+                    return height - scale_on_filter(filters[j], d.y);
                     })
                 .attr("transform", function (d, i) { return "translate(" + xgScale(i) + ")"; });
                     
@@ -183,8 +241,8 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                             return d.y;
                         }
                     })
-                .attr("y", function(d) {
-                    return height - yScale(d.y) + 15;
+                .attr("y", function(d, i, j) {
+                    return height - scale_on_filter(filters[j], d.y) + 15;
                 })
                 .attr("transform", function (d, i) {
                     var trans = xgScale(i) + (0.5) * xsScale.rangeBand();

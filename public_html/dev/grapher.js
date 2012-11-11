@@ -8,9 +8,21 @@ var width = 800,
     ylabel = "default y label",
     padding = width / 10;
     
-var colorSwatch = d3.scale.category10();
+var colorOfFilter = {'premadeSize' : "\#888888",
+                     'championsKilled' : "\#00FF00",
+                     'assists' : "\#FF8000",
+                     'numDeaths' : "\#FF0000",
+                     'sightWardsBoughtInGame' : "\#FF1A8C", 
+                     'minionsKilled' : "\#0000FF",
+                     'totalTimeSpentDead' : "\#7ABDFF",
+                     'ipEarned' : "\#010101",
+                     'goldEarned' : "\#C2C200",
+                     'totalDamageDealt' : "\#00CC66",
+                     'totalDamageTaken' : "\#FF5757"};
 
-/* Make variable range scales */
+/* Define some range scales for use with different statistics.
+ * The hard-coded values are based on observation of 'normal' values in game
+*/
 var minheight = height / 50;
 var maxheight = height * 95/100;
 var yScale = d3.scale.linear()
@@ -38,6 +50,7 @@ var yScale2k_60k = d3.scale.linear()
               .domain([2000, 60000])
               .range([minheight, maxheight]); // for damage taken
 
+/* Does y scaling depending on what the expected values are for that particular statistics */
 function scale_on_filter(filter, y) {
     var ret_y = yScale(y);
     console.log('scaleonfilter filter: ' + filter);
@@ -73,9 +86,6 @@ function scale_on_filter(filter, y) {
     }
     return ret_y;
 }
-
-// bar graphs
-var bar_padding = 1;
 
 /**
  *  Takes an SQL field and returns a string containing a more user-friendly name
@@ -132,6 +142,7 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             
             var num_filters = data[0].y.length;
             var num_values = data.length;
+            var filters = $.parseJSON($.cookie('filters'));
             
             /** deal with "time" being the desired x value */
             if (x_field == 'gameId') {
@@ -199,12 +210,11 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 .append("g")
                 .attr("class", "series")
                 .attr("fill", function(d, i) {
-                    return colorSwatch(i);
+                    return colorOfFilter[filters[i]];
                     })
                 .attr("transform", function (d, i) { return "translate(" + xsScale(i) + ")"; });
             
             /* Bar Graph */
-            var filters = $.parseJSON($.cookie('filters'));
             var groups = series.selectAll("rect")
                 .data(Object)
               .enter()

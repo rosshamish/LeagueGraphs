@@ -29,11 +29,12 @@
     <script type="text/javascript" src="jquery.cookie.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="num_summoners_being_tracked.js"></script>
-    <script type="text/javascript" src="on_load.js"></script>
-    <script type="text/javascript" src="checkboxes.js"></script>
+	<script type="text/javascript" src="checkboxes.js"></script> 
     <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
     <script type="text/javascript" src="grapher.js"></script>
-    <script type="text/javascript" src="button_bindings.js"></script>
+    <script type="text/javascript" src="button_bindings.js"></script>	
+	<!-- on_load MUST be defined AFTER grapher.js so that the checkboxes can inherit the same colors as the graph filters -->
+    <script type="text/javascript" src="on_load.js"></script>
 
     <!-- less -->
     <link rel="stylesheet/less" type="text/css" href="less/variables.less">

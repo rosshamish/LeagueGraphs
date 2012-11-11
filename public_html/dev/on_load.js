@@ -1,4 +1,5 @@
 var tab = '&emsp;&emsp;&emsp;&emsp;';
+/** This MUST be defined AFTER grapher.js so that the checkboxes can inherit the same colors as the graph filters */
 
 /** Array range function, for python-like range(0,10) syntax **/
 Array.range= function(a, b, step){
@@ -28,7 +29,9 @@ function checkbox(name, id, checked) {
         var el = '</ul> <ul class="unstyled">';
     } else {
         var el =
-            '<label class="checkbox inline" for="' + id + '"><input type="checkbox" class="checkbox" id="' + id + '" name="' + id + '"' + (checked ? "checked" : "") + '/>' + name + '</label>';
+            '<label style="color: '+colorOfFilter[id]+'" class="checkbox inline" for="' + id + '">' +
+            '<input type="checkbox" class="checkbox" id="' + id + '" name="' + id + '"' + (checked ? "checked" : "") + '/>' + name +
+            '</label>';
     }
     return el;
 }
@@ -52,7 +55,6 @@ $(document).ready(function() {
                                            checkbox('Sight Wards Bought', 'sightWardsBoughtInGame') +
                                            checkbox('IP Earned', 'ipEarned') +
                                            checkbox('Premade Group Size', 'premadeSize') +
-                                           
                                            '</ul>');
     var id_arr = Array.range(1, 150); // go up to 150 as safety. you never know when champ ids will get huge or something
     $.ajax({

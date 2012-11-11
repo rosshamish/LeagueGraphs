@@ -43,6 +43,8 @@ $(function() {
                                        + '<br>If your spelling is correct, please try again later.'
                                        + '<br>Name is case insensitive, eg RossHamiSH is the same as rosshAMish is the same as RossHamish');
                     $('#search_form').addClass('error');
+                    $("button#submit_btn").removeClass('btn-primary')
+                                .addClass('btn-danger');
                     $("#graph").show();
                     $("#graph_load").hide();
                     
@@ -62,6 +64,9 @@ $(function() {
                     $("#intro").remove();
                     $("#updates").remove();
                     $('#search_form').addClass('success');
+                    $("button#submit_btn").removeClass('btn-primary')
+                                .removeClass('btn-danger')
+                                .addClass('btn-success');
                     // this is dirty and wrong, but i'm passing the summoner name in through the tzCheckbox options.
                     // shoot me. This sets up click events for the CURRENT USER.
                     $('input[type=checkbox]').tzCheckbox(name);

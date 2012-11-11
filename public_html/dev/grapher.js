@@ -31,7 +31,8 @@ function get_graph(summoner_name, x_field, y_field, champId) {
     }
     if (!champId) {
         champId = '';
-        console.log('!champId');
+        console.log('!champId, resetting cookie');
+        $.cookie('champId', null);
     }
     if (y_field == '') {
         y_field = $.cookie('filters');
@@ -46,6 +47,7 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 champId : champId},
         dataType: "json",
         success: function(data) {
+            
             // Empty the old graph
             $("#graph").empty();
             

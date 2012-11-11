@@ -121,7 +121,36 @@ $(function() {
                 }
             }
         });
-         
+        
+        return false;
+    });
+});
+
+/* Champ unfilter button */
+$(function() {
+    $("button#champ_filter_all_champs").click(function() {
+        // Grab values from the form
+        var champname = $("input#champname").val();
+        if (champname == "") {
+            $("input#champname").focus();
+            return false;
+        }
+        $("button#champ_filter_all_champs").addClass('active');
+        $("button#champ_filter_btn").removeClass('active');
+                
+        // Use Ajax to process the form submission
+        // Set the loader gif
+        $("#graph_load").html("<img src=/images/ajax-loader.gif />");
+        $("#graph_load").show();
+        $("#graph").hide();
+        
+        $("#champ_input_form").removeClass('error')
+                              .addClass('success');
+        
+        // Do the graphing and stuff
+        get_graph('', "gameId", '');
+        $("#graph_load").hide();
+        $("#graph").show();
         
         return false;
     });

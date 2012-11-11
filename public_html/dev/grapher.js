@@ -33,6 +33,9 @@ function get_graph(summoner_name, x_field, y_field, champId) {
         champId = '';
         console.log('!champId');
     }
+    if (y_field == '') {
+        y_field = $.cookie('filters');
+    }
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php
     $.ajax({
         type: "POST",

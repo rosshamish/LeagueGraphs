@@ -115,7 +115,7 @@ $(function() {
                                           .addClass('success');
                     
                     // Do the graphing and stuff
-                    get_graph('', "gameId", "championsKilled", champId);
+                    get_graph('', "gameId", '', champId);
                     $("#graph_load").hide();
                     $("#graph").show();
                 }

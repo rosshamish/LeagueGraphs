@@ -16,6 +16,10 @@ $(function() {
             checkbox.attr('checked', false);
             checkbox.removeClass('checked'); // doing this by class AND attr because i don't understand why it doesn't work otherwise
         });
+        $("#champ_filter_all_champs").addClass('active');
+        $("#champ_filter_btn").removeClass('active');
+        $("input#champname").text('');
+        $("#champ_input_form").removeClass('success');
         
         /** This is working code to modify/read/reset cookies as json arrays */
         
@@ -56,7 +60,6 @@ $(function() {
                     
                     // Make the graph
                     get_graph(name, "gameId", "championsKilled");
-                    $("#title_name").html("- " + name);
                     $("#graph_load").hide();
                     $("#graph").show();
                     
@@ -114,11 +117,9 @@ $(function() {
                     $('input#champname').focus().select();
                 } else {
                     var champId = phpdata[0];
-                    console.log('champId from ajax get_champ from champ_filter_form => ' + champId);
                     $.cookie('champId', champId);
                     $("#champ_input_form").removeClass('error')
                                           .addClass('success');
-                    
                     // Do the graphing and stuff
                     get_graph('', "gameId", '', champId);
                     $("#graph_load").hide();
@@ -153,7 +154,8 @@ $(function() {
                               .addClass('success');
         
         // Do the graphing and stuff
-        get_graph('', "gameId", '');
+        $.cookie("champId", null);
+        get_graph('', "gameId", '', '');
         $("#graph_load").hide();
         $("#graph").show();
         

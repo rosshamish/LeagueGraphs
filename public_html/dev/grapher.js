@@ -29,14 +29,16 @@ function get_graph(summoner_name, x_field, y_field, champId) {
     } else {
         $.cookie('summoner_name', summoner_name);
     }
-    if (!champId) {
-        champId = '';
-        console.log('!champId, resetting cookie');
+    if (champId == '') {
+        console.log('resetting champ cookie');
         $.cookie('champId', null);
+    } else if (!champId) {
+        champId = $.cookie('champId');
     }
     if (y_field == '') {
         y_field = $.cookie('filters');
     }
+    
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php
     $.ajax({
         type: "POST",
@@ -47,6 +49,20 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 champId : champId},
         dataType: "json",
         success: function(data) {
+            $("#graph_title").html(" - " + $.cookie('summoner_name'));
+            $.ajax({
+                type: "POST",
+                url: "get_champ.php",
+                data: { identifier: [champId],
+                        get: "name" },
+                dataType: "json",
+                async: false,
+                success: function(names) {
+                    if (names[0] != "N/A") {
+                        $("#graph_title").append(" (" + names[0] + ")");
+                    }
+                }
+            });
             
             // Empty the old graph
             $("#graph").empty();
@@ -174,20 +190,6 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     var trans = xgScale(i) + (0.5) * xsScale.rangeBand();
                     return "translate(" + trans + ")";
                 });
-                
-            /* Do the graph */
-            //$("#graph").hide();
-            
-            // Build the plot.
-            var y_axis = $.parseJSON($.cookie('filters'))[cur_filter];
-            if (x_field == 'gameId') {
-                var x_axis = 'time';
-                var title = y_axis + " per game for " + summoner_name;
-            } else {
-                var x_axis = x_field;
-                var title = x_axis + " vs. " + y_axis + " for " + summoner_name;
-            }
-            console.log('Graphing: ' + title);
             // now show the graph, since we're all done making it
             $("#graph").show();
         }

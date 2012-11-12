@@ -1,7 +1,8 @@
 /**
  * Do the hard work of the graphing and such
  */
-// constants for graphing - change these up here, do NOT change values and hardcode them down there
+
+// constants for graphing - change these up here, do NOT hardcode them down there.
 var width = 800,
     height = 300,
     xlabel = "default x label",
@@ -19,6 +20,15 @@ var colorOfFilter = {'premadeSize' : "\#888888",
                      'goldEarned' : "\#C2C200",
                      'totalDamageDealt' : "\#00CC66",
                      'totalDamageTaken' : "\#FF5757"};
+                     
+/** Append a no games found notice to the svg space **/
+function noGamesFound(svg, champname) {
+    svg.append("text")
+      .attr('x', width / 2)
+      .attr('y', height / 2)
+      .attr('fill', 'red')
+      .text("No games found for " + champname + "!");
+}
 
 /* Define some range scales for use with different statistics.
  * The hard-coded values are based on observation of 'normal' values in game
@@ -53,7 +63,6 @@ var yScale2k_60k = d3.scale.linear()
 /* Does y scaling depending on what the expected values are for that particular statistics */
 function scale_on_filter(filter, y) {
     var ret_y = yScale(y);
-    console.log('scaleonfilter filter: ' + filter);
     switch (filter) {
         case "premadeSize":
             ret_y = yScale0_5(y);
@@ -123,6 +132,15 @@ function get_graph(summoner_name, x_field, y_field, champId) {
         dataType: "json",
         success: function(data) {
             $("#graph_title").html(" - " + $.cookie('summoner_name'));
+            
+            // Empty the old graph
+            $("#graph").empty();
+            // SVG creation. This only happens once.
+            var svg = d3.select("#graph")
+                  .append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+            
             $.ajax({
                 type: "POST",
                 url: "get_champ.php",
@@ -131,14 +149,15 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 dataType: "json",
                 async: false,
                 success: function(names) {
-                    if (names[0] != "N/A") {
-                        $("#graph_title").append(" (" + names[0] + ")");
+                    if (names[0] != "N/A") { // if we're filtering by champ, and not just set on All Champs
+                        $("#graph_title").append(" (" + names[0] + ")"); // append the champ name to the graph title
+                        if (!data[0]) { // if no games were returned
+                            noGamesFound(svg, names[0]); // show no games found and return, stop making the graph cause you'll just error out
+                            return;
+                        }
                     }
                 }
             });
-            
-            // Empty the old graph
-            $("#graph").empty();
             
             var num_filters = data[0].y.length;
             var num_values = data.length;
@@ -193,12 +212,6 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             var xsScale = d3.scale.ordinal()
                 .domain(d3.range(num_filters))
                 .rangeBands([0, xgScale.rangeBand()]);
-             
-            // SVG creation. This only happens once, and therefore should NOT be in the loop
-            var svg = d3.select("#graph")
-                  .append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
             
             // Series selection
             // We place each series into its own SVG group element. In other words,

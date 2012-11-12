@@ -80,6 +80,33 @@ $(document).ready(function() {
         }
     });
     
+    $.ajax({
+        type: "POST",
+        url: "get_global_stats.php",
+        dataType: "json",
+        success: function(phpdata) {
+            jQuery(function($) {
+                $('#currently_tracking').countTo({
+                    from: 0,
+                    to: phpdata['currently_tracking'],
+                    speed: 7000,
+                    refreshInterval: 20
+                });
+            });
+            jQuery(function($) {
+                $('#games_in_database').countTo({
+                    from: 0,
+                    to: phpdata['games_in_database'],
+                    speed: 4000,
+                    refreshInterval: 20
+                });
+            });
+        },
+        error: function() {
+            console.log('get_global_stats.php errored out or something');
+        }
+    });
+    
     // This sets up click events. Using "SomePlayer" as the default.
     $('input[type=checkbox]').tzCheckbox("SomePlayer");
     // add the default graph!

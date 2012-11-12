@@ -29,6 +29,7 @@
     <script type="text/javascript" src="jquery.cookie.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="num_summoners_being_tracked.js"></script>
+	<script type="text/javascript" src="jquery.countUpTo.js"></script>
 	<script type="text/javascript" src="checkboxes.js"></script> 
     <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
     <script type="text/javascript" src="grapher.js"></script>
@@ -148,6 +149,9 @@
 		Once your summoner name is entered here <strong>once</strong>, your stats will be tracked automatically forever and ever afterwards.
 		Every player <em>known to the site</em> gets nommed at least once a day.<br>
 		<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>
+		</p>
+		<p>
+			Currently tracking <strong><span id="currently_tracking">0</span></strong> players, with <strong><span id="games_in_database">0</span></strong> games tracked all time.
 		</p>
 	    </div>
 	    <div id="num_summoners_being_tracked"></div>

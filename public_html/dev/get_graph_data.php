@@ -45,13 +45,7 @@ $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 $result = mysql_query($query);
 $ret_arr = array();
 
-for ($f=0; $f<count($y_arr); $f++) {
-  debug('filter #'.$f.': '.$y_arr[$f]);
-}
-
 if ($result) {
-  $count = 0;
-  $numRows = mysql_num_rows($result);
   while($row = mysql_fetch_array($result)) {
     $count++;
     $row_array["x"] = $row[$x];

@@ -89,16 +89,16 @@ $(document).ready(function() {
                 $('#currently_tracking').countTo({
                     from: 0,
                     to: phpdata['currently_tracking'],
-                    speed: 7000,
-                    refreshInterval: 20
+                    speed: 4500,
+                    refreshInterval: 50
                 });
             });
             jQuery(function($) {
                 $('#games_in_database').countTo({
                     from: 0,
                     to: phpdata['games_in_database'],
-                    speed: 4000,
-                    refreshInterval: 20
+                    speed: 9000,
+                    refreshInterval: 50
                 });
             });
         },

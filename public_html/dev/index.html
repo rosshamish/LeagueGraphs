@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
-<html lang="en"><head>
-    <meta charset="utf-8">
-    <title>League Graphs</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css' />
-
-    <!-- Le styles -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>League Graphs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'/>
+<!-- Le styles -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -17,12 +17,11 @@
       .sidebar-nav {
         padding: 9px 0;
       }
-    </style>
-	<link href="graphs.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+</style>
+<link href="graphs.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
       <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	  <script type="text/javascript">
 		$(document).ready(function(){
@@ -46,224 +45,252 @@
 		});
 	  </script>
     <![endif]-->
-    
-    <!-- Le javascript -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript" src="jquery.cookie.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="num_summoners_being_tracked.js"></script>
-	<script type="text/javascript" src="jquery.countUpTo.js"></script>
-	<script type="text/javascript" src="checkboxes.js"></script> 
-    <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
-    <script type="text/javascript" src="grapher.js"></script>
-    <script type="text/javascript" src="button_bindings.js"></script>	
-	<!-- on_load MUST be defined AFTER grapher.js so that the checkboxes can inherit the same colors as the graph filters -->
-    <script type="text/javascript" src="on_load.js"></script>
-
-    <!-- less -->
-    <link rel="stylesheet/less" type="text/css" href="less/variables.less">
-    <link rel="stylesheet/less" type="text/css" href="less/bootswatch.less">
-    <script type="text/javascript" src="less/less-1.3.1.min.js"></script>
-
-    <!-- Fav icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    
-    <!-- Start Google Analytics Code -->
-    <script type="text/javascript">
-    
+<!-- Le javascript -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="jquery.cookie.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="num_summoners_being_tracked.js"></script>
+<script type="text/javascript" src="checkboxes.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+<script type="text/javascript" src="grapher.js"></script>
+<script type="text/javascript" src="button_bindings.js"></script>
+<!-- on_load MUST be defined AFTER grapher.js so that the checkboxes can inherit the same colors as the graph filters -->
+<script type="text/javascript" src="on_load.js"></script>
+<!-- less -->
+<link rel="stylesheet/less" type="text/css" href="less/variables.less">
+<link rel="stylesheet/less" type="text/css" href="less/bootswatch.less">
+<script type="text/javascript" src="less/less-1.3.1.min.js"></script>
+<!-- Fav icon -->
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<!-- Start Google Analytics Code -->
+<script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-35852559-1']);
       _gaq.push(['_trackPageview']);
-    
       (function() {
 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-    
     </script>
-    <!-- End Google Analytics Code -->
-  </head>
-
-  <body>
-  
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">LeagueGraphs</a>
-          <div class="nav-collapse collapse">
-	    <p class="navbar-text pull-right">
-	      <a href="http://www.elophant.com" target="_blank" title="elophant.com" class="navbar-link">powered by elophant.com</a>
-	    </p>
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#aboutModal" type="button" data-toggle="modal">About</a></li>
-              <li><a href="#contactModal" type="button" data-toggle="modal">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    
-    <!-- Modals -->
-     
-    <!-- 'About' Modal -->
-    <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
-      <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	<h3 id="myModalLabel">About Us</h3>
-      </div>
-      <div class="modal-body">
-	<p>Hi, my name is Ross. I'm the lead dev here at LeagueGraphs.<br><br>
-	I made this cool website that does LoL stuff. But first I should point out that I don't like kittens.
-	I was offered to parent one with a friend of mine, but I declined because I am heartless and self-centered.
-	This friend has, for the better part of his life, wanted a pet to take care of, but was unable to due to other
-	commitments that consumed his time. He still doesn't have that much time, but combined, we would have been capable
-	of taking care of a cute kitten. Still though, I rejected this offer. I hope you find it in yourself to get over this
-	fact and still use my website that will only track TEN GAMES AT A TIME. So if you played 1000 games before entering
-	your name in here, well... you're dog gone pooched. <br><br>
-	But it <strong>will</strong> track your last ten games and then every game from then on until forever, automatically. YAY!
-	Anyway, have fun with this thing. Btw, I have a <a href="http://www.github.com/rosshamish/leaguegraphs">github page</a> for you to suggest <a href="http://github.com/rosshamish/leaguegraphs/issues">issues.</a> Alternatively,
-	you could use the issues feature to just tell me a joke or a cool story. Whichever tickles your fancy.<br> <br> 
-        <strong>- RossHamish ('s friend)</strong>
-	</p>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-    
-    <!-- 'Contact' Modal -->
-    <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
-      <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	<h3 id="myModalLabel">Contact Us</h3>
-      </div>
-      <div class="modal-body">
-	<p>Feel free to <a href="mailto:ross.anderson87@gmail.com" target="_blank">email me</a> or check out my 
-	<a href="http://www.github.com/RossHamish/LeagueGraphs">GitHub page</a>. <br> <br>
-	If you have feedback, suggestions or comments, please <a href="mailto:ross.anderson87@gmail.com" target="_blank">email me</a>. <br>
-	<br>
-	    Are you a dev yourself? Notice an issue? Submit an <a href="http://www.github.com/rosshamish/leaguegraphs/issues">issue on GitHub.</a>
-	    This is easily the fastest way to get a feature/bugfix on my todo list.
-	    <br>
-	    <br>
-	    Thanks for your interest in LeagueGraphs,<br>
-	    Ross
-	</p>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-
-    <div class="container-fluid"> 
-      <div class="row-fluid">
-        <div class="span12">
-          <div class="hero-unit">
-            <h1>League Graphs</h1>
-            <div id="intro">
-	      <h3>This is <strong>League Graphs</strong>, a free statistics tracker for League of Legends.</h3>
-		<h4>How it works:</h4>
+<!-- End Google Analytics Code -->
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="#">LeagueGraphs</a>
+			<div class="nav-collapse collapse">
+				<p class="navbar-text pull-right">
+					<a href="http://www.elophant.com" target="_blank" title="elophant.com" class="navbar-link">powered by elophant.com</a>
+				</p>
+				<ul class="nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#aboutModal" type="button" data-toggle="modal">About</a></li>
+					<li><a href="#contactModal" type="button" data-toggle="modal">Contact</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+</div>
+<!-- Modals -->
+<!-- 'About' Modal -->
+<div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		<h3 id="myModalLabel">About Us</h3>
+	</div>
+	<div class="modal-body">
 		<p>
-		Once your summoner name is entered here <strong>once</strong>, your stats will be tracked automatically forever and ever afterwards.
-		Every player <em>known to the site</em> gets nommed at least once a day.<br>
-		<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>
+			Hi, my name is Ross. I'm the lead dev here at LeagueGraphs.<br>
+			<br>
+			 I made this cool website that does LoL stuff. But first I should point out that I don't like kittens. I was offered to parent one with a friend of mine, but I declined because I am heartless and self-centered. This friend has, for the better part of his life, wanted a pet to take care of, but was unable to due to other commitments that consumed his time. He still doesn't have that much time, but combined, we would have been capable of taking care of a cute kitten. Still though, I rejected this offer. I hope you find it in yourself to get over this fact and still use my website that will only track TEN GAMES AT A TIME. So if you played 1000 games before entering your name in here, well... you're dog gone pooched. <br>
+			<br>
+			 But it <strong>will</strong> track your last ten games and then every game from then on until forever, automatically. YAY! Anyway, have fun with this thing. Btw, I have a <a href="http://www.github.com/rosshamish/leaguegraphs">github page</a> for you to suggest <a href="http://github.com/rosshamish/leaguegraphs/issues">issues.</a> Alternatively, you could use the issues feature to just tell me a joke or a cool story. Whichever tickles your fancy.<br>
+			<br>
+			<strong>- RossHamish ('s friend)</strong>
 		</p>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>
+<!-- 'Contact' Modal -->
+<div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		<h3 id="myModalLabel">Contact Us</h3>
+	</div>
+	<div class="modal-body">
 		<p>
-			Currently tracking <strong><span id="currently_tracking">0</span></strong> players, with <strong><span id="games_in_database">0</span></strong> games tracked all time.
+			Feel free to <a href="mailto:ross.anderson87@gmail.com" target="_blank">email me</a> or check out my <a href="http://www.github.com/RossHamish/LeagueGraphs">GitHub page</a>. <br>
+			<br>
+			 If you have feedback, suggestions or comments, please <a href="mailto:ross.anderson87@gmail.com" target="_blank">email me</a>. <br>
+			<br>
+			 Are you a dev yourself? Notice an issue? Submit an <a href="http://www.github.com/rosshamish/leaguegraphs/issues">issue on GitHub.</a>
+			This is easily the fastest way to get a feature/bugfix on my todo list. <br>
+			<br>
+			 Thanks for your interest in LeagueGraphs,<br>
+			 Ross
 		</p>
-	    </div>
-	    <div id="num_summoners_being_tracked"></div>
-	    <div id="updates" class="alert alert-error" hidden></div>
-	    <div id="search_form" class="input control-group">
-	      <form name="search_form" class="form-inline" action="" method="">
-		<legend> Enter your summoner name. Be known.</legend>
-		<input class="span2" id="summonerName" type="text" placeholder="RossHamish">
-		<button id="submit_btn" class="btn btn-primary" type="submit">Go!</button>
-	      </form>
-	    </div>
-          </div>
-	  <div class="row-fluid">
-	    <div class="span8">
-	    <h3>Numbers</h3>
-	      <h5>I'd Like to See My:</h5>
-	      <form id="checkboxes" name="checkboxes">
-	      </form>
-	      
-	    </div> <!-- //span8 -->
-	    <div class="span4">
-	      <h3>Filters</h3>
-	      <h5>When I Play As:</h5>
-	      <div id="champ_input_form" class="input control-group btn-group" data-toggle="buttons-radio">
-		<button id="champ_filter_all_champs" class="btn span3 active" type="button">Anyone</button>
-		<form name="champ_input_form" class="form-inline" action="" method="">
-		<button id="champ_filter_btn" class="btn span3" type="submit" type="button">Only</button>
-		<input class="span3" type="text" placeholder="Olaf" id="champname"/>
-		</form>
-	      </div>
-	    </div> <!-- //span4 -->
-	  </div> <!-- //row-fluid TOP -->
-          <div class="row-fluid">
-            <div class="span12">
-              <h2>Graph <span id="graph_title"></span></h2>
-	      <div id="graph"></div>
-	      <div id="graph_load"></div>
-            </div><!--/span-->
-          </div><!--/row-->
-	  <div class="row-fluid">
-	    <div class="span8">
-	      <h3>Table</h3>
-	      <div id="table">
-		<table class="table">
-		<thead>
-		  <tr>
-		    <th>#</th>
-		    <th>Game Date</th>
-		    <th>Some Field</th>
-		    <th>Another Category</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-		    <td>1</td>
-		    <td>Mark</td>
-		    <td>Otto</td>
-		    <td>@mdo</td>
-		  </tr>
-		  <tr>
-		    <td>2</td>
-		    <td>Jacob</td>
-		    <td>Thornton</td>
-		    <td>@fat</td>
-		  </tr>
-		  <tr>
-		    <td>3</td>
-		    <td>Larry</td>
-		    <td>the Bird</td>
-		    <td>@twitter</td>
-		  </tr>
-		</tbody>
-	      </table>
-	      </div><!--/div table-->
-	    </div><!--/div span-->
-	    <div class="span4">
-	      <h3>Something Else</h3>
-	      <div>
-		
-	      </div><!--/div-->
-	    </div><!--/div span-->
-	  </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <p>&copy; <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a> 2012. Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">elophant.com</a></p>
-      </footer>
-
-    </div><!--/.fluid-container-->
-
-</body></html>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="hero-unit">
+				<h1>League Graphs</h1>
+				<div id="intro">
+					<h3>This is <strong>League Graphs</strong>, a free statistics tracker for League of Legends.</h3>
+					<h4>How it works:</h4>
+					<p>
+						 Once your summoner name is entered here <strong>once</strong>, your stats will be tracked automatically forever and ever afterwards. Every player <em>known to the site</em> gets nommed at least once a day.<br>
+						<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>
+					</p>
+					<p>
+						 Currently tracking <strong><span id="currently_tracking">0</span></strong> players, with <strong><span id="games_in_database">0</span></strong> games tracked all time.
+					</p>
+				</div>
+				<div id="updates" class="alert alert-error" hidden>
+				</div>
+				<div id="search_form" class="input control-group">
+					<form name="search_form" class="form-inline" action="" method="">
+						<legend> Enter your summoner name. Be known.</legend>
+						<input class="span2" id="summonerName" type="text" placeholder="RossHamish">
+						<button id="submit_btn" class="btn btn-primary" type="submit">Go!</button>
+					</form>
+					<div id="player_stats" hidden>
+						 Tracking <span id="summoner_name"></span> since <span id="tracking_since"></span>. <br>
+						<span id="games_tracked"></span> games data-fyed.<br>
+					</div>
+				</div>
+			</div>
+				<div class="row-fluid">
+					<div class="span8">
+						<h3>Numbers</h3>
+						<h5>I'd Like to See My:</h5>
+						<form id="checkboxes" name="checkboxes">
+						</form>
+					</div>
+					<!-- //span8 -->
+					<div class="span4">
+						<h3>Filters</h3>
+						<h5>When I Play As:</h5>
+						<div id="champ_input_form" class="input control-group btn-group" data-toggle="buttons-radio">
+							<button id="champ_filter_all_champs" class="btn span3 active" type="button">Anyone</button>
+							<form name="champ_input_form" class="form-inline" action="" method="">
+								<button id="champ_filter_btn" class="btn span3" type="submit" type="button">Only</button>
+								<input class="span3" type="text" placeholder="Olaf" id="champname"/>
+							</form>
+						</div>
+					</div>
+					<!-- //span4 -->
+				</div>
+				<!-- //row-fluid TOP -->
+				<div class="row-fluid">
+					<div class="span12">
+						<h2>Graph <span id="graph_title"></span></h2>
+						<div id="graph">
+						</div>
+						<div id="graph_load">
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+				<!--/row-->
+				<div class="row-fluid">
+					<div class="span8">
+						<h3>Table</h3>
+						<div id="table">
+							<table class="table">
+							<thead>
+							<tr>
+								<th>
+									#
+								</th>
+								<th>
+									Game Date
+								</th>
+								<th>
+									Some Field
+								</th>
+								<th>
+									Another Category
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>
+									1
+								</td>
+								<td>
+									Mark
+								</td>
+								<td>
+									Otto
+								</td>
+								<td>
+									@mdo
+								</td>
+							</tr>
+							<tr>
+								<td>
+									2
+								</td>
+								<td>
+									Jacob
+								</td>
+								<td>
+									Thornton
+								</td>
+								<td>
+									@fat
+								</td>
+							</tr>
+							<tr>
+								<td>
+									3
+								</td>
+								<td>
+									Larry
+								</td>
+								<td>
+									the Bird
+								</td>
+								<td>
+									@twitter
+								</td>
+							</tr>
+							</tbody>
+							</table>
+						</div>
+						<!--/div table-->
+					</div>
+					<!--/div span-->
+					<div class="span4">
+						<h3>Something Else</h3>
+						<div>
+						</div>
+						<!--/div-->
+					</div>
+					<!--/div span-->
+				</div>
+				<!--/row-->
+				<hr>
+				<footer>
+				<p>
+					&copy; <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a> 2012. Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">elophant.com</a>
+				</p>
+				</footer>
+			</div>
+			<!--/.fluid-container-->
+			</body>
+			</html>

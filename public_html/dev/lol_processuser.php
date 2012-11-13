@@ -1,6 +1,8 @@
 <?php
 // get the keys, passes and such
 require_once('sensitive_data.php');
+require_once('PhpConsole.php');
+PhpConsole::start();
 
 // Data conversion functions to help the updateRow be cleaner
 // turns 'true' and 'false' to '1' and '0' respectively
@@ -80,7 +82,22 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
     
     // Connect to the database
     mysql_connect($host, $username, $password);
-    @mysql_select_db($database) or die( "Unable to select database");
+    mysql_select_db($database) or die( "Unable to select database");
+    $na = $_POST['summonerName'];
+    $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
+    $result = mysql_query($qu);
+    if ($result) {
+      $num_old_games = mysql_num_rows($result);
+      debug("num_old_games: " . $num_old_games);
+      // this is guaranteed the oldest because they are queried in ascending order of game date.
+      // therefore, the FIRST row will be the oldest one.
+      $oldest_row = mysql_fetch_array($result); 
+      $oldest_game = $oldest_row['createDate'];
+    } else {
+      debug("no result in finding the num old games and oldest game date");
+    }
+    
+    
     
     // Count how many games are grabbed/nommed/parsed.
     $gamesSuccessfullyParsed = 0;
@@ -503,10 +520,15 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 
                 
                 // execute the query
+                $total_games = $num_old_games + $gamesSuccessfullyParsed;
+                debug('total_games: ' . $total_games);
+                debug('odlest_game: ' . $oldest_game);
                 $q_err = mysql_query($query)
                         or die(
                                json_encode( array(
+                           'total_games' => $total_games,
                            'parsed_games' => $gamesSuccessfullyParsed,
+                           'oldest_game' => $oldest_game,
                            'name' => $summoner_array['name']
                                                   )
                                            )
@@ -594,9 +616,13 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 }
             
             }
-            
+            $total_games = $num_old_games + $gamesSuccessfullyParsed;
+            debug('total_games: ' . $total_games);
+            debug('oldest game: ' . $oldest_game);
             echo json_encode( array(
+                           'total_games' => $total_games,
                            'parsed_games' => $gamesSuccessfullyParsed,
+                           'oldest_game' => $oldest_game,
                            'name' => $summoner_array['name']
                                                   )
                                            );
@@ -616,7 +642,7 @@ $summoner_name_arr = array(
 $summoner_data = getEloData($r_base_url, $r_region, $r_key, 'getSummonerByName', $summoner_name_arr, TRUE);
 
 // Make sure this summoner actually has data that returned
-$summoner_arr = (array)json_decode($summoner_data);
+$summoner_arr = json_decode($summoner_data, true);
 $keys = array_keys($summoner_arr);
 if (!$keys) {
     echo 'null';

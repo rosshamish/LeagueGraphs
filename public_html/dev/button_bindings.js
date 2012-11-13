@@ -52,8 +52,17 @@ $(function() {
                     //// split the return string of form numGames:summonerName:totalGames
                     //var numGames = phpdata.split(":")[0];
                     //var name = phpdata.split(":")[1];
-                    var numGames = phpdata['parsed_games'];
+                    var parsed_games = phpdata['parsed_games'];
+                    var total_games = phpdata['total_games'];
                     var name = phpdata['name'];
+                    var oldest_game = phpdata['oldest_game'];
+                    var date = oldest_game.substring(0, 10);
+                    var day = date.substring(8, 10);
+                    var monthnum = date.substring(5, 7);
+                    var year = date.substring(0, 4);
+                    var months_arr = ["Zeroth", "January", "February", "March", "April", "May", "June", "July",
+                                      "August", "September", "October", "November", "December"];
+                    var month = months_arr[parseInt(monthnum)];
                     
                     // Make the graph
                     get_graph(name, "gameId", "");
@@ -64,6 +73,10 @@ $(function() {
                     $("#intro").remove();
                     $("#updates").remove();
                     $('#search_form').addClass('success');
+                    $("#summoner_name").html(name);
+                    $("#games_tracked").html(total_games);
+                    $("#tracking_since").html(month + " " + day + ", " + year);
+                    $('#player_stats').show();
                     $("button#submit_btn").removeClass('btn-primary')
                                 .removeClass('btn-danger')
                                 .addClass('btn-success');

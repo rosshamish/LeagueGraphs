@@ -114,6 +114,7 @@ $(document).ready(function() {
     
     // This sets up click events. Using "SomePlayer" as the default.
     $('input[type=checkbox]').tzCheckbox("SomePlayer");
+    $('#championsKilled').click();
     // add the default graph!
-    get_graph("SomePlayer", "gameId", "championsKilled");
+    get_graph("SomePlayer", 'gameId', '');
 });

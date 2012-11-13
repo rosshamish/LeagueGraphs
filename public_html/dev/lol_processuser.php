@@ -522,7 +522,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 // execute the query
                 $total_games = $num_old_games + $gamesSuccessfullyParsed;
                 debug('total_games: ' . $total_games);
-                debug('odlest_game: ' . $oldest_game);
+                debug('oldest_game: ' . $oldest_game);
                 $q_err = mysql_query($query)
                         or die(
                                json_encode( array(

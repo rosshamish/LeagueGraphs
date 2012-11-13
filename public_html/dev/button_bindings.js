@@ -33,6 +33,7 @@ $(function() {
             type: "POST",
             url: "lol_processuser.php",
             data: {summonerName : summonerName},
+            dataType: "json",
             success: function(phpdata) {
                 if (phpdata == 'null') {
                     $('#updates').html('<br><strong>Either your summoner name was typed incorrectly,'
@@ -48,12 +49,14 @@ $(function() {
                     
                     $('input#summonerName').focus().select();
                 } else {
-                    // split the return string of form numGames:summonerName:totalGames
-                    var numGames = phpdata.split(":")[0];
-                    var name = phpdata.split(":")[1];
+                    //// split the return string of form numGames:summonerName:totalGames
+                    //var numGames = phpdata.split(":")[0];
+                    //var name = phpdata.split(":")[1];
+                    var numGames = phpdata['parsed_games'];
+                    var name = phpdata['name'];
                     
                     // Make the graph
-                    get_graph(name, "gameId", "championsKilled");
+                    get_graph(name, "gameId", "");
                     $("#graph_load").hide();
                     $("#graph").show();
                     

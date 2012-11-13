@@ -20,7 +20,7 @@
 
 $(document).ready(function() {
     
-document.write("<h1>Database auto-updater</h1><br>");
+document.write("<h1>LeagueGraphs database auto-updater</h1>");
 document.write("<h2></h2>");
 document.write("<div id='updateTimer'></div>");
 document.write("<div id='playerUpdates'></div>");
@@ -34,8 +34,8 @@ function updateNext() {
     url: "lol_processuser.php",
     data: "summonerName=" + names_arr[count],
     success: function(phpdata) {
-        var games = phpdata.split(":");
-        games = games[0];
+        var games = phpdata['parsed_games'];
+        
         $("#playerUpdates").prepend('--<br>');
         $("#playerUpdates").prepend(names_arr[count] + ' (db#' + count + ') updated! ' + games + ' new games grabbed.<br>');
         count++;

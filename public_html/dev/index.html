@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html lang="en"><head>
     <meta charset="utf-8">
     <title>League Graphs</title>
@@ -17,11 +18,33 @@
         padding: 9px 0;
       }
     </style>
+	<link href="graphs.css" rel="stylesheet">
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	  <script type="text/javascript">
+		$(document).ready(function(){
+		$(".container-fluid").empty();
+		$(".container-fluid").html('<div class="row-fluid">' +
+        '<div class="span12">'+
+         ' <div class="hero-unit">'+
+         '   <h1>League Graphs</h1>'+
+         '   <div id="intro">'+
+	     ' <h3>This is <strong>League Graphs</strong>, a free statistics tracker for League of Legends.</h3>'+
+		'<h4>How it works:</h4>'+
+		'<p>'+
+		'Once your summoner name is entered here <strong>once</strong>, your stats will be tracked automatically forever and ever afterwards.'+
+		'Every player <em>known to the site</em> gets nommed at least once a day.<br>'+
+		'<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>'+
+		'</p>'+
+		'<p>'+
+	'		Currently tracking <strong><span id="currently_tracking">0</span></strong> players, with <strong><span id="games_in_database">0</span></strong> games tracked all time.'+
+		+'</p>'+
+	    '</div>');
+		});
+	  </script>
     <![endif]-->
     
     <!-- Le javascript -->

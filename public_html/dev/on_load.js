@@ -97,7 +97,7 @@ $(document).ready(function() {
                 $('#games_in_database').countTo({
                     from: 0,
                     to: phpdata['games_in_database'],
-                    speed: 9000,
+                    speed: 7000,
                     refreshInterval: 50
                 });
             });

@@ -159,6 +159,9 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 }
             });
             
+            /* 
+             * Bar Graph of Filtered Statistics
+             */
             var num_filters = data[0].y.length;
             var num_values = data.length;
             var filters = $.parseJSON($.cookie('filters'));
@@ -227,7 +230,6 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     })
                 .attr("transform", function (d, i) { return "translate(" + xsScale(i) + ")"; });
             
-            /* Bar Graph */
             var groups = series.selectAll("rect")
                 .data(Object)
               .enter()
@@ -245,6 +247,7 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 .attr("y", function(d, i, j) {
                     return height - scale_on_filter(filters[j], d.y);
                     })
+                .classed('rounded-corners', true)
                 .attr("transform", function (d, i) { return "translate(" + xgScale(i) + ")"; });
                     
             var texts = series.selectAll("text")
@@ -271,6 +274,41 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     var trans = xgScale(i) + (0.5) * xsScale.rangeBand();
                     return "translate(" + trans + ")";
                 });
+            /**
+             * End Bar Graph *
+             */
+            
+            /**
+             * Line Graph of Winrate *
+             */
+            
+            var winrate_arr = [3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 7],
+			margin = 20,
+			y = d3.scale.linear().domain([0, d3.max(winrate_arr)]).range([height - margin, 0 + margin]),
+			x = d3.scale.linear().domain([0, winrate_arr.length]).range([0 + margin, width - margin]);
+
+//			var line = svg.selectAll('g.line')
+//                .data(winrate_arr)
+//              .enter()
+//                .append("g")
+//                .classed('winrate', true)
+//			    .attr("transform", "translate(0, 200)")
+//              .append("path")
+//                .attr("d", line(winrate_arr));
+			
+			var line = d3.svg.line()
+			    .x(function(d,i) { return x(i); })
+			    .y(function(d) { return -1 * y(d); })
+			
+			svg.append("svg:path")
+              .attr("d", line(winrate_arr))
+              .attr("transform", "translate(0, " + height + ")");
+            
+            /**
+             * End Line Graph *
+             */
+                
+                
             // now show the graph, since we're all done making it
             $("#graph").show();
         }

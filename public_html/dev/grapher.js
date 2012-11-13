@@ -3,11 +3,11 @@
  */
 
 // constants for graphing - change these up here, do NOT hardcode them down there.
-var width = 800,
+var width = 1300,
     height = 300,
     xlabel = "default x label",
     ylabel = "default y label",
-    padding = width / 10;
+    padding = 20;
     
 var colorOfFilter = {'premadeSize' : "\#888888",
                      'championsKilled' : "\#00FF00",
@@ -220,11 +220,11 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             // We place each series into its own SVG group element. In other words,
             // each SVG group element contains one series (i.e. bars of the same colour).
             // It might be helpful to think of each SVG group element as containing one bar chart.
-            var series = svg.selectAll("g.series")
+            var series = svg.selectAll("g.filter")
                 .data(seriesData)
               .enter()
                 .append("g")
-                .attr("class", "series")
+                .attr("class", "filter")
                 .attr("fill", function(d, i) {
                     return colorOfFilter[filters[i]];
                     })
@@ -247,8 +247,11 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 .attr("y", function(d, i, j) {
                     return height - scale_on_filter(filters[j], d.y);
                     })
-                .classed('rounded-corners', true)
-                .attr("transform", function (d, i) { return "translate(" + xgScale(i) + ")"; });
+                .classed('rounded-corners', true);
+                
+            groups.transition()
+              .attr("transform", function (d, i) { return "translate(" + xgScale(i) + ")"; });
+            
                     
             var texts = series.selectAll("text")
                 .data(Object)
@@ -281,36 +284,37 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             /**
              * Line Graph of Winrate *
              */
-            
-            var winrate_arr = [3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 7],
-			margin = 20,
-			y = d3.scale.linear().domain([0, d3.max(winrate_arr)]).range([height - margin, 0 + margin]),
-			x = d3.scale.linear().domain([0, winrate_arr.length]).range([0 + margin, width - margin]);
-
-//			var line = svg.selectAll('g.line')
-//                .data(winrate_arr)
-//              .enter()
-//                .append("g")
-//                .classed('winrate', true)
-//			    .attr("transform", "translate(0, 200)")
-//              .append("path")
-//                .attr("d", line(winrate_arr));
-			
-			var line = d3.svg.line()
-			    .x(function(d,i) { return x(i); })
-			    .y(function(d) { return -1 * y(d); })
-			
-			svg.append("svg:path")
-              .attr("d", line(winrate_arr))
-              .attr("transform", "translate(0, " + height + ")");
+            $.ajax({
+                type: "POST",
+                url: "get_winrate.php",
+                data: { trendy: true },
+                dataType: "json",
+                success: function(phpdata) {
+                    var winrate_arr = phpdata;
+                    var margin = 20,
+                    y = d3.scale.linear().domain([0, 100]).range([height - margin, 0 + margin]),
+                    x = d3.scale.linear().domain([0, winrate_arr.length-1]).range([0 + margin, width - margin]);
+                    
+                    var line = d3.svg.line()
+                        .x(function(d,i) { return xgScale(i) + (xsScale.rangeBand() * num_filters) / 2; }) // the stats graph x value plus half each bar group's width
+                        .y(function(d) { return y(d); })
+                        .interpolate("basis");
+                        
+                    svg.append("g")
+                      .classed('winrate', true)
+                    .append("svg:path")
+                      .attr("d", line(winrate_arr))
+                      .classed("winrate", true);
+                },
+                error: function(error) {
+                    console.log('get_winrate errored out');
+                    
+                }
+            });
             
             /**
              * End Line Graph *
              */
-                
-                
-            // now show the graph, since we're all done making it
-            $("#graph").show();
         }
     });
     

@@ -9,13 +9,7 @@ $(function() {
             return false;
         }
         $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
-        $.cookie('filters', null); // clear the filters, we're looking at a new player
         $.cookie('champId', null); // clear the champ filter, we're looking at a new player
-        $("input[type=checkbox]").each(function() {
-            var checkbox = $(this);
-            checkbox.attr('checked', false);
-            checkbox.removeClass('checked'); // doing this by class AND attr because i don't understand why it doesn't work otherwise
-        });
         $("#champ_filter_all_champs").addClass('active');
         $("#champ_filter_btn").removeClass('active');
         $("input#champname").text('');

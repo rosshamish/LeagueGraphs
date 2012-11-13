@@ -34,8 +34,6 @@ $ret_arr = array();
 $result = mysql_query($query);
 
 if ($_POST['trendy']) { // if getting the trendy winrate
-  debug('===');
-  debug('::trendy winrate::');
   if ($result) {
     while ($row = mysql_fetch_array($result)) {
       $wins += $row['win'];
@@ -46,22 +44,20 @@ if ($_POST['trendy']) { // if getting the trendy winrate
       }
       $winrate = array_sum($trend_arr) / count($trend_arr) * 100; // get the winrate percentage
       array_push($ret_arr, $winrate);
-      debug("game #$gamesPlayed: winrate: $winrate, trendwins: " . array_sum($trend_arr) . ", trendgames: " . count($trend_arr));
     }
   }
 } else { // if getting the overall winrate
-  debug('===');
-  debug('::overall winrate::');
   if ($result) {
     while ($row = mysql_fetch_array($result)) {
       $wins += $row['win'];
       $gamesPlayed += 1;
       $winrate = $wins / $gamesPlayed * 100; // winrate percentage
       array_push($ret_arr, $winrate);
-      debug("game #$gamesPlayed: winrate:$winrate, wins: $wins, games: $gamesPlayed");
     }
   }
 }
+debug("in winrate.php, games played: $gamesPlayed");
+
 
 mysql_close();
 

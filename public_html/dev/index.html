@@ -154,11 +154,20 @@
 						 Once your summoner name is entered here <strong>once</strong>, your stats will be tracked automatically forever and ever afterwards. Every player <em>known to the site</em> gets nommed at least once a day.<br>
 						<small>The auto-tracker is limited to 10 games per day. If you play more, just come enter your name and your profile will be nommed manually.</small><br>
 					</p>
+					
+				</div>
+				<div id="updates" class="alert alert-error" hidden>
+				</div>
+				<div id="meta_stats">
 					<p>
 						 Currently tracking <strong><span id="currently_tracking">0</span></strong> players, with <strong><span id="games_in_database">0</span></strong> games tracked all time.
 					</p>
-				</div>
-				<div id="updates" class="alert alert-error" hidden>
+					<div id="player_stats" hidden>
+						<p>
+						 Tracking <span id="summoner_name"></span> since <strong><span id="tracking_since"></span></strong>. <br>
+						<strong><span id="games_tracked"></span></strong> games data-fyed since then.<br>
+						<p>
+					</div>
 				</div>
 				<div id="search_form" class="input control-group">
 					<form name="search_form" class="form-inline" action="" method="">
@@ -166,10 +175,6 @@
 						<input class="span2" id="summonerName" type="text" placeholder="RossHamish">
 						<button id="submit_btn" class="btn btn-primary" type="submit">Go!</button>
 					</form>
-					<div id="player_stats" hidden>
-						 Tracking <span id="summoner_name"></span> since <span id="tracking_since"></span>. <br>
-						<span id="games_tracked"></span> games data-fyed.<br>
-					</div>
 				</div>
 			</div>
 				<div class="row-fluid">

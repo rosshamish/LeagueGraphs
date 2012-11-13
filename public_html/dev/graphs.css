@@ -9,3 +9,10 @@ path {
 line {
     stroke: black;
 }
+
+.rounded-corners {
+     -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+}

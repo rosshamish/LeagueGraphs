@@ -1,7 +1,7 @@
 #[LeagueGraphs](http://www.rosshamish.netau.net)
 
 ####A free online statistics tracker for League of Legends
-####Readme last updated Nov 02, 2012
+####Readme last updated Nov 13, 2012
 
 ---
 
@@ -9,7 +9,7 @@
 
 - The first time you use the site, only your last 10 games will be data-fyed. However:
  - Once your name has been entered *once* on [LeagueGraphs](http://www.rosshamish.netau.net), it is added to the auto-update php machine.
- - Each player is updated minimum once or twice a day. 
+ - Each player is updated every 6 hours, minimum. If you can play more than 10 games in 6 hours, I applaud you, and I also recommend you visit the site during your marathon to let the database manually grab your game statistics.
 - A manual update happens when you access your data on the site, so graphs/data are guaranteed up-to-date whilst also maintaining long-term consistency.
 
 ---
@@ -25,24 +25,27 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 **Implemented Features:**
 
 - Database consistency and stability.
-- Automatic database updates daily.
+- Automatic database updates, minimum every 8 hours.
 - Data availability in graph format
  - using [d3.js](http://www.d3js.org), initially learned from [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/)
+- Winrate line graph overlay.
+- Filter by champion
+ - How good am I *really* with Lee Sin?
+ - How good is Kevin *really* with Teemo?
+
 
 ---
 
 **Planned Features:**
 
 - Data availability via tables and custom searching.
-- More expressive and better looking graphs
-- More versatile graph manipulation
-- Graph interaction
+- More expressive and better looking graphs.
+- Interactive graphs - zoom, pan, extra data on mouseover.
+- Filter by teammate.
+- Filter by date range.
+- Teammate data crawling
+ - Get all your teammates into the database, this will expand the database like crazy, but also might put unnecessary stress on the database of players who might never even check it.
 - A real domain and web host.
-- Custom analysis
-    - What is the relationship between my total gold earned and my time spent dead?
-    - What is the relationship between the number of wards I buy and my winrate?
-    - How often do I win with item A vs item B?
-    - [Suggest a data point](mailto:ross.anderson87@gmail.com?subject=[GitHub] [LeagueGraphs] Data Suggestion)
 - [Suggest a feature](mailto:ross.anderson87@gmail.com?subject=[GitHub] [LeagueGraphs] Feature Request)
 
 ---
@@ -51,7 +54,7 @@ If you notice something wrong, some weird formatting or data or wrong values, se
 
 - Data currently only available for NA servers
     - This is easily fixable, but for now simplicity is king.
-- I don't have money to pay for server space to handle lots of people.
+- I don't have money to pay for server space to handle lots of people. Currently it looks like the max will be about 10 000 players.
     - This is easily fixable with [donations :)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5AK9LPZFB54L8&lc=CA&item_name=RossHamish%20Lol%2dStats%20Server&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
 ---

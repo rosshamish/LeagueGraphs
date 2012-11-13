@@ -85,22 +85,27 @@ $(document).ready(function() {
         url: "get_global_stats.php",
         dataType: "json",
         success: function(phpdata) {
-            jQuery(function($) {
-                $('#currently_tracking').countTo({
-                    from: 0,
-                    to: phpdata['currently_tracking'],
-                    speed: 4500,
-                    refreshInterval: 50
+            var duration = 4500;
+            d3.select('#currently_tracking')
+                .text('0')
+              .transition()
+                .duration(duration)
+                .tween("text", function() {
+                    var i = d3.interpolate(this.textContent, phpdata['currently_tracking']);
+                    return function(t) {
+                        this.textContent = Math.floor(i(t));
+                    };
                 });
-            });
-            jQuery(function($) {
-                $('#games_in_database').countTo({
-                    from: 0,
-                    to: phpdata['games_in_database'],
-                    speed: 7000,
-                    refreshInterval: 50
+            d3.select('#games_in_database')
+                .text('0')
+              .transition()
+                .duration(duration)
+                .tween("text", function() {
+                    var i = d3.interpolate(this.textContent, phpdata['games_in_database']);
+                    return function(t) {
+                        this.textContent = Math.floor(i(t));
+                    };
                 });
-            });
         },
         error: function() {
             console.log('get_global_stats.php errored out or something');

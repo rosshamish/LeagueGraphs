@@ -1,6 +1,6 @@
 /* Graph Styles */
 
-path {
+path.winrate {
     stroke: steelblue;
     stroke-width: 2;
     fill: none;

@@ -33,6 +33,7 @@ function updateNext() {
     type: "POST",
     url: "lol_processuser.php",
     data: "summonerName=" + names_arr[count],
+    dataType: "json",
     success: function(phpdata) {
         var games = phpdata['parsed_games'];
         

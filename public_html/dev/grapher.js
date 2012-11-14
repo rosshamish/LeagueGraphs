@@ -234,49 +234,28 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                 .data(Object)
               .enter()
                 .append("rect")
+                .attr('data-filter', function(d, i, j) {
+                    return filters[j];
+                })
                 .attr("width", function(d, i) {
                     return xsScale.rangeBand();
                     })
                 .attr("height", function(d, i, j) {
-                    
-                    return scale_on_filter(filters[j], d.y);
+                    return scale_on_filter(filters[j], d.y) * 3/2; // make it a bit bigger so that it can bounce in without showing its bottom
                     })
                 .attr("x", function(d, i) {
                     return 0; // this value is handled by the attr('transform')
                     })
-                .attr("y", function(d, i, j) {
-                    return height - scale_on_filter(filters[j], d.y);
-                    })
-                .classed('rounded-corners', true);
+                .attr("transform", function (d, i) { return "translate(" + xgScale(i) + ")"; })
+                .attr("y", height)
+              .transition()
+                .duration('750')
+                .ease('elastic')
+                .attr("y", function(d, i) {
+                    return height - scale_on_filter($(this).attr('data-filter'), d.y);
+                    });
                 
-            groups.transition()
-              .attr("transform", function (d, i) { return "translate(" + xgScale(i) + ")"; });
             
-                    
-            var texts = series.selectAll("text")
-                .data(Object)
-                .enter()
-                .append("text")
-                .attr("font-family", "sans-serif")
-                .attr("fill", "white")
-                .attr("text-anchor", "middle")
-                .attr("x", function(d, i) {
-                    return 0;
-                    })
-                .text(function(d) {
-                        if (d.y > 1000) {
-                            return Math.round(d.y / 100) / 10 + "k";
-                        } else {
-                            return d.y;
-                        }
-                    })
-                .attr("y", function(d, i, j) {
-                    return height - scale_on_filter(filters[j], d.y) + 15;
-                })
-                .attr("transform", function (d, i) {
-                    var trans = xgScale(i) + (0.5) * xsScale.rangeBand();
-                    return "translate(" + trans + ")";
-                });
             /**
              * End Bar Graph *
              */
@@ -300,15 +279,24 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                         .y(function(d) { return y(d); })
                         .interpolate("basis");
                         
-                    svg.append("g")
+                    var g = svg.append("g")
                       .classed('winrate', true)
-                    .append("svg:path")
+                    var path = g.append("svg:path")
                       .attr("d", line(winrate_arr))
                       .classed("winrate", true);
+                      
+                    var totalLength = path.node().getTotalLength();
+
+                    path
+                      .attr("stroke-dasharray", totalLength + " " + totalLength)
+                      .attr("stroke-dashoffset", totalLength)
+                      .transition()
+                        .duration(2000)
+                        .ease("linear")
+                        .attr("stroke-dashoffset", 0);
                 },
                 error: function(error) {
                     console.log('get_winrate errored out');
-                    
                 }
             });
             

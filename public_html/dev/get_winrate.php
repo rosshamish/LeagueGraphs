@@ -19,9 +19,6 @@ mysql_selectdb($database);
 
 $query = 'SELECT win,lose FROM games';
 $query .= " WHERE summonerName='$name' ";
-if ($champId && $champId != '') {
-  $query .= " AND championId='$champId' ";
-}
 
 $winrate = 0;
 $gamesPlayed = 0;

@@ -24,19 +24,26 @@ if (get_magic_quotes_gpc() == true) {
 
 $name = $_COOKIE['summoner_name']; // this is the COOKIE value
 $x = 'gameId'; // this is always gameId anyway, who gives a care.
-$y_arr = json_decode($_COOKIE['filters'], true); // this is the COOKIE value
-$champId = $_COOKIE['champId']; // this is the COOKIE value
+if (isset($_COOKIE['filters'])) {
+  $y_arr = json_decode($_COOKIE['filters'], true); // this is the COOKIE value
+} else {
+  $y_arr = array();
+}
 
-$query = "SELECT $x"; // start off the query with a select by x value,
+if (isset($_COOKIE['champId'])) {
+  $champId = $_COOKIE['champId']; // this is the COOKIE value
+} else {
+  $champId = '';
+}
+
+
+$query = "SELECT $x,championId"; // start off the query with a select by x value and champId for filtering
 
 for ($i=0; $i<count($y_arr); $i++) {
   $query .= ",$y_arr[$i]";
 }
 
 $query .= " FROM games WHERE summonerName='$name' ";
-if ($champId && $champId != '') {
-  $query .= " AND championId='$champId' ";
-}
 
 $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 
@@ -47,11 +54,20 @@ $ret_arr = array();
 
 if ($result) {
   while($row = mysql_fetch_array($result)) {
-    $count++;
     $row_array["x"] = $row[$x];
     $row_y_arr = array();
     for ($i=0; $i<count($y_arr); $i++) {
       array_push($row_y_arr, $row[$y_arr[$i]]);
+    }
+    if ($champId && $champId != '') {
+      if ($row['championId'] != $champId) {
+        debug("resetting filtered row, found champ " . $row['championId'] . ", looking for $champId.");
+        for ($j=0; $j<count($row_y_arr); $j++) {
+          $row_y_arr[$j] = 0;
+        }
+      } else {
+        debug("leaving this value alone, found the right champId");
+      }
     }
     $row_array["y"] = $row_y_arr; 
     $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph

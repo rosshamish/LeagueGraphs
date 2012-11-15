@@ -204,7 +204,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                             $cur_player = (array)$players[$p_id];
                             // if this person is on my team, then add them to teammates
                             $my_teamId = $cur_game['teamId'];
-                            if ($cur_player['teamId'] == $my_teamId) {
+                            if ($cur_player['teamId'] == $my_teamId) { // teammates
                                 switch($teammatesCount) {
                                     case 0: // this is the first teammate found 
                                         $teammate0 = $cur_player['summonerName'];

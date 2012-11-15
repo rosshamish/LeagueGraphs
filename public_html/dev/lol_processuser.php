@@ -24,20 +24,6 @@ function atosql($str) {
 
 // returns the intval of the string
 function atoi($str) {
-   return intval($str);
-}
-
-
-
-/**
- * Region and Key values, for validating each url
- */
-// all in other php file now
-
-/**
- * MySQL values
- */
-// all in other php file now
 
 /**
  * @base_url => the base elophant url, eg 'http://elophant.com/api/v1/'
@@ -85,17 +71,18 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
     $mysqli->select_db($database) or die("Unable to select database in updateRow in lol_processuser.php");
     $na = $_POST['summonerName'];
     $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
-    $result = mysql_query($qu);
+    $result = $mysqli->query($qu);
     if ($result) {
-      $num_old_games = mysql_num_rows($result);
+      $num_old_games = $result->num_rows;
       debug("num_old_games: " . $num_old_games);
       // this is guaranteed the oldest because they are queried in ascending order of game date.
       // therefore, the FIRST row will be the oldest one.
-      $oldest_row = mysql_fetch_array($result); 
+      $oldest_row = $result->fetch_assoc(); 
       $oldest_game = $oldest_row['createDate'];
     } else {
       debug("no result in finding the num old games and oldest game date");
     }
+    $result->free();
     
     
     
@@ -523,7 +510,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 $total_games = $num_old_games + $gamesSuccessfullyParsed;
                 debug('total_games: ' . $total_games);
                 debug('oldest_game: ' . $oldest_game);
-                $q_err = mysql_query($query)
+                $q_err = $mysqli->query($query)
                         or die(
                                json_encode( array(
                            'total_games' => $total_games,
@@ -628,7 +615,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                                            );
         }
     }
-    mysql_close();
+    $mysqli->close();
 }
 
 

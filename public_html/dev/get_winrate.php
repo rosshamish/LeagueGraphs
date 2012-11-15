@@ -14,8 +14,8 @@ if (get_magic_quotes_gpc() == true) {
 $champId = $_COOKIE['champId'];
 $name = $_COOKIE['summoner_name'];
 
-mysql_connect($host, $username, $password);
-mysql_selectdb($database);
+$mysqli = new mysqli($host, $username, $password);
+$mysqli->select_db($database);
 
 $query = 'SELECT win,lose FROM games';
 $query .= " WHERE summonerName='$name' ";
@@ -28,11 +28,11 @@ $wins = 0;
 $losses = 0;
 $ret_arr = array();
 
-$result = mysql_query($query);
+$result = $mysqli->query($query);
 
 if ($_POST['trendy']) { // if getting the trendy winrate
   if ($result) {
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = $mysqli->fetch_assoc($result)) {
       $wins += $row['win'];
       $gamesPlayed += 1;
       array_push($trend_arr, $row['win']);
@@ -45,7 +45,7 @@ if ($_POST['trendy']) { // if getting the trendy winrate
   }
 } else { // if getting the overall winrate
   if ($result) {
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = $mysqli->fetch_assoc($result)) {
       $wins += $row['win'];
       $gamesPlayed += 1;
       $winrate = $wins / $gamesPlayed * 100; // winrate percentage
@@ -56,10 +56,8 @@ if ($_POST['trendy']) { // if getting the trendy winrate
 debug("in winrate.php, games played: $gamesPlayed");
 
 
-mysql_close();
+$mysqli->close();
 
 echo json_encode($ret_arr);
-
-
 
 ?>

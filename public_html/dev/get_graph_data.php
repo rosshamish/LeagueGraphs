@@ -7,8 +7,8 @@ require_once('sensitive_data.php');
 require_once('PhpConsole.php');
 PhpConsole::start();
 
-mysql_connect($host, $username, $password);
-mysql_selectdb($database);
+$mysqli = new mysqli($host, $username, $password);
+$mysqli->select_db($database);
 
 /** Clean cookies mm cookies **/
 if (get_magic_quotes_gpc() == true) {
@@ -49,11 +49,11 @@ $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 
 //echo "query: $query"; // query is working k on Nov 8, 2012 @ 10:51pm
 
-$result = mysql_query($query);
+$result = $mysqli->query($query);
 $ret_arr = array();
 
 if ($result) {
-  while($row = mysql_fetch_array($result)) {
+  while($row = $mysqli->fetch_assoc($result)) {
     $row_array["x"] = $row[$x];
     $row_y_arr = array();
     for ($i=0; $i<count($y_arr); $i++) {
@@ -77,6 +77,6 @@ if ($result) {
 
 echo json_encode($ret_arr);
 
-mysql_close();
+$mysqli->close();
 
 ?>

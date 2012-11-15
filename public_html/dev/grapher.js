@@ -7,7 +7,8 @@ var width = 1300,
     height = 300,
     xlabel = "default x label",
     ylabel = "default y label",
-    padding = 20;
+    padding = 20,
+    margin = 20;
     
 var colorOfFilter = {'premadeSize' : "\#888888",
                      'championsKilled' : "\#00FF00",

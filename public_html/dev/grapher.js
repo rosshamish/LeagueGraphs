@@ -33,8 +33,8 @@ function noGamesFound(svg, champname) {
 /* Define some range scales for use with different statistics.
  * The hard-coded values are based on observation of 'normal' values in game
 */
-var minheight = height / 50;
-var maxheight = height * 95/100;
+var minheight = 0 + margin;
+var maxheight = height - margin;
 var yScale = d3.scale.linear()
               .domain([0, 20])
               .range([minheight, maxheight]); // default

@@ -45,7 +45,6 @@ function updateNext() {
         }
     }
     });
-    
 };
 
 function updateTimer() {

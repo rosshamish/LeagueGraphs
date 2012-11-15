@@ -3,13 +3,28 @@
  */
 
 // constants for graphing - change these up here, do NOT hardcode them down there.
-var width = 1300,
-    height = 300,
+var width = getGraphWidth(), // 95% of the window width
+    height = 350,
     xlabel = "default x label",
     ylabel = "default y label",
     padding = 20,
     margin = 20;
-    
+
+function getGraphWidth() {
+    return $(window).width() * 96/100; // an arbitrary percentage. Shoot me.
+}
+function fixGraphWidth() {
+    width = getGraphWidth();
+    get_graph('', '', '', '');
+};
+
+var resizeTimer
+$(window).resize(function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fixGraphWidth, 100);
+});
+
+
 var colorOfFilter = {'premadeSize' : "\#888888",
                      'championsKilled' : "\#00FF00",
                      'assists' : "\#FF8000",
@@ -97,29 +112,30 @@ function scale_on_filter(filter, y) {
     return ret_y;
 }
 
-/**
- *  Takes an SQL field and returns a string containing a more user-friendly name
- *  for the field.
+/** @objective: display the graph inside of #graph
+ * @params:
+ *  summoner_name (string) => the summoner name. If given empty string, the 'summoner_name' cookie will be used instead.
+ *  x_field (string) => the x axis of the graph. If given empty string, this defaults to 'gameId', which will basically be time on the x axis.
+ *  y_field (string) => the y axix/es of the graph. If given empty string, this defaults to the contents of the JSON-string 'filters' cookie.
+ *  champId (string) => the championId filter (i.e. only show games with this champ). If given empty string, this defaults to the 'champId' cookie.
+ *                      To reset champId, pass the string 'all' as a parameter.
  */
-function sanitize_field_name(field) {
-    // TODO write this function
-}
-
-// Generate some data.
-// TODO allow more than one set of y-values on a range of x-values
 function get_graph(summoner_name, x_field, y_field, champId) {
     if (summoner_name == '') {
         summoner_name = $.cookie('summoner_name');
     } else {
         $.cookie('summoner_name', summoner_name);
     }
-    if (champId == '') {
-        $.cookie('champId', null);
-    } else if (!champId) {
-        champId = $.cookie('champId');
+    if (x_field == '') {
+        x_field = 'gameId';
     }
     if (y_field == '') {
         y_field = $.cookie('filters');
+    }
+    if (champId == 'all') {
+        $.cookie('champId', null);
+    } else {
+        champId = $.cookie('champId');
     }
     
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php

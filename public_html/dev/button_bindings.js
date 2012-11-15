@@ -53,7 +53,7 @@ $(function() {
                     var month = months_arr[parseInt(monthnum)];
                     
                     // Make the graph
-                    get_graph(name, "gameId", "");
+                    get_graph(name, '', '', '');
                     
                     $(".title").remove();
                     $("#intro").remove();
@@ -124,7 +124,7 @@ $(function() {
                     $("#champ_input_form").removeClass('error')
                                           .addClass('success');
                     // Do the graphing and stuff
-                    get_graph('', "gameId", '', champId);
+                    get_graph('', '', '', champId);
                     $("#graph_load").hide();
                     $("#graph").show();
                 }
@@ -158,7 +158,7 @@ $(function() {
         
         // Do the graphing and stuff
         $.cookie("champId", null);
-        get_graph('', "gameId", '', '');
+        get_graph('', "gameId", '', 'all');
         $("#graph_load").hide();
         $("#graph").show();
         

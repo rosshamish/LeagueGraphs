@@ -24,7 +24,7 @@
 				}
 				$.cookie('filters', JSON.stringify(filters)); // update the filters cookie
 				console.log('filters (after cookiechange): ' + $.parseJSON($.cookie('filters')));
-				get_graph('', 'gameId', '');
+				get_graph('', 'gameId', '', '');
 			});
 		});
 	};

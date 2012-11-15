@@ -111,6 +111,10 @@ $(document).ready(function() {
             console.log('get_global_stats.php errored out or something');
         }
     });
+    $('#graph').attr('data-powertip', 'some game info');
+    $('#graph').powerTip({
+        followMouse: true
+    });
     
     // This sets up click events. Using "SomePlayer" as the default.
     $('input[type=checkbox]').tzCheckbox("SomePlayer");

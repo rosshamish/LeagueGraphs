@@ -81,8 +81,8 @@ function getEloData($base_url, $region, $key, $request, $params, $json) {
 function updateRow($region, $key, $base_url, $host, $username, $password, $database, $summoner_array) {
     
     // Connect to the database
-    mysql_connect($host, $username, $password);
-    mysql_select_db($database) or die( "Unable to select database");
+    $mysqli = new mysqli($host, $username, $password);
+    $mysqli->select_db($database) or die("Unable to select database in updateRow in lol_processuser.php");
     $na = $_POST['summonerName'];
     $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
     $result = mysql_query($qu);

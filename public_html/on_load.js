@@ -116,9 +116,10 @@ $(document).ready(function() {
         followMouse: true
     });
     
-    // This sets up click events. Using "SomePlayer" as the default.
-    $('input[type=checkbox]').tzCheckbox("SomePlayer");
+    // This sets up click events. Using a default name.
+    var defaultPlayer = 'SomePlayer';
+    $('input[type=checkbox]').tzCheckbox(defaultPlayer);
     $('#championsKilled').click();
     // add the default graph!
-    get_graph("SomePlayer", 'gameId', '');
+    get_graph(defaultPlayer, '', '', '');
 });

@@ -50,6 +50,4 @@ if (count($ret_arr) <= 0) {
   echo json_encode($ret_arr);
 }
 
-
-
 ?>

@@ -54,27 +54,33 @@ $ret_arr = array();
 
 if ($result) {
   while($row = $result->fetch_assoc()) {
+    // set the games_found flag to false at the beginning of each row loop, set it to true once we are sure this game applies.
+    $game_found = false;
+    
     $row_array["x"] = $row[$x];
     $row_y_arr = array();
     for ($i=0; $i<count($y_arr); $i++) {
       array_push($row_y_arr, $row[$y_arr[$i]]);
     }
     if ($champId && $champId != '') {
-      if ($row['championId'] != $champId) {
-        debug("resetting filtered row, found champ " . $row['championId'] . ", looking for $champId.");
-        for ($j=0; $j<count($row_y_arr); $j++) {
-          $row_y_arr[$j] = 0;
+      if ($row['championId'] != $champId) { // if this is the wrong champ
+        for ($j=0; $j<count($row_y_arr); $j++) { 
+          $row_y_arr[$j] = 0; // set the WRONG champ's game to 0.
         }
-      } else {
-        debug("leaving this value alone, found the right champId");
+      } else { // if this is the correct champ, then at least one game was found.
+        $game_found = true;
       }
+    } else {
+      $game_found = true; // if no champId filter was set, there must be at least 1 game.
     }
+    $row_array['game_found'] = $game_found;
     $row_array["y"] = $row_y_arr; 
     $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph
     array_push($ret_arr, $row_array);
   }
 }
 
+// set the $ret_arr flag of whether at least one game was found or not (mainly for champId purposes)
 echo json_encode($ret_arr);
 
 $mysqli->close();

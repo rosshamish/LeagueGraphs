@@ -158,24 +158,6 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     .attr("width", width)
                     .attr("height", height);
             
-            $.ajax({
-                type: "POST",
-                url: "get_champ.php",
-                data: { identifier: [champId],
-                        get: "name" },
-                dataType: "json",
-                async: false,
-                success: function(names) {
-                    if (names[0] != "N/A") { // if we're filtering by champ, and not just set on All Champs
-                        $("#graph_title").append(" (" + names[0] + ")"); // append the champ name to the graph title
-                        if (!data[0]) { // if no games were returned
-                            noGamesFound(svg, names[0]); // show no games found and return, stop making the graph cause you'll just error out
-                            return;
-                        }
-                    }
-                }
-            });
-            
             /* 
              * Bar Graph of Filtered Statistics
              */
@@ -197,11 +179,18 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             for (var cur_filter=0; cur_filter < num_filters; cur_filter++) {
                 x_arr[cur_filter] = [];
                 y_arr[cur_filter] = [];
+                // game_found will be used MUCH later down to layer a notification text on top of the graph that no games were
+                // found for this particular champion.
+                var game_found = false; // check if a game was actually found (this is mostly for the champ filter)
                 for (var idx=0; idx < data.length; idx++) {
                     x_arr[cur_filter].push(data[idx].x);
                     y_arr[cur_filter].push(data[idx].y[cur_filter]);
+                    if (data[idx].game_found) {
+                        game_found = true;
+                    }                    
                 }
             }
+            
             var seriesData = [];
             for (var i=0; i < num_filters; i++) {
                 seriesData[i] = [];
@@ -319,6 +308,41 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             
             /**
              * End Line Graph *
+             */
+            
+            /**
+             * Notification of No Games Found
+             */
+            // If no game was found, do an ajax call to find out the champName from the champId and
+            // display a notification that no games were found for ~summoner~ playing as ~champname~.
+            // ...Should find out the champ name anyway so that we can display it in the graph title.
+            $.ajax({
+                type: "POST",
+                url: "get_champ.php",
+                data: { identifier: [champId],
+                        get: "name" },
+                dataType: "json",
+                async: false,
+                success: function(names) {
+                    var champName = '';
+                    if (names[0] != "N/A") { // if we're filtering by champ, and not just set on All Champs
+                        champName = names[0];
+                    } else {
+                        champName = 'any champion';
+                    }
+                    if (!game_found) {
+                        console.log('no game found');
+                        svg.append('text')
+                          .text('No games found for ' + summoner_name + ' playing as ' + champName)
+                          .attr('x', width / 2)
+                          .attr('text-anchor', 'middle')
+                          .attr('y', height / 2);
+                    }
+                }
+            });
+            
+            /**
+             * End Notification of No Games Found
              */
         }
     });

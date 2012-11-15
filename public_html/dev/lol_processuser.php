@@ -24,6 +24,8 @@ function atosql($str) {
 
 // returns the intval of the string
 function atoi($str) {
+   return intval($str);
+}
 
 /**
  * @base_url => the base elophant url, eg 'http://elophant.com/api/v1/'
@@ -64,14 +66,16 @@ function getEloData($base_url, $region, $key, $request, $params, $json) {
 }
 
 
+
 function updateRow($region, $key, $base_url, $host, $username, $password, $database, $summoner_array) {
     
     // Connect to the database
     $mysqli = new mysqli($host, $username, $password);
-    $mysqli->select_db($database) or die("Unable to select database in updateRow in lol_processuser.php");
+    $mysqli->select_db($database);
     $na = $_POST['summonerName'];
     $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
     $result = $mysqli->query($qu);
+    debug('in update row');
     if ($result) {
       $num_old_games = $result->num_rows;
       debug("num_old_games: " . $num_old_games);
@@ -83,8 +87,6 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
       debug("no result in finding the num old games and oldest game date");
     }
     $result->free();
-    
-    
     
     // Count how many games are grabbed/nommed/parsed.
     $gamesSuccessfullyParsed = 0;
@@ -416,7 +418,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 
                 // do the query here (for each game)                
                 // set $query
-                if (true) {
+               if (true) {
                     /* Fields can be found at sql_fields.txt */
                     
                     /** Do fixes on fields that report weird values HERE */
@@ -503,7 +505,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                         '$magicDamageTaken',
                         '$totalTimeSpentDead'
                     );";
-                }
+               }
                 
                 
                 // execute the query

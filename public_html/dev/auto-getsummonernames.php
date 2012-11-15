@@ -10,7 +10,7 @@
     if ($result) {
         $count = 0;
         $numRows = $result->num_rows;
-        while($row = $mysqli->fetch_assoc($result)) {
+        while($row = $result->fetch_assoc()) {
           $count++;
           $arr[] = $row['summonerName'];
         }

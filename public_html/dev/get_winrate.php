@@ -32,7 +32,7 @@ $result = $mysqli->query($query);
 
 if ($_POST['trendy']) { // if getting the trendy winrate
   if ($result) {
-    while ($row = $mysqli->fetch_assoc($result)) {
+    while ($row = $result->fetch_assoc()) {
       $wins += $row['win'];
       $gamesPlayed += 1;
       array_push($trend_arr, $row['win']);
@@ -45,7 +45,7 @@ if ($_POST['trendy']) { // if getting the trendy winrate
   }
 } else { // if getting the overall winrate
   if ($result) {
-    while ($row = $mysqli->fetch_assoc($result)) {
+    while ($row = $result->fetch_assoc()) {
       $wins += $row['win'];
       $gamesPlayed += 1;
       $winrate = $wins / $gamesPlayed * 100; // winrate percentage

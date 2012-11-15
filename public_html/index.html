@@ -20,6 +20,7 @@
 </style>
 <link href="graphs.css" type="text/css" rel="stylesheet">
 <link href="jquery.powertip/jquery.powertip.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="css/prettyLoader.css" type="text/css" media="screen" charset="utf-8" />
 <link href="bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -44,6 +45,8 @@
 <script type="text/javascript" src="grapher.js">
 </script>
 <script type="text/javascript" src="button_bindings.js">
+</script>
+<script type="text/javascript" src="js/jquery.prettyLoader.js" charset="utf-8">
 </script>
 <!-- on_load MUST be defined AFTER grapher.js so that the checkboxes can inherit the same colors as the graph filters -->
 <script type="text/javascript" src="on_load.js">
@@ -289,5 +292,19 @@
 				</footer>
 			</div>
 			<!--/.fluid-container-->
+			<!-- prettyLoader initialization -->
+			<script type="text/javascript" charset="utf-8">
+				$(document).ready(function(){
+					$.prettyLoader({
+						animation_speed: 'fast', /* fast/normal/slow/integer */
+						bind_to_ajax: true, /* true/false */
+						delay: false, /* false OR time in milliseconds (ms) */
+						loader: 'images/prettyLoader/ajax-loader.gif', /* Path to your loader gif */
+						offset_top: 13, /* integer */
+						offset_left: 10 /* integer */
+					});
+				});
+			</script>
+			<!-- end prettyLoader initialization -->
 			</body>
 			</html>

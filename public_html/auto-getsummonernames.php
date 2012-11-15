@@ -1,23 +1,23 @@
 <?php    
     require_once('sensitive_data.php');
-    mysql_connect($host, $username, $password);
-    mysql_selectdb($database);
+    $mysqli = new mysqli($host, $username, $password);
+    $mysqli->select_db($database);
     
     $query = "SELECT DISTINCT summonerName FROM games";
     
-    $result = mysql_query($query);
+    $result = $mysqli->query($query);
     
     if ($result) {
         $count = 0;
-        $numRows = mysql_num_rows($result);
-        while($row = mysql_fetch_array($result)) {
+        $numRows = $result->num_rows;
+        while($row = $result->fetch_assoc()) {
           $count++;
           $arr[] = $row['summonerName'];
         }
     }
     $arr_json = json_encode($arr);
     
-    mysql_close();
+    $mysqli->close();
     
     echo $arr_json;
 ?>

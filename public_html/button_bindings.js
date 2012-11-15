@@ -8,49 +8,75 @@ $(function() {
             $("input#summonerName").focus();
             return false;
         }
-        $.cookie('summoner_name', summonerName);
-                
-        // Use Ajax to process the form submission
-        var dataString = "summonerName=" + summonerName;
-        var returnedData = null;
+        $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
+        $.cookie('champId', null); // clear the champ filter, we're looking at a new player
+        $("#champ_filter_all_champs").addClass('active');
+        $("#champ_filter_btn").removeClass('active');
+        $("input#champname").text('');
+        $("#champ_input_form").removeClass('success');
+        
         // Set the loader gif
         $("#graph").hide();
         $("#graph_load").html("<img src=/images/ajax-loader.gif />");
+        // Use Ajax to process the form submission
         $.ajax({  
             type: "POST",
             url: "lol_processuser.php",
-            data: dataString,
+            data: {summonerName : summonerName},
+            dataType: "json",
             success: function(phpdata) {
-                if (phpdata == 'null') {
+                if (phpdata == 'null'|| !phpdata) {
+                    console.log('phpdata was null in lol_processuser.php from button_bindings.js');
                     $('#updates').html('<br><strong>Either your summoner name was typed incorrectly,'
                                        + 'or the Elophant data server is temporarily unavailable.</strong> '
                                        + '<br>Please check your spelling and try again. '
                                        + '<br>If your spelling is correct, please try again later.'
                                        + '<br>Name is case insensitive, eg RossHamiSH is the same as rosshAMish is the same as RossHamish');
                     $('#search_form').addClass('error');
+                    $("button#submit_btn").removeClass('btn-primary')
+                                .addClass('btn-danger');
                     $("#graph").show();
                     $("#graph_load").hide();
                     
                     $('input#summonerName').focus().select();
                 } else {
-                    // split the return string of form numGames:summonerName:totalGames
-                    var numGames = phpdata.split(":")[0];
-                    var name = phpdata.split(":")[1];
+                    var parsed_games = phpdata['parsed_games'];
+                    var total_games = phpdata['total_games'];
+                    var name = phpdata['name'];
+                    var oldest_game = phpdata['oldest_game'];
+                    var date = oldest_game.substring(0, 10);
+                    var day = date.substring(8, 10);
+                    var monthnum = date.substring(5, 7);
+                    var year = date.substring(0, 4);
+                    var months_arr = ["Zeroth", "January", "February", "March", "April", "May", "June", "July",
+                                      "August", "September", "October", "November", "December"];
+                    var month = months_arr[parseInt(monthnum)];
                     
                     // Make the graph
-                    get_graph(name, "gameId", "championsKilled");
-                    $("#title_name").html("- " + name);
-                    $("#graph_load").hide();
-                    $("#graph").show();
+                    get_graph(name, "gameId", "");
                     
                     $(".title").remove();
                     $("#intro").remove();
                     $("#updates").remove();
                     $('#search_form').addClass('success');
+                    $("#summoner_name").html(name);
+                    $("#games_tracked").html(total_games);
+                    $("#tracking_since").html(month + " " + day + ", " + year);
+                    $('#player_stats').show();
+                    $("button#submit_btn").removeClass('btn-primary')
+                                .removeClass('btn-danger')
+                                .addClass('btn-success');
                     // this is dirty and wrong, but i'm passing the summoner name in through the tzCheckbox options.
                     // shoot me. This sets up click events for the CURRENT USER.
                     $('input[type=checkbox]').tzCheckbox(name);
                 }
+                $("#graph_load").hide();
+                $("#graph").show();
+            },
+            error: function() {
+                console.log('in lol_processuser.php called from button_bindings.js, something awful happened');
+                $("#graph_load").hide();
+                $("#graph").show();
             }
         });
          
@@ -94,18 +120,47 @@ $(function() {
                     $('input#champname').focus().select();
                 } else {
                     var champId = phpdata[0];
-                    console.log('champId from ajax get_champ from champ_filter_form => ' + champId);
+                    $.cookie('champId', champId);
                     $("#champ_input_form").removeClass('error')
                                           .addClass('success');
-                    
                     // Do the graphing and stuff
-                    get_graph('', "gameId", "championsKilled", champId);
+                    get_graph('', "gameId", '', champId);
                     $("#graph_load").hide();
                     $("#graph").show();
                 }
             }
         });
-         
+        
+        return false;
+    });
+});
+
+/* Champ unfilter button */
+$(function() {
+    $("button#champ_filter_all_champs").click(function() {
+        // Grab values from the form
+        var champname = $("input#champname").val();
+        if (champname == "") {
+            $("input#champname").focus();
+            return false;
+        }
+        $("button#champ_filter_all_champs").addClass('active');
+        $("button#champ_filter_btn").removeClass('active');
+                
+        // Use Ajax to process the form submission
+        // Set the loader gif
+        $("#graph_load").html("<img src=/images/ajax-loader.gif />");
+        $("#graph_load").show();
+        $("#graph").hide();
+        
+        $("#champ_input_form").removeClass('error')
+                              .addClass('success');
+        
+        // Do the graphing and stuff
+        $.cookie("champId", null);
+        get_graph('', "gameId", '', '');
+        $("#graph_load").hide();
+        $("#graph").show();
         
         return false;
     });

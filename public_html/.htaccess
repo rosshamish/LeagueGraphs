@@ -14,6 +14,6 @@ RewriteCond %{HTTP_HOST} ^www.rosshamish.netau.net$
 RewriteRule ^lol/$ http://rosshamish.netau.net [R=301,L]
 # DO NOT REMOVE THIS LINE AND THE LINES ABOVE pbe6vB:REDIRECTID
 
-# Do not remove this line, otherwise mod_rewrite rules will stop working
-RewriteBase /
-
+# Do not remove this line, otherwise mod_rewrite rules will stop working
+RewriteBase /
+

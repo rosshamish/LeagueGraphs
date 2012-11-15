@@ -53,7 +53,7 @@ $result = $mysqli->query($query);
 $ret_arr = array();
 
 if ($result) {
-  while($row = $mysqli->fetch_assoc($result)) {
+  while($row = $result->fetch_assoc()) {
     $row_array["x"] = $row[$x];
     $row_y_arr = array();
     for ($i=0; $i<count($y_arr); $i++) {

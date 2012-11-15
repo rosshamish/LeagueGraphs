@@ -15,16 +15,6 @@ $(function() {
         $("input#champname").text('');
         $("#champ_input_form").removeClass('success');
         
-        /** This is working code to modify/read/reset cookies as json arrays */
-        
-        //$.cookie('filters', JSON.stringify(['championsKilled', 'numDeaths', 'goldEarned']));
-        //var filters = $.parseJSON($.cookie('filters'));
-        //console.log('filters: ' + filters);
-        //var idx = filters.indexOf('numDeaths');
-        //filters.splice(idx, 1);
-        //console.log('filters after splice: ' + filters);
-        //$.cookie('filters', JSON.stringify(filters));
-        
         // Set the loader gif
         $("#graph").hide();
         $("#graph_load").html("<img src=/images/ajax-loader.gif />");
@@ -35,7 +25,8 @@ $(function() {
             data: {summonerName : summonerName},
             dataType: "json",
             success: function(phpdata) {
-                if (phpdata == 'null') {
+                if (phpdata == 'null'|| !phpdata) {
+                    console.log('phpdata was null in lol_processuser.php from button_bindings.js');
                     $('#updates').html('<br><strong>Either your summoner name was typed incorrectly,'
                                        + 'or the Elophant data server is temporarily unavailable.</strong> '
                                        + '<br>Please check your spelling and try again. '
@@ -49,9 +40,6 @@ $(function() {
                     
                     $('input#summonerName').focus().select();
                 } else {
-                    //// split the return string of form numGames:summonerName:totalGames
-                    //var numGames = phpdata.split(":")[0];
-                    //var name = phpdata.split(":")[1];
                     var parsed_games = phpdata['parsed_games'];
                     var total_games = phpdata['total_games'];
                     var name = phpdata['name'];
@@ -66,8 +54,6 @@ $(function() {
                     
                     // Make the graph
                     get_graph(name, "gameId", "");
-                    $("#graph_load").hide();
-                    $("#graph").show();
                     
                     $(".title").remove();
                     $("#intro").remove();
@@ -84,6 +70,13 @@ $(function() {
                     // shoot me. This sets up click events for the CURRENT USER.
                     $('input[type=checkbox]').tzCheckbox(name);
                 }
+                $("#graph_load").hide();
+                $("#graph").show();
+            },
+            error: function() {
+                console.log('in lol_processuser.php called from button_bindings.js, something awful happened');
+                $("#graph_load").hide();
+                $("#graph").show();
             }
         });
          

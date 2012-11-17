@@ -327,8 +327,10 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     var champName = '';
                     if (names[0] != "N/A") { // if we're filtering by champ, and not just set on All Champs
                         champName = names[0];
+                        $("#graph_title").html(' - ' + summoner_name + ' (' + champName + ')');
                     } else {
                         champName = 'any champion';
+                        $("#graph_title").html(' - ' + summoner_name);
                     }
                     if (!game_found) {
                         console.log('no game found');

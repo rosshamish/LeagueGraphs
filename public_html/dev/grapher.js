@@ -236,10 +236,58 @@ function get_graph(summoner_name, x_field, y_field, champId) {
                     })
                 .attr("transform", function (d, i) { return "translate(" + xsScale(i) + ")"; });
             
+            //The '.on' method in d3.js is very simple to use. To bind a function to a 'mouseover' event, you just have to:
+            //
+            //myD3Object.on('mouseover', function() {//your function code here});
+            //Other mouse events you can use are:
+            //
+            //mouseover - when your mouse is hovering over the object
+            //mouseout - when your mouse leaves the object
+            //mousedown - when your left mouse button is held down
+            //mouseup - when you let go of your left mouse butotn
+            //click - when you click your mouse button
+            //mousemove - when your mouse moves around in the current object
+            //Note that 'mousedown' and 'mouseup' events are part of the 'click' event.
+            function getDigit(number, digitNumStartingFromOnes) {
+                return Math.floor(number / (math.pow(10, digitNumStartingFromOnes)) % 10)
+            }
             var groups = series.selectAll("rect")
                 .data(Object)
               .enter()
                 .append("rect")
+                .attr('data-powertip', function(d, i, j) {
+                    $(this).powerTip({
+                        followMouse: true,
+                        fadeInTime: 100,
+                        fadeOutTime: 50,
+                        closeDelay: 50
+                    });
+                    var sToolTip = filters[j] + ": ";
+                    val = d.y;
+                    if (d.y == 0) {
+                        return '0';
+                    }
+                    var sVal = val.toString();
+                    s = "";
+                    temp = "";
+                    for (var idx=sVal.length-1; idx >= 0; idx--) {
+                        real = s.replace(',', '');
+                        if (real.length % 3 == 0 && real.length > 0) {
+                            s = "," + s;
+                        }
+                        temp = sVal[idx];
+                        s = temp + s;
+                    }
+                    return s;
+                })
+                .on('mouseover', function(d, i, j) {
+                    d3.select(this).attr('stroke', d3.rgb(0, 0, 0));
+                    $.powerTip.showTip($(this));
+                })
+                .on('mouseout', function(d, i, j) {
+                    d3.select(this).attr('stroke', d3.select(this).attr('fill'));
+                    $.powerTip.closeTip();
+                })
                 .attr('data-filter', function(d, i, j) {
                     return filters[j];
                 })

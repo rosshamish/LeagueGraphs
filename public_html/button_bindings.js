@@ -15,9 +15,6 @@ $(function() {
         $("input#champname").text('');
         $("#champ_input_form").removeClass('success');
         
-        // Set the loader gif
-        $("#graph").hide();
-        $("#graph_load").html("<img src=/images/ajax-loader.gif />");
         // Use Ajax to process the form submission
         $.ajax({  
             type: "POST",
@@ -35,8 +32,6 @@ $(function() {
                     $('#search_form').addClass('error');
                     $("button#submit_btn").removeClass('btn-primary')
                                 .addClass('btn-danger');
-                    $("#graph").show();
-                    $("#graph_load").hide();
                     
                     $('input#summonerName').focus().select();
                 } else {
@@ -70,13 +65,9 @@ $(function() {
                     // shoot me. This sets up click events for the CURRENT USER.
                     $('input[type=checkbox]').tzCheckbox(name);
                 }
-                $("#graph_load").hide();
-                $("#graph").show();
             },
             error: function() {
                 console.log('in lol_processuser.php called from button_bindings.js, something awful happened');
-                $("#graph_load").hide();
-                $("#graph").show();
             }
         });
          
@@ -99,10 +90,6 @@ $(function() {
         $("button#champ_filter_btn").addClass('active');
                 
         // Use Ajax to process the form submission
-        // Set the loader gif
-        $("#graph_load").html("<img src=/images/ajax-loader.gif />");
-        $("#graph_load").show();
-        $("#graph").hide();
         $.ajax({  
             type: "POST",
             url: "get_champ.php",
@@ -114,9 +101,7 @@ $(function() {
                     console.error('invalid champName "'+champname+'" given to get_champ.php');
                     $('#champ_input_form').removeClass('success')
                                           .addClass('error');
-                    $("#graph_load").hide();
-                    $("#graph").show();
-                    
+                                          
                     $('input#champname').focus().select();
                 } else {
                     var champId = phpdata[0];
@@ -125,8 +110,6 @@ $(function() {
                                           .addClass('success');
                     // Do the graphing and stuff
                     get_graph('', '', '', champId);
-                    $("#graph_load").hide();
-                    $("#graph").show();
                 }
             }
         });
@@ -148,10 +131,6 @@ $(function() {
         $("button#champ_filter_btn").removeClass('active');
                 
         // Use Ajax to process the form submission
-        // Set the loader gif
-        $("#graph_load").html("<img src=/images/ajax-loader.gif />");
-        $("#graph_load").show();
-        $("#graph").hide();
         
         $("#champ_input_form").removeClass('error')
                               .addClass('success');
@@ -159,8 +138,6 @@ $(function() {
         // Do the graphing and stuff
         $.cookie("champId", null);
         get_graph('', "gameId", '', 'all');
-        $("#graph_load").hide();
-        $("#graph").show();
         
         return false;
     });

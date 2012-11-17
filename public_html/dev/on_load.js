@@ -38,6 +38,7 @@ function checkbox(name, id, checked) {
 
 // All the onload stuff
 $(document).ready(function() {
+    
     $.cookie('filters', null); // clear this pesky cookie, why do ipearned and sightwardsboughtingame always get set for some reason
     $.cookie('champId', null);
     $("input#summonerName").focus(); // focus on the important input, the name
@@ -110,10 +111,6 @@ $(document).ready(function() {
         error: function() {
             console.log('get_global_stats.php errored out or something');
         }
-    });
-    $('#graph').attr('data-powertip', 'some game info');
-    $('#graph').powerTip({
-        followMouse: true
     });
     
     // This sets up click events. Using a default name.

@@ -173,14 +173,14 @@
 				</div>
 			</div>
 				<div class="row-fluid">
-					<div class="span8">
+					<div class="span7">
 						<h3>Numbers</h3>
 						<h5>I'd Like to See My:</h5>
 						<form id="checkboxes" name="checkboxes">
 						</form>
 					</div>
 					<!-- //span8 -->
-					<div class="span4">
+					<div class="span5">
 						<h3>Filters</h3>
 						<h5>When I Play As:</h5>
 						<div id="champ_input_form" class="input control-group btn-group" data-toggle="buttons-radio">
@@ -190,6 +190,14 @@
 								<input class="span3" type="text" placeholder="Olaf" id="champname"/>
 							</form>
 						</div>
+						<h5>In the Last:</h5>
+						<div id="time_filter_form" class="input control-group btn-group" data-toggle="buttons-radio">
+							<button id="ever" class="btn span2 active" type="button" >Ever</button>
+							<button id="tendays" class="btn span2" type="button" >10 Days</button>
+							<button id="thirtydays" class="btn span2" type="button" >30 Days</button>
+							<button id="tengames" class="btn span3" type="button" >10 Games</button>
+							<button id="thirtygames" class="btn span3" type="button" >30 Games</button>
+						</div>
 					</div>
 					<!-- //span4 -->
 				</div>
@@ -198,6 +206,7 @@
 					<div class="span12">
 						<h2>Graph <span id="graph_title"></span></h2>
 						<div id="graph">
+							<svg></svg>
 						</div>
 					</div>
 					<!--/span-->

@@ -1,7 +1,7 @@
 // Form submission on button click
 $(function() {
     $("button#submit_btn").click(function() {
-        
+        document.activeElement.blur();
         // Grab values from the form
         var summonerName = $("input#summonerName").val();
         if (summonerName == "") {

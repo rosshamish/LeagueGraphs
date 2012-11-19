@@ -17,7 +17,7 @@ $name = $_COOKIE['summoner_name'];
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);
 
-$query = 'SELECT win,lose FROM games';
+$query = 'SELECT championId,win,lose FROM games';
 $query .= " WHERE summonerName='$name' ";
 
 $winrate = 0;
@@ -33,13 +33,29 @@ $result = $mysqli->query($query);
 if ($_POST['trendy']) { // if getting the trendy winrate
   if ($result) {
     while ($row = $result->fetch_assoc()) {
-      $wins += $row['win'];
-      $gamesPlayed += 1;
-      array_push($trend_arr, $row['win']);
-      if ($gamesPlayed > $trendLength) {
-        array_shift($trend_arr); // push the oldest value off the cliff
+      if ($champId && $champId != '') { // if we're sorting by champ
+        if ($row['championId'] == $champId) { // if this is the right champ
+          $wins += $row['win'];
+          $gamesPlayed += 1;
+          array_push($trend_arr, $row['win']);
+          if ($gamesPlayed > $trendLength) {
+            array_shift($trend_arr); // push the oldest value off the cliff
+          }
+          $winrate = array_sum($trend_arr) / count($trend_arr) * 100; // get the winrate percentage
+        }
+      } else { // not sorting by champ
+        $wins += $row['win'];
+        $gamesPlayed += 1;
+        array_push($trend_arr, $row['win']);
+        if ($gamesPlayed > $trendLength) {
+          array_shift($trend_arr); // push the oldest value off the cliff
+        }
+        $winrate = array_sum($trend_arr) / count($trend_arr) * 100; // get the winrate percentage
       }
-      $winrate = array_sum($trend_arr) / count($trend_arr) * 100; // get the winrate percentage
+      if (!$winrate) {
+        $winrate = 50;
+      }
+      
       array_push($ret_arr, $winrate);
     }
   }

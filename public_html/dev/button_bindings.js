@@ -9,6 +9,7 @@ $(function() {
             return false;
         }
         $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
+        $.cookie('gameRange', null);
         $.cookie('champId', null); // clear the champ filter, we're looking at a new player
         $("#champ_filter_all_champs").addClass('active');
         $("#champ_filter_btn").removeClass('active');

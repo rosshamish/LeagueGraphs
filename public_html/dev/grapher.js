@@ -119,8 +119,10 @@ function scale_on_filter(filter, y) {
  *  y_field (string) => the y axix/es of the graph. If given empty string, this defaults to the contents of the JSON-string 'filters' cookie.
  *  champId (string) => the championId filter (i.e. only show games with this champ). If given empty string, this defaults to the 'champId' cookie.
  *                      To reset champId, pass the string 'all' as a parameter.
+ *  gameRange (string) => options: 'ten_games', 'thirty_games', 'ten_days', 'thirty_days', 'all_games' -- the range of games to get. If given empty string, this defaults
+ *                      to 'all_games'.
  */
-function get_graph(summoner_name, x_field, y_field, champId) {
+function get_graph(summoner_name, x_field, y_field, champId, gameRange) {
     if (summoner_name == '') {
         summoner_name = $.cookie('summoner_name');
     } else {
@@ -145,7 +147,8 @@ function get_graph(summoner_name, x_field, y_field, champId) {
         data: { summonerName : summoner_name,
                 x_field : x_field,
                 y_field : y_field,
-                champId : champId},
+                champId : champId,
+                gameRange : gameRange},
         dataType: "json",
         success: function(data) {
             $("#graph_title").html(" - " + $.cookie('summoner_name'));
@@ -320,7 +323,9 @@ function get_graph(summoner_name, x_field, y_field, champId) {
             $.ajax({
                 type: "POST",
                 url: "get_winrate.php",
-                data: { trendy: true },
+                data: { trendy: true,
+                        gameRange : gameRange
+                      },
                 dataType: "json",
                 success: function(phpdata) {
                     var winrate_arr = phpdata;

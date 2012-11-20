@@ -39,10 +39,14 @@ function checkbox(name, id, checked) {
 // All the onload stuff
 $(document).ready(function() {
     
+    /** Clear Cookies **/
     $.cookie('filters', null); // clear this pesky cookie, why do ipearned and sightwardsboughtingame always get set for some reason
     $.cookie('champId', null);
+    
+    /** Input Focus **/
     $("input#summonerName").focus(); // focus on the important input, the name
-    // Add the checkboxes
+    
+    /** Add Filter Checkboxes **/
     $("#checkboxes").html('<ul class="unstyled">' +
                                            checkbox('Gold Earned', 'goldEarned') +
                                            checkbox('Champions Killed', 'championsKilled') + 
@@ -57,6 +61,8 @@ $(document).ready(function() {
                                            checkbox('IP Earned', 'ipEarned') +
                                            checkbox('Premade Group Size', 'premadeSize') +
                                            '</ul>');
+    
+    /** Fill the Champ Filter autocomplete **/
     var id_arr = Array.range(1, 150); // go up to 150 as safety. you never know when champ ids will get huge or something
     $.ajax({
         type: "POST",
@@ -81,6 +87,7 @@ $(document).ready(function() {
         }
     });
     
+    /** Add the meta stats, e.g. player being tracked, total games tracked, etc **/
     $.ajax({
         type: "POST",
         url: "get_global_stats.php",
@@ -113,10 +120,49 @@ $(document).ready(function() {
         }
     });
     
-    // This sets up click events. Using a default name.
+    /** Set up time filter click events **/
+    $('.time_filter').click(function(e) {
+        e.preventDefault();
+        switch(this.id) {
+            case 'ever':
+                t = 'Ever';
+                break;
+            case 'ten_games':
+                t = '10 Games';
+                break;
+            case 'twenty_games':
+                t = '20 Games';
+                break;
+            case 'thirty_games':
+                t = '30 Games';
+                break;
+            default:
+                t = '??'
+                break;
+        }
+        $('#time_filter_label').text(t);
+        switch (this.id) {
+        case 'ten_games':
+            gameRange = 10;
+            break;
+        case 'twenty_games':
+            gameRange = 20;
+            break;
+        case 'thirty_games':
+            gameRange = 30;
+            break;
+        default: // for all games
+            gameRange = 100000;
+            break;
+        }
+        $.cookie('gameRange', gameRange);
+        get_graph('', '', '', '', '');
+    });
+    
+        
+    /** Set up default graph **/
     var defaultPlayer = 'SomePlayer';
     $('input[type=checkbox]').tzCheckbox(defaultPlayer);
     $('#championsKilled').click();
-    // add the default graph!
     get_graph(defaultPlayer, '', '', '');
 });

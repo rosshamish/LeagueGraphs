@@ -11,6 +11,12 @@ if (get_magic_quotes_gpc() == true) {
   }
 }
 
+if (isset($_COOKIE['gameRange'])) {
+  $gameRange = $_COOKIE['gameRange'];
+} else {
+  $gameRange = 100000;
+}
+
 $champId = $_COOKIE['champId'];
 $name = $_COOKIE['summoner_name'];
 
@@ -32,6 +38,7 @@ $result = $mysqli->query($query);
 
 if ($_POST['trendy']) { // if getting the trendy winrate
   if ($result) {
+  $totalGamesFound = 0;
     while ($row = $result->fetch_assoc()) {
       if ($champId && $champId != '') { // if we're sorting by champ
         if ($row['championId'] == $champId) { // if this is the right champ
@@ -57,6 +64,10 @@ if ($_POST['trendy']) { // if getting the trendy winrate
       }
       
       array_push($ret_arr, $winrate);
+      $totalGamesFound += 1;
+      if ($totalGamesFound >= $gameRange) {
+        array_shift($ret_arr);
+      }
     }
   }
 } else { // if getting the overall winrate

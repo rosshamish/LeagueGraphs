@@ -35,6 +35,11 @@ if (isset($_COOKIE['champId'])) {
 } else {
   $champId = '';
 }
+if (isset($_COOKIE['gameRange'])) {
+  $gameRange = $_COOKIE['gameRange'];
+} else {
+  $gameRange = 100000;
+}
 
 
 $query = "SELECT $x,championId"; // start off the query with a select by x value and champId for filtering
@@ -53,6 +58,7 @@ $result = $mysqli->query($query);
 $ret_arr = array();
 
 if ($result) {
+  $totalGamesFound = 0;
   while($row = $result->fetch_assoc()) {
     // set the games_found flag to false at the beginning of each row loop, set it to true once we are sure this game applies.
     $game_found = false;
@@ -77,6 +83,11 @@ if ($result) {
     $row_array["y"] = $row_y_arr; 
     $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph
     array_push($ret_arr, $row_array);
+    
+    $totalGamesFound += 1;
+    if ($totalGamesFound >= $gameRange) {
+      array_shift($ret_arr);
+    }
   }
 }
 

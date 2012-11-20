@@ -191,13 +191,26 @@
 							</form>
 						</div>
 						<h5>In the Last:</h5>
+						<!--
 						<div id="time_filter_form" class="input control-group btn-group" data-toggle="buttons-radio">
 							<button id="ever" class="btn span2 active" type="button" >Ever</button>
 							<button id="tendays" class="btn span2" type="button" >10 Days</button>
 							<button id="thirtydays" class="btn span2" type="button" >30 Days</button>
 							<button id="tengames" class="btn span3" type="button" >10 Games</button>
 							<button id="thirtygames" class="btn span3" type="button" >30 Games</button>
-						</div>
+						</div> -->
+						<div class="btn-group">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<span id="time_filter_label">Ever</span>
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="time_filter" id="ever" href="#">Ever</a></li>
+								<li><a class="time_filter" id="ten_games" href="#">10 Games</a></li>
+								<li><a class="time_filter" id="twenty_games" href="#">20 Games</a></li>
+								<li><a class="time_filter" id="thirty_games" href="#">30 Games</a></li>
+							</ul>
+						</div>						
 					</div>
 					<!-- //span4 -->
 				</div>

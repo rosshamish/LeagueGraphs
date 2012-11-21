@@ -42,11 +42,7 @@ if (isset($_COOKIE['gameRange'])) {
 }
 
 
-$query = "SELECT $x,championId"; // start off the query with a select by x value and champId for filtering
-
-for ($i=0; $i<count($y_arr); $i++) {
-  $query .= ",$y_arr[$i]";
-}
+$query = "SELECT *"; // select all the data
 
 $query .= " FROM games WHERE summonerName='$name' ";
 

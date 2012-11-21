@@ -71,7 +71,18 @@ $(function() {
                 console.log('in lol_processuser.php called from button_bindings.js, something awful happened');
             }
         });
-         
+        
+        /** Add this player to the auto update list, `players` **/
+        $.ajax({
+            url: 'add_to_players.php',
+            type: 'POST',
+            data: {
+                summonerName : summonerName
+            },
+            success: function() {
+                // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
+            }
+        });
         
         return false;
     });

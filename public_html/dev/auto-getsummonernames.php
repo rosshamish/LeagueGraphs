@@ -3,7 +3,7 @@
     $mysqli = new mysqli($host, $username, $password);
     $mysqli->select_db($database);
     
-    $query = "SELECT DISTINCT summonerName FROM games";
+    $query = "SELECT DISTINCT summonerName FROM players";
     
     $result = $mysqli->query($query);
     

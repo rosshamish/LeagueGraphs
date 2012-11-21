@@ -63,7 +63,7 @@ $(document).ready(function() {
                                            '</ul>');
     
     /** Fill the Champ Filter autocomplete **/
-    var id_arr = Array.range(1, 150); // go up to 150 as safety. you never know when champ ids will get huge or something
+    var id_arr = Array.range(1, 300); // go up to 300 as safety. you never know when champ ids will get huge or something
     $.ajax({
         type: "POST",
         url: "get_champ.php",

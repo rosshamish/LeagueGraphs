@@ -44,7 +44,7 @@ if (isset($_COOKIE['gameRange'])) {
 
 $query = "SELECT *"; // select all the data
 
-$query .= " FROM games WHERE summonerName='$name' ";
+$query .= " FROM games WHERE summonerName='$name' "; // filer by the current summoner
 
 $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 

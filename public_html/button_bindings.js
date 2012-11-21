@@ -1,7 +1,7 @@
 // Form submission on button click
 $(function() {
     $("button#submit_btn").click(function() {
-        
+        document.activeElement.blur();
         // Grab values from the form
         var summonerName = $("input#summonerName").val();
         if (summonerName == "") {
@@ -9,6 +9,7 @@ $(function() {
             return false;
         }
         $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
+        $.cookie('gameRange', null);
         $.cookie('champId', null); // clear the champ filter, we're looking at a new player
         $("#champ_filter_all_champs").addClass('active');
         $("#champ_filter_btn").removeClass('active');
@@ -70,7 +71,18 @@ $(function() {
                 console.log('in lol_processuser.php called from button_bindings.js, something awful happened');
             }
         });
-         
+        
+        /** Add this player to the auto update list, `players` **/
+        $.ajax({
+            url: 'add_to_players.php',
+            type: 'POST',
+            data: {
+                summonerName : summonerName
+            },
+            success: function() {
+                // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
+            }
+        });
         
         return false;
     });

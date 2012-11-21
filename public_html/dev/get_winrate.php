@@ -65,7 +65,7 @@ if ($_POST['trendy']) { // if getting the trendy winrate
       
       array_push($ret_arr, $winrate);
       $totalGamesFound += 1;
-      if ($totalGamesFound >= $gameRange) {
+      if ($totalGamesFound > $gameRange) {
         array_shift($ret_arr);
       }
     }

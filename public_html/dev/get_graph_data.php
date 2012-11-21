@@ -85,7 +85,7 @@ if ($result) {
     array_push($ret_arr, $row_array);
     
     $totalGamesFound += 1;
-    if ($totalGamesFound >= $gameRange) {
+    if ($totalGamesFound > $gameRange) {
       array_shift($ret_arr);
     }
   }

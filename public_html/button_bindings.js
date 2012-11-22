@@ -9,13 +9,13 @@ $(function() {
             return false;
         }
         $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
-        $.cookie('gameRange', null);
-        $.cookie('champId', null); // clear the champ filter, we're looking at a new player
+        $.cookie('gameType', 'all');
         $("#champ_filter_all_champs").addClass('active');
         $("#champ_filter_btn").removeClass('active');
         $("input#champname").text('');
         $("#champ_input_form").removeClass('success');
         
+        summonerName = summonerName.replace(" ", "%20");
         // Use Ajax to process the form submission
         $.ajax({  
             type: "POST",

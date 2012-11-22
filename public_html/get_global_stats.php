@@ -13,7 +13,6 @@ $result = mysql_query($query);
 
 if ($result) {
     $numRows = mysql_num_rows($result);
-    debug('currently_tracking: '.$numRows);
 }
 $ret_obj['currently_tracking'] = $numRows;
 
@@ -22,7 +21,6 @@ $query = 'SELECT gameId FROM games';
 $result = mysql_query($query);
 if ($result) {
   $numRows = mysql_num_rows($result);
-  debug('games_in_database: '.$numRows);
 }
 $ret_obj['games_in_database'] = $numRows;
 

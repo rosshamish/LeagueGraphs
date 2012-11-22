@@ -1,3 +1,8 @@
+<!--
+Does the same thing as auto.php, but just fucking blasts through as fast as it can. A hard update, if you will.
+Do not use this often.
+-->
+
 <html>
     <head>
 <?php
@@ -20,14 +25,9 @@
 
 $(document).ready(function() {
     
-document.write("<h1>LeagueGraphs database auto-updater</h1>");
-document.write("<h2></h2>");
-document.write("Updating <span id='nextPlayer'></span> next.");
-document.write("<div id='updateTimer'></div>");
+document.write("<h1>LeagueGraphs database auto-updater <b>(sprinter)</b></h1>");
 document.write("<br><br>");
 document.write("<div id='playerUpdates'></div>");
-
-
 
 // each call to this function is worth 2 api calls
 function updateNext() {
@@ -48,30 +48,12 @@ function updateNext() {
         
         count++;
         if (count >= names_arr.length) {
-            count = 0;
+            clearInterval(updateInterval);
         }
-        $("#nextPlayer").html(names_arr[count]);
-        }
+    }
     });
 };
 
-function updateTimer() {
-    var minutes = Math.floor(timer / (1000 * 60));
-    var seconds = (timer - minutes*60*1000) / 1000;
-    $("#updateTimer").html("Next update in " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
-    timer -= 1000;
-    if (timer <= 500) {
-        timer = interval;
-        $.ajax({
-            type: "POST",
-            url: "auto-getsummonernames.php",
-            dataType: "json",
-            success: function(phpdata) {
-                names_arr = phpdata;
-            }
-        });
-    }
-}
 var names_arr = [];
 $.ajax({
     type: "POST",
@@ -79,12 +61,10 @@ $.ajax({
     dataType: "json",
     success: function(phpdata) {
         names_arr = phpdata;
-        $("h2").append("<h3>Updating each player every " + Math.ceil(interval * names_arr.length / (1000 * 60 * 60))  + " hours.</h3>");
         $("h2").append("<h3>Total players: " + names_arr.length + "</h3>");
     }
 });
 var count = 0;
-var timer = 0;
 
 var onesecond = 1000;
 var oneminute = 1000 * 60;
@@ -92,14 +72,9 @@ var fiveminutes = oneminute * 5;
 var tenminutes = oneminute * 10;
 var thirtyminutes = oneminute * 30;
 var hour = oneminute * 60;
-var interval = oneminute * 2;
+var interval = onesecond;
 updateNext(); // call it the first time
-setInterval(updateNext, interval); // set up the interval
-timer = interval;
-setInterval(updateTimer, 1000); // set up the timer
-
-$("h2").html("Currently set to update one player every every " + interval / (1000 * 60) + " minutes");
-
+var updateInterval = setInterval(updateNext, interval); // set up the interval
 
 });
 

@@ -17,7 +17,11 @@ if (isset($_COOKIE['gameRange'])) {
   $gameRange = 100000;
 }
 
-$champId = $_COOKIE['champId'];
+if (isset($_COOKIE['champId'])) {
+  $champId = $_COOKIE['champId'];
+} else {
+  $champId = '';
+}
 $name = $_COOKIE['summoner_name'];
 
 $mysqli = new mysqli($host, $username, $password);
@@ -80,7 +84,6 @@ if ($_POST['trendy']) { // if getting the trendy winrate
     }
   }
 }
-debug("in winrate.php, games played: $gamesPlayed");
 
 
 $mysqli->close();

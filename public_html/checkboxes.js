@@ -8,8 +8,7 @@
 			checkbox.change(function(){
 				checkbox.toggleClass('checked');
 				var isChecked = checkbox.hasClass('checked');
-				
-				console.log('filters (before cookiechange): ' + $.parseJSON($.cookie('filters')));				
+							
 				if ($.cookie('filters')) {
 				  var filters = $.parseJSON($.cookie('filters')); // get the filters cookie's current state
 				} else {
@@ -23,8 +22,7 @@
 					filters.splice(idx, 1);
 				}
 				$.cookie('filters', JSON.stringify(filters)); // update the filters cookie
-				console.log('filters (after cookiechange): ' + $.parseJSON($.cookie('filters')));
-				get_graph('', 'gameId', '', '');
+				get_graph('', '', '', '');
 			});
 		});
 	};

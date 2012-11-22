@@ -62,6 +62,19 @@ $(document).ready(function() {
                                            checkbox('Premade Group Size', 'premadeSize') +
                                            '</ul>');
     
+    /** Fill the Summoner Name autocomplete **/
+    $.ajax({
+        type: "POST",
+        url: "auto-getsummonernames.php",
+        dataType: "json",
+        success: function(phpdata) {
+            names_arr = phpdata;
+            $('input#summonerName').typeahead({
+                source: names_arr
+            });
+        }
+    });
+    
     /** Fill the Champ Filter autocomplete **/
     var id_arr = Array.range(1, 300); // go up to 300 as safety. you never know when champ ids will get huge or something
     $.ajax({
@@ -71,11 +84,10 @@ $(document).ready(function() {
                get: "name"},
         dataType: "json",
         success: function(phpdata) {
-            console.log("get_champ.php => " + phpdata);
             var champnames = phpdata;
             $("input#champname").typeahead({
-                source: champnames}
-                );
+                source: champnames
+                });
             
         },
         error: function(p1, p2, p3) {
@@ -163,6 +175,5 @@ $(document).ready(function() {
     /** Set up default graph **/
     var defaultPlayer = 'SomePlayer';
     $('input[type=checkbox]').tzCheckbox(defaultPlayer);
-    $('#championsKilled').click();
-    get_graph(defaultPlayer, '', '', '');
+    $('#championsKilled').click(); // this click ALSO gets the initial graph
 });

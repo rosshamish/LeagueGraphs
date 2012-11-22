@@ -75,10 +75,8 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
     $na = $_POST['summonerName'];
     $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
     $result = $mysqli->query($qu);
-    debug('in update row');
     if ($result) {
       $num_old_games = $result->num_rows;
-      debug("num_old_games: " . $num_old_games);
       // this is guaranteed the oldest because they are queried in ascending order of game date.
       // therefore, the FIRST row will be the oldest one.
       $oldest_row = $result->fetch_assoc(); 
@@ -510,8 +508,6 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 
                 // execute the query
                 $total_games = $num_old_games + $gamesSuccessfullyParsed;
-                debug('total_games: ' . $total_games);
-                debug('oldest_game: ' . $oldest_game);
                 $q_err = $mysqli->query($query)
                         or die(
                                json_encode( array(
@@ -606,8 +602,6 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
             
             }
             $total_games = $num_old_games + $gamesSuccessfullyParsed;
-            debug('total_games: ' . $total_games);
-            debug('oldest game: ' . $oldest_game);
             echo json_encode( array(
                            'total_games' => $total_games,
                            'parsed_games' => $gamesSuccessfullyParsed,

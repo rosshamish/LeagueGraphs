@@ -31,10 +31,12 @@ document.write("<div id='playerUpdates'></div>");
 
 // each call to this function is worth 2 api calls
 function updateNext() {
+    console.log('this name: ' + names_arr[count] + ' at count #' + count);
+    
     $.ajax({
     type: "POST",
     url: "lol_processuser.php",
-    data: "summonerName=" + names_arr[count],
+    data: { 'summonerName' : names_arr[count] },
     dataType: "json",
     success: function(phpdata) {
         var parsed_games = phpdata['parsed_games'];
@@ -75,6 +77,7 @@ $.ajax({
     url: "auto-getsummonernames.php",
     dataType: "json",
     success: function(phpdata) {
+        console.log('names_arr: ' + phpdata);
         names_arr = phpdata;
         $("h2").append("<h3>Updating each player every " + Math.ceil(interval * names_arr.length / (1000 * 60 * 60))  + " hours.</h3>");
         $("h2").append("<h3>Total players: " + names_arr.length + "</h3>");
@@ -87,7 +90,7 @@ var fiveminutes = 1000 * 60 * 5;
 var tenminutes = 1000 * 60 * 10;
 var thirtyminutes = 1000 * 60 * 30;
 var hour = 1000 * 60 * 60;
-var interval = fiveminutes;
+var interval = 4000;
 updateNext(); // call it the first time
 setInterval(updateNext, interval); // set up the interval
 timer = interval;

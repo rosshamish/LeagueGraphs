@@ -64,7 +64,9 @@ if ($result) {
     for ($i=0; $i<count($y_arr); $i++) {
       array_push($row_y_arr, $row[$y_arr[$i]]);
     }
-    if ($champId && $champId != '') {
+    
+    /** Handle champ filtering **/
+    if ($champId && $champId != '') { 
       if ($row['championId'] != $champId) { // if this is the wrong champ
         for ($j=0; $j<count($row_y_arr); $j++) { 
           $row_y_arr[$j] = 0; // set the WRONG champ's game to 0.
@@ -75,12 +77,14 @@ if ($result) {
     } else {
       $game_found = true; // if no champId filter was set, there must be at least 1 game.
     }
+    
     $row_array['game_found'] = $game_found;
     $row_array["y"] = $row_y_arr; 
     $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph
     array_push($ret_arr, $row_array);
     
     $totalGamesFound += 1;
+    /** Delete the oldest game if we are enough games in that it makes sense to do so, given the desired range of games **/
     if ($totalGamesFound > $gameRange) {
       array_shift($ret_arr);
     }

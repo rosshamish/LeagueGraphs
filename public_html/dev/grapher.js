@@ -121,8 +121,9 @@ function scale_on_filter(filter, y) {
  *                      To reset champId, pass the string 'all' as a parameter.
  *  gameRange (string) => options: 'ten_games', 'thirty_games', 'ten_days', 'thirty_days', 'all_games' -- the range of games to get. If given empty string, this defaults
  *                      to 'all_games'.
+ *  gameType (string) => options: 'all', 'NORMAL', 'NORMAL_3x3', 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3', 'custom', 'ODIN_UNRANKED'. If given empty string, defaults to 'gameType' cookie.
  */
-function get_graph(summoner_name, x_field, y_field, champId, gameRange) {
+function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType) {
     if (summoner_name == '') {
         summoner_name = $.cookie('summoner_name');
     } else {
@@ -139,6 +140,15 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange) {
     } else {
         champId = $.cookie('champId');
     }
+    if (gameType != null && gameType != undefined) { // if it was passed
+        if (gameType == '') { // if it is blank, use the cookie. Otherwise, just use what was given.
+            gameType = $.cookie('gameType');
+        }
+    } else {
+        gameType = $.cookie('gameType');
+    }
+    console.log('received game type "' + gameType + '" in grapher.js');
+    
     
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php
     $.ajax({
@@ -265,12 +275,11 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange) {
                         fadeOutTime: 50,
                         closeDelay: 50
                     });
-                    var sToolTip = filters[j] + ": ";
                     val = d.y;
-                    if (d.y == 0) {
-                        return '0';
-                    }
                     var sVal = val.toString();
+                    if (d.y <= 999) {
+                        return sVal;
+                    }
                     s = "";
                     temp = "";
                     for (var idx=sVal.length-1; idx >= 0; idx--) {

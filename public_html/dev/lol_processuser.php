@@ -48,10 +48,13 @@ function getEloData($base_url, $region, $key, $request, $params, $json) {
         }
         $data_string = $data_string . $keys[$i] . '=' . $params[$keys[$i]];
     }
-    
     $url = $base_url . $region . '/' . $request . '?' . $data_string . '&key=' . $key;
+    debug('url in getEloData BEFORE str_replace(): ' . $url);
+    // fix spaces, add a %20
+    $url = str_replace(" ", "%20", $url);
 
     // Get the data from the url
+    debug('url in getEloData AFTER str_replace(): ' . $url);
     $ch = curl_init($url);                                                                  
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $json_response = curl_exec($ch);
@@ -67,13 +70,14 @@ function getEloData($base_url, $region, $key, $request, $params, $json) {
 
 
 
-function updateRow($region, $key, $base_url, $host, $username, $password, $database, $summoner_array) {
+function updateAllGamesForOnePlayer($region, $key, $base_url, $host, $username, $password, $database, $summoner_array) {
     
     // Connect to the database
     $mysqli = new mysqli($host, $username, $password);
     $mysqli->select_db($database);
-    $na = $_POST['summonerName'];
+    $na = urldecode($_POST['summonerName']);
     $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
+    debug("first query: $qu");
     $result = $mysqli->query($qu);
     if ($result) {
       $num_old_games = $result->num_rows;
@@ -508,6 +512,7 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
                 
                 // execute the query
                 $total_games = $num_old_games + $gamesSuccessfullyParsed;
+                debug("another query: $query");
                 $q_err = $mysqli->query($query)
                         or die(
                                json_encode( array(
@@ -616,10 +621,13 @@ function updateRow($region, $key, $base_url, $host, $username, $password, $datab
 
 
 
-
+$nam = $_POST['summonerName']; 
+$posted_summoner_name = urldecode($_POST['summonerName']);
+debug('un-urldecoded: ' . $nam);
+debug('urldecoded: ' . $posted_summoner_name);
 
 $summoner_name_arr = array(
-                    'summonerName' => $_POST['summonerName']
+                    'summonerName' => $posted_summoner_name
                     );
 
 $summoner_data = getEloData($r_base_url, $r_region, $r_key, 'getSummonerByName', $summoner_name_arr, TRUE);
@@ -632,6 +640,6 @@ if (!$keys) {
     return;
 }
 
-updateRow($r_region, $r_key, $r_base_url, $host, $username, $password, $database, $summoner_arr);
+updateAllGamesForOnePlayer($r_region, $r_key, $r_base_url, $host, $username, $password, $database, $summoner_arr);
 
 ?>

@@ -42,6 +42,7 @@ $(document).ready(function() {
     /** Clear Cookies **/
     $.cookie('filters', null); // clear this pesky cookie, why do ipearned and sightwardsboughtingame always get set for some reason
     $.cookie('champId', null);
+    $.cookie('gameType', 'all');
     
     /** Input Focus **/
     $("input#summonerName").focus(); // focus on the important input, the name
@@ -135,45 +136,76 @@ $(document).ready(function() {
     /** Set up time filter click events **/
     $('.time_filter').click(function(e) {
         e.preventDefault();
+        var gameRange = 100000;
         switch(this.id) {
             case 'ever':
-                t = 'Ever';
+                t = 'All Time';
+                gameRange = 100000;
                 break;
             case 'ten_games':
-                t = '10 Games';
+                t = 'Last 10 Games';
+                gameRange = 10;
                 break;
             case 'twenty_games':
-                t = '20 Games';
+                t = 'Last 20 Games';
+                gameRange = 20;
                 break;
             case 'thirty_games':
-                t = '30 Games';
+                t = 'Last 30 Games';
+                gameRange = 30;
                 break;
             default:
                 t = '??'
+                gameRange = 100000;
                 break;
         }
         $('#time_filter_label').text(t);
-        switch (this.id) {
-        case 'ten_games':
-            gameRange = 10;
-            break;
-        case 'twenty_games':
-            gameRange = 20;
-            break;
-        case 'thirty_games':
-            gameRange = 30;
-            break;
-        default: // for all games
-            gameRange = 100000;
-            break;
-        }
         $.cookie('gameRange', gameRange);
+        get_graph('', '', '', '');
+    });
+    
+    /** Set up game type filter click events **/
+    $('.gametype_filter').click(function(e) {
+        e.preventDefault();
+        switch(this.id) {
+            case 'all':
+                t = 'All Game Types';
+                break;
+            case 'NORMAL':
+                t = 'Normal 5v5';
+                break;
+            case 'NORMAL_3x3':
+                t = 'Normal 3v3';
+                break;
+            case 'RANKED_SOLO_5x5':
+                t = 'Ranked Solo Queue';
+                break;
+            case 'RANKED_TEAM_5x5':
+                t = 'Ranked Team 5v5';
+                break;
+            case 'RANKED_TEAM_3x3':
+                t = 'Ranked Team 3v3';
+                break;
+            case 'ODIN_UNRANKED':
+                t = 'Dominion';
+                break;
+            case 'custom':
+                t = 'Custom';
+                break;
+            default:
+                t = 'Custom'
+                break;
+        }
+        var gameType = this.id;
+        $('#gametype_filter_label').text(t);
+        $.cookie('gameType', gameType);
         get_graph('', '', '', '', '');
     });
     
         
     /** Set up default graph **/
     var defaultPlayer = 'SomePlayer';
+    $.cookie('summoner_name', defaultPlayer);
     $('input[type=checkbox]').tzCheckbox(defaultPlayer);
     $('#championsKilled').click(); // this click ALSO gets the initial graph
 });

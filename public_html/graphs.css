@@ -1,4 +1,8 @@
 /* Graph Styles */
+body {
+    background-image: url('http://rosshamish.netau.net/dev/images/fabric_1.png');
+}
+
 
 path.winrate {
     stroke: steelblue;

@@ -3,7 +3,7 @@
  */
 
 // constants for graphing - change these up here, do NOT hardcode them down there.
-var width = getGraphWidth(), // 95% of the window width
+var width = getGraphWidth(), // 93% of the window width
     height = 350,
     xlabel = "default x label",
     ylabel = "default y label",
@@ -11,7 +11,7 @@ var width = getGraphWidth(), // 95% of the window width
     margin = 20;
 
 function getGraphWidth() {
-    return $(window).width() * 96/100; // an arbitrary percentage. Shoot me.
+    return $(window).width() * 93/100; // an arbitrary percentage. Shoot me.
 }
 function fixGraphWidth() {
     width = getGraphWidth();

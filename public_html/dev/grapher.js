@@ -39,11 +39,17 @@ var colorOfFilter = {'premadeSize' : "\#888888",
                      
 /** Append a no games found notice to the svg space **/
 function noGamesFound(svg, champname) {
+    var message = "No games found for " + champname;
+    var tp = $.cookie('gameType');
+    if (tp != null && tp != 'all' && tp != '') {
+        message += " in that gametype"; // in that gametype boiii.
+    }
+    message += "!"; // some exclamation boiii.
     svg.append("text")
       .attr('x', width / 2)
       .attr('y', height / 2)
-      .attr('fill', 'red')
-      .text("No games found for " + champname + "!");
+      .attr('fill', 'black')
+      .text(message);
 }
 
 /* Define some range scales for use with different statistics.
@@ -121,7 +127,7 @@ function scale_on_filter(filter, y) {
  *                      To reset champId, pass the string 'all' as a parameter.
  *  gameRange (string) => options: 'ten_games', 'thirty_games', 'ten_days', 'thirty_days', 'all_games' -- the range of games to get. If given empty string, this defaults
  *                      to 'all_games'.
- *  gameType (string) => options: 'all', 'NORMAL', 'NORMAL_3x3', 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3', 'custom', 'ODIN_UNRANKED'. If given empty string, defaults to 'gameType' cookie.
+ *  gameType (string) => options: 'all', 'NORMAL', 'NORMAL_3x3', 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3', 'ODIN_UNRANKED'. If given empty string, defaults to 'gameType' cookie.
  */
 function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType) {
     if (summoner_name == '') {
@@ -158,7 +164,8 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 x_field : x_field,
                 y_field : y_field,
                 champId : champId,
-                gameRange : gameRange},
+                gameRange : gameRange,
+                gameType : gameType },
         dataType: "json",
         success: function(data) {
             $("#graph_title").html(" - " + $.cookie('summoner_name'));
@@ -174,7 +181,11 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
             /* 
              * Bar Graph of Filtered Statistics
              */
-            var num_filters = data[0].y.length;
+            if (data.length > 0) { // if there is indeed data
+                var num_filters = data[0].y.length;
+            } else {
+                var num_filters = 0;
+            }
             var num_values = data.length;
             var filters = $.parseJSON($.cookie('filters'));
             
@@ -194,7 +205,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 y_arr[cur_filter] = [];
                 // game_found will be used MUCH later down to layer a notification text on top of the graph that no games were
                 // found for this particular champion.
-                var game_found = false; // check if a game was actually found (this is mostly for the champ filter)
+                var game_found = false; // check if a game was actually found (this is for the champ and gametype filters)
                 for (var idx=0; idx < data.length; idx++) {
                     x_arr[cur_filter].push(data[idx].x);
                     y_arr[cur_filter].push(data[idx].y[cur_filter]);
@@ -261,9 +272,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
             //click - when you click your mouse button
             //mousemove - when your mouse moves around in the current object
             //Note that 'mousedown' and 'mouseup' events are part of the 'click' event.
-            function getDigit(number, digitNumStartingFromOnes) {
-                return Math.floor(number / (math.pow(10, digitNumStartingFromOnes)) % 10)
-            }
             var groups = series.selectAll("rect")
                 .data(Object)
               .enter()
@@ -395,12 +403,8 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                         $("#graph_title").html(' - ' + summoner_name);
                     }
                     if (!game_found) {
+                        noGamesFound(svg, champName);
                         console.log('no game found');
-                        svg.append('text')
-                          .text('No games found for ' + summoner_name + ' playing as ' + champName)
-                          .attr('x', width / 2)
-                          .attr('text-anchor', 'middle')
-                          .attr('y', height / 2);
                     }
                 }
             });

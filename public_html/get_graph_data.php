@@ -40,20 +40,37 @@ if (isset($_COOKIE['gameRange'])) {
 } else {
   $gameRange = 100000;
 }
+if (isset($_COOKIE['gameType'])) {
+  $gameType = $_COOKIE['gameType'];
+} else {
+  $gameType = $_POST['gameType'];
+}
 
 
 $query = "SELECT *"; // select all the data
 
-$query .= " FROM games WHERE summonerName='$name' "; // filer by the current summoner
+$query .= " FROM games WHERE summonerName='$name' "; // filter by the current summoner
+
+if ($gameType != null) { // gametype exists
+  if ($gameType != 'all' && $gameType != '') { // if we are actually filtering a gametype
+    $query .= " AND queueType='$gameType' ";
+  }
+}
 
 $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 
 //echo "query: $query"; // query is working k on Nov 8, 2012 @ 10:51pm
-
+debug("query: $query");
 $result = $mysqli->query($query);
 $ret_arr = array();
 
 if ($result) {
+  if ($result->num_rows <= 0) { // if no games were found
+    echo json_encode(array('x' => 0,
+                           'y' => 0,
+                           'gameFound' => false));
+    return;
+  }
   $totalGamesFound = 0;
   while($row = $result->fetch_assoc()) {
     // set the games_found flag to false at the beginning of each row loop, set it to true once we are sure this game applies.

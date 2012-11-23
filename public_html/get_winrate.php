@@ -23,12 +23,23 @@ if (isset($_COOKIE['champId'])) {
   $champId = '';
 }
 $name = $_COOKIE['summoner_name'];
+if (isset($_COOKIE['gameType'])) {
+  $gameType = $_COOKIE['gameType'];
+} else {
+  $gameType = $_POST['gameType'];
+}
 
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);
 
 $query = 'SELECT championId,win,lose FROM games';
 $query .= " WHERE summonerName='$name' ";
+
+if ($gameType != null) { // gametype exists
+  if ($gameType != 'all' && $gameType != '') { // if we are actually filtering a gametype
+    $query .= " AND queueType='$gameType' ";
+  }
+}
 
 $winrate = 0;
 $gamesPlayed = 0;

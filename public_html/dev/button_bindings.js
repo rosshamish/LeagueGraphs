@@ -10,6 +10,9 @@ $(function() {
         }
         $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
         $.cookie('gameType', 'all');
+        $('#gametype_filter_label').text('All Game Types');
+        $.cookie('gameRange', null);
+        $("#time_filter_label").text('All Time');
         $("#champ_filter_all_champs").addClass('active');
         $("#champ_filter_btn").removeClass('active');
         $("input#champname").text('');

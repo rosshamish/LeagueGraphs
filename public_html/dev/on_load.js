@@ -189,11 +189,8 @@ $(document).ready(function() {
             case 'ODIN_UNRANKED':
                 t = 'Dominion';
                 break;
-            case 'custom':
-                t = 'Custom';
-                break;
             default:
-                t = 'Custom'
+                t = 'All Game Types'
                 break;
         }
         var gameType = this.id;

@@ -153,7 +153,8 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
     } else {
         gameType = $.cookie('gameType');
     }
-    console.log('received game type "' + gameType + '" in grapher.js');
+    //console.log('received game type "' + gameType + '" in grapher.js');
+    $('#gametype_title').html(' - ' + $('#gametype_filter_label').text());
     
     
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php
@@ -259,19 +260,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     return colorOfFilter[filters[i]];
                     })
                 .attr("transform", function (d, i) { return "translate(" + xsScale(i) + ")"; });
-            
-            //The '.on' method in d3.js is very simple to use. To bind a function to a 'mouseover' event, you just have to:
-            //
-            //myD3Object.on('mouseover', function() {//your function code here});
-            //Other mouse events you can use are:
-            //
-            //mouseover - when your mouse is hovering over the object
-            //mouseout - when your mouse leaves the object
-            //mousedown - when your left mouse button is held down
-            //mouseup - when you let go of your left mouse butotn
-            //click - when you click your mouse button
-            //mousemove - when your mouse moves around in the current object
-            //Note that 'mousedown' and 'mouseup' events are part of the 'click' event.
+                
             var groups = series.selectAll("rect")
                 .data(Object)
               .enter()

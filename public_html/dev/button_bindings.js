@@ -28,11 +28,7 @@ $(function() {
             success: function(phpdata) {
                 if (phpdata == 'null'|| !phpdata) {
                     console.log('phpdata was null in lol_processuser.php from button_bindings.js');
-                    $('#updates').html('<br><strong>Either your summoner name was typed incorrectly,'
-                                       + 'or the Elophant data server is temporarily unavailable.</strong> '
-                                       + '<br>Please check your spelling and try again. '
-                                       + '<br>If your spelling is correct, please try again later.'
-                                       + '<br>Name is case insensitive, eg RossHamiSH is the same as rosshAMish is the same as RossHamish');
+                    get_graph('', '', '', '', '');
                     $('#search_form').addClass('error');
                     $("button#submit_btn").removeClass('btn-primary')
                                 .addClass('btn-danger');

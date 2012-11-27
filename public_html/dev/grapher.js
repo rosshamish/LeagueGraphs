@@ -341,13 +341,13 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     
                     var line = d3.svg.line()
                         .x(function(d,i) { return xgScale(i) + (xsScale.rangeBand() * num_filters) / 2; }) // the stats graph x value plus half each bar group's width
-                        .y(function(d) { return y(d); })
-                        .interpolate("basis");
+                        .y(function(d) { return y(d); });
                         
                     var g = svg.append("g")
                       .classed('winrate', true)
                     var path = g.append("svg:path")
                       .attr("d", line(winrate_arr))
+                      .attr('id', "winrate_line")
                       .classed("winrate", true);
                       
                     var totalLength = path.node().getTotalLength();
@@ -364,6 +364,26 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     console.log('get_winrate errored out');
                 }
             });
+            
+            /** Add onmouseover events to update the winrate numerical label **/
+            //// Get the coordinates
+            //function findYatX(x, line) {
+            //     function getXY(len) {
+            //          var point = line.getPointAtLength(len);
+            //          return [point.x, point.y];
+            //     }
+            //     var curlen = 0;
+            //     while (getXY(curlen)[0] < x) { curlen += 0.1; }
+            //     return getXY(curlen);
+            //}
+            //$('svg').on('mousemove', function(e) {
+            //    var mouseX = e.pageX;
+            //    var mouseY = e.pageY;
+            //    $("#mousex").html(mouseX);
+            //    $("#mousey").html(mouseY);
+            //    var winrate_num = findYatX(mouseX-20, document.getElementById("winrate_line"));
+            //    $("#mousewinrate").html(winrate_num);
+            //});
             
             /**
              * End Line Graph *

@@ -31,7 +31,6 @@ document.write("<div id='playerUpdates'></div>");
 
 // each call to this function is worth 2 api calls
 function updateNext() {
-    
     $.ajax({
     type: "POST",
     url: "lol_processuser.php",
@@ -41,17 +40,44 @@ function updateNext() {
         var parsed_games = phpdata['parsed_games'];
         var total_games = phpdata['total_games'];
         
+        if (!phpdata || phpdata == null) {
+        
+            $("#playerUpdates").prepend('--<br>');
+            $("#playerUpdates").prepend('<p color="red" ' + names_arr[count] + ' (db#' + count + ') failed to update.<br>  ' +
+                                        'NULL new games grabbed<br>  ' +
+                                        'NULL total games now.</p><br>');
+            
+        } else {
+            var parsed_games = phpdata['parsed_games'];
+            var total_games = phpdata['total_games'];
+            
+            $("#playerUpdates").prepend('--<br>');
+            $("#playerUpdates").prepend(names_arr[count] + ' (db#' + count + ') updated!<br>  ' +
+                                        parsed_games + ' new games grabbed<br>  ' +
+                                        total_games + ' total games now.<br>');
+            
+            
+        }
+        count++;
+        if (count >= names_arr.length) {
+            count = 0;
+        }
+        $("#nextPlayer").html(names_arr[count]);
+    },
+    error: function(err) {
         $("#playerUpdates").prepend('--<br>');
-        $("#playerUpdates").prepend(names_arr[count] + ' (db#' + count + ') updated!<br>  ' +
-                                    parsed_games + ' new games grabbed<br>  ' +
-                                    total_games + ' total games now.<br>');
+        $("#playerUpdates").prepend('<p color="red"> ' + names_arr[count] + ' (db#' + count + ') failed to update.<br>  ' +
+                                    'NULL new games grabbed<br>  ' +
+                                    'NULL total games now.</p><br>');
         
         count++;
         if (count >= names_arr.length) {
             count = 0;
         }
         $("#nextPlayer").html(names_arr[count]);
-        }
+        
+        
+    }
     });
 };
 

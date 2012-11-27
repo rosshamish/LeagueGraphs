@@ -171,13 +171,11 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
         success: function(data) {
             $("#graph_title").html(" - " + $.cookie('summoner_name'));
             
-            // Empty the old graph
-            $("#graph").empty();
             // SVG creation. This only happens once.
-            var svg = d3.select("#graph")
-                  .append("svg")
+            var svg = d3.select("svg")
                     .attr("width", width)
                     .attr("height", height);
+            $("svg").empty();
             
             /* 
              * Bar Graph of Filtered Statistics
@@ -197,22 +195,25 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 }
             }
             var x_arr = [];
+            var pkey_arr = [];
             var y_arr = [];
             
             // this gives x_arr and y_arr to be arrays of arrays, containing *number of fields* number of arrays,
             // with each array containing *number of gamesplayed/datapoints* values in each inner array
             for (var cur_filter=0; cur_filter < num_filters; cur_filter++) {
                 x_arr[cur_filter] = [];
+                pkey_arr[cur_filter] = [];
                 y_arr[cur_filter] = [];
                 // game_found will be used MUCH later down to layer a notification text on top of the graph that no games were
                 // found for this particular champion.
                 var game_found = false; // check if a game was actually found (this is for the champ and gametype filters)
                 for (var idx=0; idx < data.length; idx++) {
                     x_arr[cur_filter].push(data[idx].x);
+                    pkey_arr[cur_filter].push(data[idx].pkey);
                     y_arr[cur_filter].push(data[idx].y[cur_filter]);
                     if (data[idx].game_found) {
                         game_found = true;
-                    }                    
+                    }
                 }
             }
             
@@ -223,6 +224,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     seriesData[i][j] = new Object();
                     seriesData[i][j].x = x_arr[i][j];
                     seriesData[i][j].y = y_arr[i][j];
+                    seriesData[i][j].pkey = pkey_arr[i][j];
                 }
                 
             }
@@ -277,6 +279,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     if (d.y <= 999) {
                         return sVal;
                     }
+                    /** This codeblock returns a comma'ed version of the number, i.e. 22351 -> 22,351 **/
                     s = "";
                     temp = "";
                     for (var idx=sVal.length-1; idx >= 0; idx--) {
@@ -296,6 +299,10 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 .on('mouseout', function(d, i, j) {
                     d3.select(this).attr('stroke', d3.select(this).attr('fill'));
                     $.powerTip.closeTip();
+                })
+                .on('click', function(d, i) {
+                    alert('d#: ' + d.pkey + ' has been clicked');
+                    updateCurrentGameStats(d.pkey);
                 })
                 .attr('data-filter', function(d, i, j) {
                     return filters[j];
@@ -336,19 +343,42 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 success: function(phpdata) {
                     var winrate_arr = phpdata;
                     var margin = 20,
-                    y = d3.scale.linear().domain([0, 100]).range([height - margin, 0 + margin]),
+                    y = d3.scale.linear().domain([0, 100]).range([height - margin*2, 0 + margin*2]),
                     x = d3.scale.linear().domain([0, winrate_arr.length-1]).range([0 + margin, width - margin]);
                     
                     var line = d3.svg.line()
                         .x(function(d,i) { return xgScale(i) + (xsScale.rangeBand() * num_filters) / 2; }) // the stats graph x value plus half each bar group's width
-                        .y(function(d) { return y(d); });
-                        
+                        .y(function(d) { return y(d); })
+                        .interpolate('basis');
+                    
+                    var wr_50 = d3.svg.line()
+                        .x(function(d,i) { return d; })
+                        .y(function(d,i) { return height/2; });
+                    
+                    var wr_g = svg.append('g')
+                      .classed('wr_50', true);
+                      
+                    wr_g.append("svg:path")
+                      .classed('wr_dotted', true)
+                      .attr('stroke-dasharray', '10 10')
+                      .attr('d', wr_50([0, width]));
+                      
+                    wr_g.append("text")
+                      .classed('wr_50_text', true)
+                      .text('50% Winrate')
+                      .attr('x', width / 2)
+                      .attr('y', height / 2 - 10)
+                      .attr("text-anchor", "middle");
+                    
+                    
                     var g = svg.append("g")
-                      .classed('winrate', true)
+                      .classed('winrate', true);
+                      
                     var path = g.append("svg:path")
                       .attr("d", line(winrate_arr))
                       .attr('id', "winrate_line")
-                      .classed("winrate", true);
+                      .classed("winrate", true)
+                    
                       
                     var totalLength = path.node().getTotalLength();
 
@@ -364,26 +394,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     console.log('get_winrate errored out');
                 }
             });
-            
-            /** Add onmouseover events to update the winrate numerical label **/
-            //// Get the coordinates
-            //function findYatX(x, line) {
-            //     function getXY(len) {
-            //          var point = line.getPointAtLength(len);
-            //          return [point.x, point.y];
-            //     }
-            //     var curlen = 0;
-            //     while (getXY(curlen)[0] < x) { curlen += 0.1; }
-            //     return getXY(curlen);
-            //}
-            //$('svg').on('mousemove', function(e) {
-            //    var mouseX = e.pageX;
-            //    var mouseY = e.pageY;
-            //    $("#mousex").html(mouseX);
-            //    $("#mousey").html(mouseY);
-            //    var winrate_num = findYatX(mouseX-20, document.getElementById("winrate_line"));
-            //    $("#mousewinrate").html(winrate_num);
-            //});
             
             /**
              * End Line Graph *

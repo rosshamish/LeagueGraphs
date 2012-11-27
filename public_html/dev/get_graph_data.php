@@ -96,7 +96,8 @@ if ($result) {
     }
     
     $row_array['game_found'] = $game_found;
-    $row_array["y"] = $row_y_arr; 
+    $row_array["y"] = $row_y_arr;
+    $row_array['pkey'] = $row['pkey'];
     $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph
     array_push($ret_arr, $row_array);
     

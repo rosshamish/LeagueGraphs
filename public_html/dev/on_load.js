@@ -124,7 +124,19 @@ $(document).ready(function() {
                 .tween("text", function() {
                     var i = d3.interpolate(this.textContent, phpdata['games_in_database']);
                     return function(t) {
-                        this.textContent = Math.floor(i(t));
+                        /** This codeblock returns a comma'ed version of the number, i.e. 22351 -> 22,351 **/
+                        var sVal = Math.floor(i(t)).toString();
+                        s = "";
+                        temp = "";
+                        for (var idx=sVal.length-1; idx >= 0; idx--) {
+                            real = s.replace(',', '');
+                            if (real.length % 3 == 0 && real.length > 0) {
+                                s = "," + s;
+                            }
+                            temp = sVal[idx];
+                            s = temp + s;
+                        }
+                        this.textContent = s;
                     };
                 });
         },

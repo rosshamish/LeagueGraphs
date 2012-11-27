@@ -229,7 +229,6 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<h2>Graph <span id="graph_title"></span><span id="gametype_title"></span></h2>
-						<p>x: <span id="mousex"></span>, y: <span id="mousey"></span>, winrate: <span id='mousewinrate'></span></p>
 						<div id="graph" class="">
 							<svg></svg>
 						</div>
@@ -239,108 +238,53 @@
 				<!--/row-->
 				<div class="row-fluid">
 					<div class="span12">
-					<h3>Selected Game: <span id="selected_game_info"></span></h3>
+					<h3>Selected Game: <span id="selected_game_date"></span></h3>
 					</div>
 				</div>
-				<div id="selected_game_tables" class="row-fluid">
-					<div class="span6" id="team1">
+				<div id="selected_game_table" class="row-fluid">
+					<div class="span12">
 						<table class="table">
 						<tbody>
 						<tr>
-							<td>
-								RossHamish
-							</td>
-							<td>
+							<td id="champ">
 								Taric
 							</td>
-							<td>
-								0-2-19-25
+							<td class="kda">
+								<img src="images/icon-sword.png" />
+								<span id="kills">1</span>
+								
+								<img src="images/icon-skull.png" />
+								<span id="deaths">5</span>
+								
+								<img src="images/icon-assists.png" />
+								<span id="assists">21</span>
+								
+								<img src="images/icon-cs.png" />
+								<span id="creep_score">108</span>
 							</td>
-							<td>
-								Philos, Boots, Shurelya's
+							<td id="item0">
+								Boots
 							</td>
-						</tr>
-						<tr>
-							<td>
-								RayRayUre
+							<td id="item1">
+								Philos
 							</td>
-							<td>
-								Tristana
+							<td id="item2">
+								Shurelya's
 							</td>
-							<td>
-								15-2-20-521
+							<td id="item3">
+								Frozen Heart
 							</td>
-							<td>
-								Bloodthirster, Bloodthirster, Bloodthirster, Bloodthirster, Bloodthirster
+							<td id="item4">
+								Bloodthirster
 							</td>
-						</tr>
-						<tr>
-							<td>
-								Kralka
-							</td>
-							<td>
-								Darius
-							</td>
-							<td>
-								30-0-0-298
-							</td>
-							<td>
-								Boots of Dunk
+							<td id="item5">
+								Meki Pendant
 							</td>
 						</tr>
 						</tbody>
 						</table>
 					</div>
-					<!--/div table team1-->
-					<div class="span6" id="team2">
-						<table class="table">
-						<tbody>
-						<tr>
-							<td>
-								Froggen
-							</td>
-							<td>
-								Lee Sin
-							</td>
-							<td>
-								2-2-2-56
-							</td>
-							<td>
-								Wriggle's
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Knik7
-							</td>
-							<td>
-								Nocturne
-							</td>
-							<td>
-								20-0-0-2
-							</td>
-							<td>
-								Viable items
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Drever
-							</td>
-							<td>
-								Kassadin
-							</td>
-							<td>
-								20-0-10-157
-							</td>
-							<td>
-								Rabadon's, Rabadon's
-							</td>
-						</tr>
-						</tbody>
-						</table>
-					</div>
-					<!--/div table team2-->
+					<!--/div table-->
 				</div>
 				<!--/row-->
 				<hr>

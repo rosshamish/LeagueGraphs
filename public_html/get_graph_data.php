@@ -71,6 +71,10 @@ if ($result) {
                            'gameFound' => false));
     return;
   }
+  
+  /* Get field information for all columns */
+  $fieldobj = $result->fetch_fields();
+  
   $totalGamesFound = 0;
   while($row = $result->fetch_assoc()) {
     // set the games_found flag to false at the beginning of each row loop, set it to true once we are sure this game applies.
@@ -96,7 +100,11 @@ if ($result) {
     }
     
     $row_array['game_found'] = $game_found;
-    $row_array["y"] = $row_y_arr; 
+    $row_array["y"] = $row_y_arr;
+    foreach ($fieldobj as $val) {
+      $row_array[$val->name] = $row[$val->name];
+    }
+    
     $row_array["filter"] = $y_arr; // set a reference to the filter name, so we can so dynamic scaling of the graph
     array_push($ret_arr, $row_array);
     

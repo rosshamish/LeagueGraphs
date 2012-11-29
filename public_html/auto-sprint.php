@@ -37,7 +37,16 @@ function updateNext() {
     url: "lol_processuser.php",
     data: { 'summonerName' : names_arr[count] },
     dataType: "json",
+    async: false,
     success: function(phpdata) {
+      if (!phpdata || phpdata == null) {
+        
+        $("#playerUpdates").prepend('--<br>');
+        $("#playerUpdates").prepend('<p color="red" ' + names_arr[count] + ' (db#' + count + ') failed to update.<br>  ' +
+                                    'NULL new games grabbed<br>  ' +
+                                    'NULL total games now.</p><br>');
+        
+      } else {
         var parsed_games = phpdata['parsed_games'];
         var total_games = phpdata['total_games'];
         
@@ -45,6 +54,19 @@ function updateNext() {
         $("#playerUpdates").prepend(names_arr[count] + ' (db#' + count + ') updated!<br>  ' +
                                     parsed_games + ' new games grabbed<br>  ' +
                                     total_games + ' total games now.<br>');
+        
+        
+      }
+      count++;
+        if (count >= names_arr.length) {
+            clearInterval(updateInterval);
+        }
+    },
+    error: function(err) {
+      $("#playerUpdates").prepend('--<br>');
+        $("#playerUpdates").prepend('<p color="red" ' + names_arr[count] + ' (db#' + count + ') failed to update.<br>  ' +
+                                    'NULL new games grabbed<br>  ' +
+                                    'NULL total games now.</p><br>');
         
         count++;
         if (count >= names_arr.length) {

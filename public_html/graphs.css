@@ -9,6 +9,13 @@ path.winrate {
     stroke-width: 2;
     fill: none;
 }
+
+path.wr_dotted {
+    stroke: black;
+    stroke-width: 1;
+    fill: none;
+    stroke-dasharray: '1 0';
+}
  
 line {
     stroke: black;

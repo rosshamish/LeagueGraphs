@@ -118,6 +118,27 @@ function scale_on_filter(filter, y) {
     return ret_y;
 }
 
+/**
+ * Updates the current game stats in the table
+ */
+function updateCurrentGameStats(gameData) {
+    console.log(gameData);
+    /** Champ **/
+    $('span#champ').html(gameData['champName']);  
+    
+    /** KDA-CS **/
+    $('span#kills').html(gameData['championsKilled']);
+    $('span#assists').html(gameData['assists']);
+    $('span#deaths').html(gameData['numDeaths']);
+    $('span#creep_score').html(gameData['minionsKilled']);
+    
+    /** Items **/
+    for (var i=0; i <= 5; i++) {
+        $('span#item' + i).html(gameData['item' + i]);
+    }
+    
+}
+
 /** @objective: display the graph inside of #graph
  * @params:
  *  summoner_name (string) => the summoner name. If given empty string, the 'summoner_name' cookie will be used instead.
@@ -171,13 +192,11 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
         success: function(data) {
             $("#graph_title").html(" - " + $.cookie('summoner_name'));
             
-            // Empty the old graph
-            $("#graph").empty();
             // SVG creation. This only happens once.
-            var svg = d3.select("#graph")
-                  .append("svg")
+            var svg = d3.select("svg")
                     .attr("width", width)
                     .attr("height", height);
+            $("svg").empty();
             
             /* 
              * Bar Graph of Filtered Statistics
@@ -212,7 +231,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     y_arr[cur_filter].push(data[idx].y[cur_filter]);
                     if (data[idx].game_found) {
                         game_found = true;
-                    }                    
+                    }
                 }
             }
             
@@ -277,6 +296,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     if (d.y <= 999) {
                         return sVal;
                     }
+                    /** This codeblock returns a comma'ed version of the number, i.e. 22351 -> 22,351 **/
                     s = "";
                     temp = "";
                     for (var idx=sVal.length-1; idx >= 0; idx--) {
@@ -296,6 +316,38 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 .on('mouseout', function(d, i, j) {
                     d3.select(this).attr('stroke', d3.select(this).attr('fill'));
                     $.powerTip.closeTip();
+                })
+                .on('click', function(d, i) {
+                    
+                    $.ajax({
+                        url: 'get_champ.php',
+                        type: 'POST',
+                        data: { identifier : [data[i]['championId']],
+                                get : 'name'},
+                        dataType: 'json',
+                        async: false,
+                        success: function(champName) {
+                            data[i]['champName'] = champName[0];
+                        }
+                    });
+                    var items = [];
+                    for (var j=0; j <= 5; j++) {
+                        items[j] = data[i]['item' + j];
+                    }
+                    $.ajax({
+                        url: 'get_item.php',
+                        type: 'POST',
+                        data: { identifier : items,
+                                get : 'name' },
+                        dataType: 'json',
+                        success: function(items) {
+                            for (var j=0; j <= 5; j++) {
+                                data[i]['item'+j] = items[j];
+                            }
+                            updateCurrentGameStats(data[i]);
+                        }
+                    });
+                    
                 })
                 .attr('data-filter', function(d, i, j) {
                     return filters[j];
@@ -336,19 +388,42 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 success: function(phpdata) {
                     var winrate_arr = phpdata;
                     var margin = 20,
-                    y = d3.scale.linear().domain([0, 100]).range([height - margin, 0 + margin]),
+                    y = d3.scale.linear().domain([0, 100]).range([height - margin*2, 0 + margin*2]),
                     x = d3.scale.linear().domain([0, winrate_arr.length-1]).range([0 + margin, width - margin]);
                     
                     var line = d3.svg.line()
                         .x(function(d,i) { return xgScale(i) + (xsScale.rangeBand() * num_filters) / 2; }) // the stats graph x value plus half each bar group's width
                         .y(function(d) { return y(d); })
-                        .interpolate("basis");
-                        
+                        .interpolate('basis');
+                    
+                    var wr_50 = d3.svg.line()
+                        .x(function(d,i) { return d; })
+                        .y(function(d,i) { return height/2; });
+                    
+                    var wr_g = svg.append('g')
+                      .classed('wr_50', true);
+                      
+                    wr_g.append("svg:path")
+                      .classed('wr_dotted', true)
+                      .attr('stroke-dasharray', '10 10')
+                      .attr('d', wr_50([0, width]));
+                      
+                    wr_g.append("text")
+                      .classed('wr_50_text', true)
+                      .text('50% Winrate')
+                      .attr('x', width / 2)
+                      .attr('y', height / 2 - 10)
+                      .attr("text-anchor", "middle");
+                    
+                    
                     var g = svg.append("g")
-                      .classed('winrate', true)
+                      .classed('winrate', true);
+                      
                     var path = g.append("svg:path")
                       .attr("d", line(winrate_arr))
-                      .classed("winrate", true);
+                      .attr('id', "winrate_line")
+                      .classed("winrate", true)
+                    
                       
                     var totalLength = path.node().getTotalLength();
 

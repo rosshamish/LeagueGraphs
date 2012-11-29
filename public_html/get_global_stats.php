@@ -7,7 +7,7 @@ PhpConsole::start();
 mysql_connect($host, $username, $password);
 mysql_selectdb($database);
 
-$query = "SELECT DISTINCT summonerName FROM games";
+$query = "SELECT summonerName FROM players";
 
 $result = mysql_query($query);
 

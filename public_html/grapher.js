@@ -122,7 +122,6 @@ function scale_on_filter(filter, y) {
  * Updates the current game stats in the table
  */
 function updateCurrentGameStats(gameData) {
-    console.log(gameData);
     /** Champ **/
     $('span#champ').html(gameData['champName']);  
     
@@ -134,9 +133,8 @@ function updateCurrentGameStats(gameData) {
     
     /** Items **/
     for (var i=0; i <= 5; i++) {
-        $('span#item' + i).html(gameData['item' + i]);
-    }
-    
+        $('span#item' + i).html(gameData['item' + i + '_name']);
+    }    
 }
 
 /** @objective: display the graph inside of #graph
@@ -176,7 +174,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
     }
     //console.log('received game type "' + gameType + '" in grapher.js');
     $('#gametype_title').html(' - ' + $('#gametype_filter_label').text());
-    
     
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php
     $.ajax({
@@ -342,8 +339,9 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                                 get : 'name' },
                         dataType: 'json',
                         success: function(items) {
+                            console.log(items);
                             for (var j=0; j <= 5; j++) {
-                                data[i]['item'+j] = items[j];
+                                data[i]['item'+j+'_name'] = items[j];
                             }
                             updateCurrentGameStats(data[i]);
                         }
@@ -371,7 +369,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     return height - scale_on_filter($(this).attr('data-filter'), d.y);
                     });
                 
-            
             /**
              * End Bar Graph *
              */

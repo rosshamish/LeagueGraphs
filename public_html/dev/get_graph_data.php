@@ -40,6 +40,7 @@ if (isset($_COOKIE['gameRange'])) {
 } else {
   $gameRange = 100000;
 }
+debug('gameRange: ' . $gameRange);
 if (isset($_COOKIE['gameType'])) {
   $gameType = $_COOKIE['gameType'];
 } else {

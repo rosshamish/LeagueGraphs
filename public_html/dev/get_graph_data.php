@@ -40,7 +40,6 @@ if (isset($_COOKIE['gameRange'])) {
 } else {
   $gameRange = 100000;
 }
-debug('gameRange: ' . $gameRange);
 if (isset($_COOKIE['gameType'])) {
   $gameType = $_COOKIE['gameType'];
 } else {
@@ -61,7 +60,6 @@ if ($gameType != null) { // gametype exists
 $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 
 //echo "query: $query"; // query is working k on Nov 8, 2012 @ 10:51pm
-debug("query: $query");
 $result = $mysqli->query($query);
 $ret_arr = array();
 

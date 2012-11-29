@@ -46,8 +46,8 @@ function noGamesFound(svg, champname) {
     }
     message += "!"; // some exclamation boiii.
     svg.append("text")
-      .attr('x', width / 2)
-      .attr('y', height / 2)
+      .attr('x', width / 3)
+      .attr('y', height / 3)
       .attr('fill', 'black')
       .text(message);
 }
@@ -315,6 +315,34 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     $.powerTip.closeTip();
                 })
                 .on('click', function(d, i) {
+                    var oldest_game = data[i]['createDate'];
+                    var date = oldest_game.substring(0, 10);
+                    var day = Number(date.substring(8, 10));
+                    var monthnum = Number(date.substring(5, 7));
+                    var year = date.substring(0, 4);
+                    var months_arr = ["Zeroth", "January", "February", "March", "April", "May", "June", "July",
+                                      "August", "September", "October", "November", "December"];
+                    var month = months_arr[monthnum];
+                    
+                    var hour = oldest_game.substring(11, 13);
+                    var minute = oldest_game.substring(14,16);
+                    var second = oldest_game.substring(17,19);
+                    
+                    var d1 = new Date(month + " " + day + ", " + year + " " + hour +":"+minute+":"+second);
+                    console.log(d1);
+                    var d2 = new Date(d1.getTime() - d1.getTimezoneOffset()*60*1000);
+                    console.log(d2.toDateString());
+                    var ampm = 'am';
+                    var ampmhour = d2.getHours();
+                    if (d2.getHours() > 11) { // if it is past noon
+                        ampm = 'pm';
+                        if (d2.getHours() > 12) {
+                            ampmhour -= 12;
+                        }
+                    }
+                    var time = ampmhour + ":" + d2.getMinutes() + " " + ampm;
+                    $("span#selected_game_date").html(d2.toDateString() + " at " + time);
+                    
                     d3.select('.selected_game').classed('selected_game', false);
                     d3.select(this).classed('selected_game', true);
                     $.ajax({
@@ -339,7 +367,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                                 get : 'name' },
                         dataType: 'json',
                         success: function(items) {
-                            console.log(items);
                             for (var j=0; j <= 5; j++) {
                                 data[i]['item'+j+'_name'] = items[j];
                             }

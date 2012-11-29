@@ -21,6 +21,11 @@ line {
     stroke: black;
 }
 
+.selected_game {
+    stroke: black;
+    stroke-width: 3;
+}
+
 .rounded-corners {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;

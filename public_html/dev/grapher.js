@@ -134,7 +134,14 @@ function updateCurrentGameStats(gameData) {
     /** Items **/
     for (var i=0; i <= 5; i++) {
         $('span#item' + i).html(gameData['item' + i + '_name']);
-    }    
+    }
+    
+    /** Win/Loss **/
+    if (Number(gameData['win']) > 0) { // it was a win
+        $('tr#selected_game_row').attr('class', 'success');
+    } else { // it was a loss
+        $('tr#selected_game_row').attr('class', 'error');
+    }
 }
 
 /** @objective: display the graph inside of #graph
@@ -144,7 +151,7 @@ function updateCurrentGameStats(gameData) {
  *  y_field (string) => the y axix/es of the graph. If given empty string, this defaults to the contents of the JSON-string 'filters' cookie.
  *  champId (string) => the championId filter (i.e. only show games with this champ). If given empty string, this defaults to the 'champId' cookie.
  *                      To reset champId, pass the string 'all' as a parameter.
- *  gameRange (string) => options: 'ten_games', 'thirty_games', 'ten_days', 'thirty_days', 'all_games' -- the range of games to get. If given empty string, this defaults
+ *  gameRange (string) => options: 'ten_games', 'twenty_games', 'thirty_games', 'sixty_games', 'all_games' -- the range of games to get. If given empty string, this defaults
  *                      to 'all_games'.
  *  gameType (string) => options: 'all', 'NORMAL', 'NORMAL_3x3', 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3', 'ODIN_UNRANKED'. If given empty string, defaults to 'gameType' cookie.
  */
@@ -164,6 +171,13 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
         $.cookie('champId', null);
     } else {
         champId = $.cookie('champId');
+    }
+    if (gameRange != null && gameRange != undefined) { // if it was passed
+        if (gameRange == '') { // if it is blank, use cookie
+            gameRange = $.cookie('gameRange');
+        }
+    } else {
+        gameRange = $.cookie('gameRange');
     }
     if (gameType != null && gameType != undefined) { // if it was passed
         if (gameType == '') { // if it is blank, use the cookie. Otherwise, just use what was given.
@@ -187,7 +201,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 gameType : gameType },
         dataType: "json",
         success: function(data) {
-            $("#graph_title").html(" - " + $.cookie('summoner_name'));
+            $("#graph_title").html($.cookie('summoner_name'));
             
             // SVG creation. This only happens once.
             var svg = d3.select("svg")
@@ -340,7 +354,8 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                             ampmhour -= 12;
                         }
                     }
-                    var time = ampmhour + ":" + d2.getMinutes() + " " + ampm;
+                    var mins = d2.getMinutes();
+                    var time = ampmhour + ":" + (mins < 10 ? "0":"") + mins + " " + ampm;
                     $("span#selected_game_date").html(d2.toDateString() + " at " + time);
                     
                     d3.select('.selected_game').classed('selected_game', false);
@@ -486,10 +501,10 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     var champName = '';
                     if (names[0] != "N/A") { // if we're filtering by champ, and not just set on All Champs
                         champName = names[0];
-                        $("#graph_title").html(' - ' + summoner_name + ' (' + champName + ')');
+                        $("#graph_title").html(summoner_name + ' (' + champName + ')');
                     } else {
                         champName = 'any champion';
-                        $("#graph_title").html(' - ' + summoner_name);
+                        $("#graph_title").html(summoner_name);
                     }
                     if (!game_found) {
                         noGamesFound(svg, champName);

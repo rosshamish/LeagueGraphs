@@ -197,7 +197,7 @@
 				<!-- //row-fluid TOP -->
 				<div class="row-fluid">
 					<div class="span12">
-						<h2>Graph <span id="graph_title"></span><span id="gametype_title"></span></h2>
+						<h2><span id="graph_title"></span><span id="gametype_title"></span></h2>
 						<div id="graph" class="">
 							<svg></svg>
 						</div>
@@ -207,29 +207,25 @@
 				<!--/row-->
 				<div class="row-fluid">
 					<div class="span12">
-					<h3>Selected Game: <span id="selected_game_date"></span></h3>
-					</div>
-				</div>
-				<div id="selected_game_table" class="row-fluid">
-					<div class="span12">
 						<table class="table">
+						<thead id="selected_game_table"><h4>Selected Game: <span id="selected_game_date"></span></h4></thead>
 						<tbody>
-						<tr>
+						<tr id="selected_game_row" class="">
 							<td id="champ">
-								<span id="champ">Taric</span>
+								<span id="champ"></span>
 							</td>
 							<td class="kda">
 								<img src="images/icon-sword.png" />
-								<span id="kills">1</span>
+								<span id="kills"></span>
 								
 								<img src="images/icon-skull.png" />
-								<span id="deaths">5</span>
+								<span id="deaths"></span>
 								
 								<img src="images/icon-assists.png" />
-								<span id="assists">21</span>
+								<span id="assists"></span>
 								
 								<img src="images/icon-cs.png" />
-								<span id="creep_score">108</span>
+								<span id="creep_score"></span>
 							</td>
 							<td id="item0">
 								<span id="item0"></span>

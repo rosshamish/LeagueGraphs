@@ -36,6 +36,7 @@ function updateNext() {
     url: "lol_processuser.php",
     data: { 'summonerName' : names_arr[count] },
     dataType: "json",
+    async: false,
     success: function(phpdata) {
         var parsed_games = phpdata['parsed_games'];
         var total_games = phpdata['total_games'];
@@ -58,11 +59,6 @@ function updateNext() {
             
             
         }
-        count++;
-        if (count >= names_arr.length) {
-            count = 0;
-        }
-        $("#nextPlayer").html(names_arr[count]);
     },
     error: function(err) {
         $("#playerUpdates").prepend('--<br>');
@@ -70,15 +66,15 @@ function updateNext() {
                                     'NULL new games grabbed<br>  ' +
                                     'NULL total games now.</p><br>');
         
-        count++;
-        if (count >= names_arr.length) {
-            count = 0;
-        }
-        $("#nextPlayer").html(names_arr[count]);
         
         
     }
     });
+    count++;
+    if (count >= names_arr.length) {
+        count = 0;
+    }
+    $("#nextPlayer").html(names_arr[count]);
 };
 
 function updateTimer() {
@@ -92,8 +88,9 @@ function updateTimer() {
             type: "POST",
             url: "auto-getsummonernames.php",
             dataType: "json",
-            success: function(phpdata) {
-                names_arr = phpdata;
+            async: false,
+            success: function(data) {
+                names_arr = data;
             }
         });
     }
@@ -125,7 +122,6 @@ timer = interval;
 setInterval(updateTimer, 1000); // set up the timer
 
 $("h2").html("Currently set to update one player every every " + interval / (1000 * 60) + " minutes");
-
 
 });
 

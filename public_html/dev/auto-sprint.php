@@ -57,10 +57,6 @@ function updateNext() {
         
         
       }
-      count++;
-        if (count >= names_arr.length) {
-            clearInterval(updateInterval);
-        }
     },
     error: function(err) {
       $("#playerUpdates").prepend('--<br>');
@@ -68,12 +64,13 @@ function updateNext() {
                                     'NULL new games grabbed<br>  ' +
                                     'NULL total games now.</p><br>');
         
-        count++;
-        if (count >= names_arr.length) {
-            clearInterval(updateInterval);
-        }
+        
     }
     });
+    count++;
+    if (count >= names_arr.length) {
+        clearInterval(updateInterval);
+    }
 };
 
 var names_arr = [];
@@ -81,6 +78,7 @@ $.ajax({
     type: "POST",
     url: "auto-getsummonernames.php",
     dataType: "json",
+    async: false,
     success: function(phpdata) {
         names_arr = phpdata;
         $("h2").append("<h3>Total players: " + names_arr.length + "</h3>");

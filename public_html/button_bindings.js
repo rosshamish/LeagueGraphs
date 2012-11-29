@@ -149,7 +149,7 @@ $(function() {
         
         // Do the graphing and stuff
         $.cookie("champId", null);
-        get_graph('', "gameId", '', 'all');
+        get_graph('', "", '', 'all');
         
         return false;
     });

@@ -169,6 +169,7 @@ $(document).ready(function() {
             case 'sixty_games':
                 t = 'Last 60 Games';
                 gameRange = 60;
+                break;
             default:
                 t = '??'
                 gameRange = 100000;

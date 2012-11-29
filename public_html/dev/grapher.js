@@ -318,7 +318,8 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     $.powerTip.closeTip();
                 })
                 .on('click', function(d, i) {
-                    
+                    d3.select('.selected_game').classed('selected_game', false);
+                    d3.select(this).classed('selected_game', true);
                     $.ajax({
                         url: 'get_champ.php',
                         type: 'POST',

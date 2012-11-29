@@ -37,6 +37,7 @@ function updateNext() {
     url: "lol_processuser.php",
     data: { 'summonerName' : names_arr[count] },
     dataType: "json",
+    async: false,
     success: function(phpdata) {
       if (!phpdata || phpdata == null) {
         

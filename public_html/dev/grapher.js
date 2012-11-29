@@ -118,6 +118,27 @@ function scale_on_filter(filter, y) {
     return ret_y;
 }
 
+/**
+ * Updates the current game stats in the table
+ */
+function updateCurrentGameStats(gameData) {
+    console.log(gameData);
+    /** Champ **/
+    $('span#champ').html(gameData['champName']);  
+    
+    /** KDA-CS **/
+    $('span#kills').html(gameData['championsKilled']);
+    $('span#assists').html(gameData['assists']);
+    $('span#deaths').html(gameData['numDeaths']);
+    $('span#creep_score').html(gameData['minionsKilled']);
+    
+    /** Items **/
+    for (var i=0; i <= 5; i++) {
+        $('span#item' + i).html(gameData['item' + i]);
+    }
+    
+}
+
 /** @objective: display the graph inside of #graph
  * @params:
  *  summoner_name (string) => the summoner name. If given empty string, the 'summoner_name' cookie will be used instead.
@@ -195,21 +216,18 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 }
             }
             var x_arr = [];
-            var pkey_arr = [];
             var y_arr = [];
             
             // this gives x_arr and y_arr to be arrays of arrays, containing *number of fields* number of arrays,
             // with each array containing *number of gamesplayed/datapoints* values in each inner array
             for (var cur_filter=0; cur_filter < num_filters; cur_filter++) {
                 x_arr[cur_filter] = [];
-                pkey_arr[cur_filter] = [];
                 y_arr[cur_filter] = [];
                 // game_found will be used MUCH later down to layer a notification text on top of the graph that no games were
                 // found for this particular champion.
                 var game_found = false; // check if a game was actually found (this is for the champ and gametype filters)
                 for (var idx=0; idx < data.length; idx++) {
                     x_arr[cur_filter].push(data[idx].x);
-                    pkey_arr[cur_filter].push(data[idx].pkey);
                     y_arr[cur_filter].push(data[idx].y[cur_filter]);
                     if (data[idx].game_found) {
                         game_found = true;
@@ -224,7 +242,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     seriesData[i][j] = new Object();
                     seriesData[i][j].x = x_arr[i][j];
                     seriesData[i][j].y = y_arr[i][j];
-                    seriesData[i][j].pkey = pkey_arr[i][j];
                 }
                 
             }
@@ -301,8 +318,36 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     $.powerTip.closeTip();
                 })
                 .on('click', function(d, i) {
-                    alert('d#: ' + d.pkey + ' has been clicked');
-                    updateCurrentGameStats(d.pkey);
+                    
+                    $.ajax({
+                        url: 'get_champ.php',
+                        type: 'POST',
+                        data: { identifier : [data[i]['championId']],
+                                get : 'name'},
+                        dataType: 'json',
+                        async: false,
+                        success: function(champName) {
+                            data[i]['champName'] = champName[0];
+                        }
+                    });
+                    var items = [];
+                    for (var j=0; j <= 5; j++) {
+                        items[j] = data[i]['item' + j];
+                    }
+                    $.ajax({
+                        url: 'get_item.php',
+                        type: 'POST',
+                        data: { identifier : items,
+                                get : 'name' },
+                        dataType: 'json',
+                        success: function(items) {
+                            for (var j=0; j <= 5; j++) {
+                                data[i]['item'+j] = items[j];
+                            }
+                            updateCurrentGameStats(data[i]);
+                        }
+                    });
+                    
                 })
                 .attr('data-filter', function(d, i, j) {
                     return filters[j];

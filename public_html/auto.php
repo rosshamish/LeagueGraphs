@@ -17,8 +17,19 @@
         
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
+    
+var onesecond = 1000;
+var oneminute = 1000 * 60;
+var fiveminutes = oneminute * 5;
+var tenminutes = oneminute * 10;
+var thirtyminutes = oneminute * 30;
+var hour = oneminute * 60;
 
 $(document).ready(function() {
+    
+var count = 0;
+var timer = 0;
+window.interval = 20000;
     
 document.write("<h1>LeagueGraphs database auto-updater</h1>");
 document.write("<h2></h2>");
@@ -26,8 +37,6 @@ document.write("Updating <span id='nextPlayer'></span> next.");
 document.write("<div id='updateTimer'></div>");
 document.write("<br><br>");
 document.write("<div id='playerUpdates'></div>");
-
-
 
 // each call to this function is worth 2 api calls
 function updateNext() {
@@ -55,9 +64,7 @@ function updateNext() {
             $("#playerUpdates").prepend('--<br>');
             $("#playerUpdates").prepend(names_arr[count] + ' (db#' + count + ') updated!<br>  ' +
                                         parsed_games + ' new games grabbed<br>  ' +
-                                        total_games + ' total games now.<br>');
-            
-            
+                                        total_games + ' total games now.<br>');  
         }
     },
     error: function(err) {
@@ -65,8 +72,6 @@ function updateNext() {
         $("#playerUpdates").prepend('<p color="red"> ' + names_arr[count] + ' (db#' + count + ') failed to update.<br>  ' +
                                     'NULL new games grabbed<br>  ' +
                                     'NULL total games now.</p><br>');
-        
-        
         
     }
     });
@@ -83,7 +88,7 @@ function updateTimer() {
     $("#updateTimer").html("Next update in " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
     timer -= 1000;
     if (timer <= 500) {
-        timer = interval;
+        timer = window.interval;
         $.ajax({
             type: "POST",
             url: "auto-getsummonernames.php",
@@ -102,26 +107,21 @@ $.ajax({
     dataType: "json",
     success: function(phpdata) {
         names_arr = phpdata;
-        $("h2").append("<h3>Updating each player every " + Math.ceil(interval * names_arr.length / (1000 * 60 * 60))  + " hours.</h3>");
+        
+        var min_update_time = hour * 6; // 6 hours between updates minimum
+        window.interval = Math.floor(min_update_time / names_arr.length / 1000) * 1000;
+        console.log('num players: ' + names_arr.length + ', window.interval: ' + window.interval);
+        updateNext(); // call it the first time
+        setInterval(updateNext, window.interval); // set up the interval
+        timer = window.interval;
+        setInterval(updateTimer, 1000); // set up the timer
+        
+        $("h2").html("Currently set to update one player every " + window.interval / (1000 * 60) + " minutes");
+        $("h2").append("<h3>Updating each player every " + Math.ceil(window.interval * names_arr.length / (1000 * 60 * 60))  + " hours.</h3>");
         $("h2").append("<h3>Total players: " + names_arr.length + "</h3>");
+        
     }
 });
-var count = 0;
-var timer = 0;
-
-var onesecond = 1000;
-var oneminute = 1000 * 60;
-var fiveminutes = oneminute * 5;
-var tenminutes = oneminute * 10;
-var thirtyminutes = oneminute * 30;
-var hour = oneminute * 60;
-var interval = oneminute * 2;
-updateNext(); // call it the first time
-setInterval(updateNext, interval); // set up the interval
-timer = interval;
-setInterval(updateTimer, 1000); // set up the timer
-
-$("h2").html("Currently set to update one player every every " + interval / (1000 * 60) + " minutes");
 
 });
 

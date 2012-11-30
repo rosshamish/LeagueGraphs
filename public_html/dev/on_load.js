@@ -70,8 +70,17 @@ $(document).ready(function() {
         dataType: "json",
         success: function(phpdata) {
             names_arr = phpdata;
-            $('input#summonerName').typeahead({
-                source: names_arr
+            $('.summoner_search_input').each(function(i,el) {
+                $(el).typeahead({
+                    source: names_arr,
+                    updater:function (item) {
+                        //item = selected item
+                        $(el).val(item);
+                        $(el).siblings('.summoner_search_btn').click();
+                        //dont forget to return the item to reflect them into input
+                        return item;
+                    }
+                });
             });
         }
     });
@@ -86,10 +95,17 @@ $(document).ready(function() {
         dataType: "json",
         success: function(phpdata) {
             var champnames = phpdata;
-            $("input#champname").typeahead({
-                source: champnames
+            $("input#champname").each(function(i,el) {
+                $(el).typeahead({
+                    source: champnames,
+                    updater: function(item) {
+                        // item = selected item
+                        $(el).val(item);
+                        $(el).siblings().click();
+                        return item;
+                    }
                 });
-            
+            });
         },
         error: function(p1, p2, p3) {
             console.error("get_champ.php ajax call failed. Errors:");

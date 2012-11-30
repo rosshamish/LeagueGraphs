@@ -1,11 +1,17 @@
 // Form submission on button click
 $(function() {
-    $("button#submit_btn").click(function() {
+    $('.summoner_search_input').click(function() {
+        $(this).select();
+    });
+    $(".summoner_search_btn").click(function() {
         document.activeElement.blur();
+        $this = $(this);
         // Grab values from the form
-        var summonerName = $("input#summonerName").val();
+        var input = $this.siblings('.summoner_search_input');
+        var summonerName = input.val();
+        $('.summoner_search_input').val(input.val());
         if (summonerName == "") {
-            $("input#summonerName").focus();
+            input.focus();
             return false;
         }
         $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
@@ -34,7 +40,7 @@ $(function() {
                     $("button#submit_btn").removeClass('btn-primary')
                                 .addClass('btn-danger');
                     
-                    $('input#summonerName').focus().select();
+                    input.focus().select();
                 } else {
                     var parsed_games = phpdata['parsed_games'];
                     var total_games = phpdata['total_games'];

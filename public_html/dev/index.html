@@ -54,8 +54,12 @@
 				<ul class="nav">
 					<li class="active"><a href="#">Home</a></li>
 					<li><a href="#aboutModal" type="button" data-toggle="modal">About</a></li>
-					<li><a href="#contactModal" type="button" data-toggle="modal">Contact</a></li>
+					<li><a href="#contactModal" type="button" textdata-toggle="modal">Contact</a></li>
 				</ul>
+				<form class="form-inline navbar-search" action="" method="">
+					<input class="span2 summoner_search_input" id="summonerName_nav" type="text" data-provide="typeahead" placeholder="Summoner Name">
+					<button id="submit_btn_nav" class="btn summoner_search_btn" type="submit">Go!</button>
+				</form>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
@@ -134,8 +138,8 @@
 				<div id="search_form" class="input control-group">
 					<form name="search_form" class="form-inline" action="" method="">
 						<legend> Enter your summoner name. Be known.</legend>
-						<input class="span2" id="summonerName" type="text" placeholder="RossHamish">
-						<button id="submit_btn" class="btn btn-primary" type="submit">Go!</button>
+						<input class="span2 summoner_search_input" id="summonerName" type="text" placeholder="Summoner Name">
+						<button id="submit_btn" class="btn btn-primary summoner_search_btn" type="submit">Go!</button>
 					</form>
 				</div>
 				<p class="text-error" id="check_ie"></p>
@@ -156,7 +160,7 @@
 								<button id="champ_filter_all_champs" class="btn span3 active" type="button">Anyone</button>
 								<form name="champ_input_form" class="form-inline" action="" method="">
 									<button id="champ_filter_btn" class="btn span3" type="submit" type="button">Only</button>
-									<input class="span3" type="text" placeholder="Olaf" id="champname"/>
+									<input class="span3" type="text" placeholder="Blitzcrank" id="champname"/>
 								</form>
 							</div>
 							
@@ -310,7 +314,7 @@
 <link rel="stylesheet/less" type="text/css" href="less/bootswatch.less">
 <script type="text/javascript" src="less/less-1.3.1.min.js"></script>
 <!-- Fav icon -->
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
 <script type="text/javascript" src="check_ie.js">
 </script>
 			</body>

@@ -86,11 +86,9 @@ $(function() {
                 summonerName : sessionStorage.summoner_name
             },
             success: function(data) {
-                console.log(data);
                 // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
             }
         });
-        
         return false;
     });
 });

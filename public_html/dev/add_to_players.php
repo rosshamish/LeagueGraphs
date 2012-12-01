@@ -9,10 +9,9 @@ $mysqli->select_db($database);
 
 $summoner_name = $_POST['summonerName'];
 
-$query = "INSERT INTO players VALUES $summoner_name";
+$query = "INSERT INTO players VALUES ('$summoner_name')";
 
 $result = $mysqli->query($query);
-echo json_encode($result);
 
 $mysqli->close();
 

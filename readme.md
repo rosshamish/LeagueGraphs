@@ -7,11 +7,11 @@
 
 **Here's how it works:**
 
-1) Your 10 most recent games are always available from Riot in high detail. 
-2) There is a glorious auto-update php machine that is always running. Once your name has been entered *once* on [LeagueGraphs](http://www.leaguegraphs.com), it is added to the machine's list of names.
-3) Each player is updated every 6 hours, minimum. If you can play more than 10 games in 6 hours, I applaud you, and I also recommend you visit the site during your marathon to let the database manually grab your game statistics.
-4) A manual update happens whenever you look yourself up, so graphs and data are also guaranteed up-to-date.
-5) Profit.
+1. Your 10 most recent games are always available from Riot in high detail.  
+2. There is a glorious auto-update php machine that is always running. Once your name has been entered *once* on [LeagueGraphs](http://www.leaguegraphs.com), it is added to the machine's list of names.  
+3. Each player is updated every 6 hours, minimum. If you can play more than 10 games in 6 hours, I applaud you, and I also recommend you visit the site during your marathon to let the database manually grab your game statistics.  
+4. A manual update happens whenever you look yourself up, so graphs and data are also guaranteed up-to-date.
+5. Profit.
 
 ---
 

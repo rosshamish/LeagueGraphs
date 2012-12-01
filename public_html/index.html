@@ -144,120 +144,138 @@
 				</div>
 				<p class="text-error" id="check_ie"></p>
 			</div>
-				<div class="row-fluid">
-					<div class="span7">
-						<h3>Numbers</h3>
-						<h5>I'd Like to See My:</h5>
-						<form id="checkboxes" name="checkboxes" class="">
-						</form>
-					</div>
-					<!-- //span8 -->
-					<div class="span5">
-						<h3>Filters</h3>
-						<h5>When I Play As:</h5>
-						<div class="">
-							<div id="champ_input_form" class="input control-group btn-group" data-toggle="buttons-radio">
-								<button id="champ_filter_all_champs" class="btn span3 active" type="button">Anyone</button>
-								<form name="champ_input_form" class="form-inline" action="" method="">
-									<button id="champ_filter_btn" class="btn span3" type="submit" type="button">Only</button>
-									<input class="span3" type="text" placeholder="Blitzcrank" id="champname"/>
-								</form>
-							</div>
-							
-							<div class="btn-toolbar">
-								<div class="btn-group">
-									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-										<span id="time_filter_label">All Time</span>
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a class="time_filter" id="ever" href="#">All Time</a></li>
-										<li><a class="time_filter" id="ten_games" href="#">Last 10 Games</a></li>
-										<li><a class="time_filter" id="twenty_games" href="#">Last 20 Games</a></li>
-										<li><a class="time_filter" id="thirty_games" href="#">Last 30 Games</a></li>
-										<li><a class="time_filter" id="sixty_games" href="#">Last 60 Games</a></li>
-									</ul>
+			  <ul class="nav nav-tabs" id="tabs">
+				<li class="active"><a href="#row_graph" data-toggle="tab">Games</a></li>
+				<li><a href="#row_champs" data-toggle="tab">Champions</a></li>
+			  </ul>
+			   
+			  <div class="tab-content">
+				<div class="tab-pane active" id="row_graph">
+					<div id="row_graph" class="row-fluid">
+						<div class="span7">
+							<h3>Numbers</h3>
+							<h5>I'd Like to See My:</h5>
+							<form id="checkboxes" name="checkboxes" class="">
+							</form>
+						</div>
+						<!-- //span7 -->
+						<div class="span5">
+							<h3>Filters</h3>
+							<h5>When I Play As:</h5>
+							<div class="">
+								<div id="champ_input_form" class="input control-group btn-group" data-toggle="buttons-radio">
+									<button id="champ_filter_all_champs" class="btn span3 active" type="button">Anyone</button>
+									<form name="champ_input_form" class="form-inline" action="" method="">
+										<button id="champ_filter_btn" class="btn span3" type="submit" type="button">Only</button>
+										<input class="span3" type="text" placeholder="Blitzcrank" id="champname"/>
+									</form>
 								</div>
-								<div class="btn-group">
-									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-										<span id="gametype_filter_label">All Game Types</span>
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a class="gametype_filter" id="all" href="#">All Game Types</a></li>
-										<li><a class="gametype_filter" id="NORMAL" href="#">Normal 5v5</a></li>
-										<li><a class="gametype_filter" id="NORMAL_3x3" href="#">Normal 3v3</a></li>
-										<li><a class="gametype_filter" id="RANKED_SOLO_5x5" href="#">Ranked Solo Queue</a></li>
-										<li><a class="gametype_filter" id="RANKED_TEAM_5x5" href="#">Ranked Team 5v5</a></li>
-										<li><a class="gametype_filter" id="RANKED_TEAM_3x3" href="#">Ranked Team 3v3</a></li>
-										<li><a class="gametype_filter" id="ODIN_UNRANKED" href="#">Dominion</a></li>
-									</ul>
+								
+								<div class="btn-toolbar">
+									<div class="btn-group">
+										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+											<span id="time_filter_label">All Time</span>
+											<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a class="time_filter" id="ever" href="#">All Time</a></li>
+											<li><a class="time_filter" id="ten_games" href="#">Last 10 Games</a></li>
+											<li><a class="time_filter" id="twenty_games" href="#">Last 20 Games</a></li>
+											<li><a class="time_filter" id="thirty_games" href="#">Last 30 Games</a></li>
+											<li><a class="time_filter" id="sixty_games" href="#">Last 60 Games</a></li>
+										</ul>
+									</div>
+									<div class="btn-group">
+										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+											<span id="gametype_filter_label">All Game Types</span>
+											<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a class="gametype_filter" id="all" href="#">All Game Types</a></li>
+											<li><a class="gametype_filter" id="NORMAL" href="#">Normal 5v5</a></li>
+											<li><a class="gametype_filter" id="NORMAL_3x3" href="#">Normal 3v3</a></li>
+											<li><a class="gametype_filter" id="RANKED_SOLO_5x5" href="#">Ranked Solo Queue</a></li>
+											<li><a class="gametype_filter" id="RANKED_TEAM_5x5" href="#">Ranked Team 5v5</a></li>
+											<li><a class="gametype_filter" id="RANKED_TEAM_3x3" href="#">Ranked Team 3v3</a></li>
+											<li><a class="gametype_filter" id="ODIN_UNRANKED" href="#">Dominion</a></li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
+						<!-- //span4 -->
 					</div>
-					<!-- //span4 -->
-				</div>
-				<!-- //row-fluid TOP -->
-				<div class="row-fluid">
-					<div class="span12">
-						<h2><span id="graph_title"></span><span id="gametype_title"></span></h2>
-						<div id="graph" class="">
-							<svg></svg>
+					<!-- //row-fluid TOP -->
+					<div class="row-fluid">
+						<div class="span12">
+							<h2><span id="graph_title"></span><span id="gametype_title"></span></h2>
+							<div id="graph" class="">
+								<svg></svg>
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+					<!--/row-->
+					<div class="row-fluid">
+						<div class="span12">
+							<table class="table">
+							<thead id="selected_game_table"><h4>Selected Game: <span id="selected_game_date"></span></h4></thead>
+							<tbody>
+							<tr id="selected_game_row" class="">
+								<td id="champ">
+									<span id="champ"></span>
+								</td>
+								<td class="kda">
+									<img src="images/icon-sword.png" />
+									<span id="kills"></span>
+									
+									<img src="images/icon-skull.png" />
+									<span id="deaths"></span>
+									
+									<img src="images/icon-assists.png" />
+									<span id="assists"></span>
+									
+									<img src="images/icon-cs.png" />
+									<span id="creep_score"></span>
+								</td>
+								<td id="item0">
+									<span id="item0"></span>
+								</td>
+								<td id="item1">
+									<span id="item1"></span>
+								</td>
+								<td id="item2">
+									<span id="item2"></span>
+								</td>
+								<td id="item3">
+									<span id="item3"></span>
+								</td>
+								<td id="item4">
+									<span id="item4"></span>
+								</td>
+								<td id="item5">
+									<span id="item5"></span>
+								</td>
+							</tr>
+							</tbody>
+							</table>
+						</div>
+						<!--/div table-->
+					</div>
+					<!--/row-->
+				</div> <!--/tab #row_graph -->
+				<div class="tab-pane" id="row_champs">
+					<div class="row-fluid">
+						<div class="span12">
+							<h2><span id="pie_title"></span></h2>
+							<div id="pie" class="">
+								<svg></svg>
+							</div>
 						</div>
 					</div>
-					<!--/span-->
-				</div>
-				<!--/row-->
-				<div class="row-fluid">
-					<div class="span12">
-						<table class="table">
-						<thead id="selected_game_table"><h4>Selected Game: <span id="selected_game_date"></span></h4></thead>
-						<tbody>
-						<tr id="selected_game_row" class="">
-							<td id="champ">
-								<span id="champ"></span>
-							</td>
-							<td class="kda">
-								<img src="images/icon-sword.png" />
-								<span id="kills"></span>
-								
-								<img src="images/icon-skull.png" />
-								<span id="deaths"></span>
-								
-								<img src="images/icon-assists.png" />
-								<span id="assists"></span>
-								
-								<img src="images/icon-cs.png" />
-								<span id="creep_score"></span>
-							</td>
-							<td id="item0">
-								<span id="item0"></span>
-							</td>
-							<td id="item1">
-								<span id="item1"></span>
-							</td>
-							<td id="item2">
-								<span id="item2"></span>
-							</td>
-							<td id="item3">
-								<span id="item3"></span>
-							</td>
-							<td id="item4">
-								<span id="item4"></span>
-							</td>
-							<td id="item5">
-								<span id="item5"></span>
-							</td>
-						</tr>
-						</tbody>
-						</table>
-					</div>
-					<!--/div table-->
-				</div>
-				<!--/row-->
+				</div> <!--/tab #row_champs--->
 				<hr>
-				<footer>
+				<footer class="footer">
 				<p>
 					&copy; <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a> 2012. Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">elophant.com</a>
 				</p>
@@ -272,8 +290,6 @@
     <![endif]-->
 <!-- Le javascript -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
-</script>
-<script type="text/javascript" src="jquery.cookie.js">
 </script>
 <script type="text/javascript" src="jquery.powertip/jquery.powertip.js">
 </script>

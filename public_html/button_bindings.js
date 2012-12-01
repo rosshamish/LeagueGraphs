@@ -14,11 +14,11 @@ $(function() {
             input.focus();
             return false;
         }
-        $.cookie('summoner_name', summonerName); // set the summoner_name, we're looking at a new player
-        $.cookie('gameType', 'all');
-        $.cookie('champId', null);
+        sessionStorage.summoner_name = summonerName; // set the summoner_name, we're looking at a new player
+        sessionStorage.gameType = 'all';
+        sessionStorage.champId = '';
         $('#gametype_filter_label').text('All Game Types');
-        $.cookie('gameRange', null);
+        sessionStorage.gameRange = '';
         $("#time_filter_label").text('All Time');
         $("#champ_filter_all_champs").addClass('active');
         $("#champ_filter_btn").removeClass('active');
@@ -123,7 +123,7 @@ $(function() {
                     $('input#champname').focus().select();
                 } else {
                     var champId = phpdata[0];
-                    $.cookie('champId', champId);
+                    sessionStorage.champId = champId;
                     $("#champ_input_form").removeClass('error')
                                           .addClass('success');
                     // Do the graphing and stuff
@@ -154,7 +154,7 @@ $(function() {
                               .addClass('success');
         
         // Do the graphing and stuff
-        $.cookie("champId", null);
+        sessionStorage.champId = '';
         get_graph('', "", '', 'all');
         
         return false;

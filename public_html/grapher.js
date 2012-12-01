@@ -40,7 +40,7 @@ var colorOfFilter = {'premadeSize' : "\#888888",
 /** Append a no games found notice to the svg space **/
 function noGamesFound(svg, champname) {
     var message = "No games found for " + champname;
-    var tp = $.cookie('gameType');
+    var tp = sessionStorage.gameType;
     if (tp != null && tp != 'all' && tp != '') {
         message += " in that gametype"; // in that gametype boiii.
     }
@@ -146,45 +146,45 @@ function updateCurrentGameStats(gameData) {
 
 /** @objective: display the graph inside of #graph
  * @params:
- *  summoner_name (string) => the summoner name. If given empty string, the 'summoner_name' cookie will be used instead.
+ *  summoner_name (string) => the summoner name. If given empty string, the 'summoner_name' sessionStorage will be used instead.
  *  x_field (string) => the x axis of the graph. If given empty string, this defaults to 'gameId', which will basically be time on the x axis.
- *  y_field (string) => the y axix/es of the graph. If given empty string, this defaults to the contents of the JSON-string 'filters' cookie.
- *  champId (string) => the championId filter (i.e. only show games with this champ). If given empty string, this defaults to the 'champId' cookie.
+ *  y_field (string) => the y axix/es of the graph. If given empty string, this defaults to the contents of the JSON-string 'filters' sessionStorage.
+ *  champId (string) => the championId filter (i.e. only show games with this champ). If given empty string, this defaults to the 'champId' sessionStorage var.
  *                      To reset champId, pass the string 'all' as a parameter.
  *  gameRange (string) => options: 'ten_games', 'twenty_games', 'thirty_games', 'sixty_games', 'all_games' -- the range of games to get. If given empty string, this defaults
  *                      to 'all_games'.
- *  gameType (string) => options: 'all', 'NORMAL', 'NORMAL_3x3', 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3', 'ODIN_UNRANKED'. If given empty string, defaults to 'gameType' cookie.
+ *  gameType (string) => options: 'all', 'NORMAL', 'NORMAL_3x3', 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3', 'ODIN_UNRANKED'. If given empty string, defaults to 'gameType' sessionStorage var.
  */
 function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType) {
     if (summoner_name == '') {
-        summoner_name = $.cookie('summoner_name');
+        summoner_name = sessionStorage.summoner_name
     } else {
-        $.cookie('summoner_name', summoner_name);
+        sessionStorage.summoner_name = summoner_name;
     }
     if (x_field == '') {
         x_field = 'gameId';
     }
     if (y_field == '') {
-        y_field = $.cookie('filters');
+        y_field = $.parseJSON(sessionStorage.filters);
     }
     if (champId == 'all') {
-        $.cookie('champId', null);
+        sessionStorage.champId = '';
     } else {
-        champId = $.cookie('champId');
+        champId = sessionStorage.champId;
     }
     if (gameRange != null && gameRange != undefined) { // if it was passed
-        if (gameRange == '') { // if it is blank, use cookie
-            gameRange = $.cookie('gameRange');
+        if (gameRange == '') { // if it is blank, use sessionStorage var
+            gameRange = sessionStorage.gameRange;
         }
     } else {
-        gameRange = $.cookie('gameRange');
+        gameRange = sessionStorage.gameRange;
     }
     if (gameType != null && gameType != undefined) { // if it was passed
-        if (gameType == '') { // if it is blank, use the cookie. Otherwise, just use what was given.
-            gameType = $.cookie('gameType');
+        if (gameType == '') { // if it is blank, use the sessionStorage var. Otherwise, just use what was given.
+            gameType = sessionStorage.gameType;
         }
     } else {
-        gameType = $.cookie('gameType');
+        gameType = sessionStorage.gameType;
     }
     //console.log('received game type "' + gameType + '" in grapher.js');
     $('#gametype_title').html(' - ' + $('#gametype_filter_label').text());
@@ -193,21 +193,20 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
     $.ajax({
         type: "POST",
         url: "get_graph_data.php",
-        data: { summonerName : summoner_name,
-                x_field : x_field,
-                y_field : y_field,
+        data: { summoner_name : summoner_name,
                 champId : champId,
+                filters : sessionStorage.filters,
                 gameRange : gameRange,
                 gameType : gameType },
         dataType: "json",
         success: function(data) {
-            $("#graph_title").html($.cookie('summoner_name'));
+            $("#graph_title").html(sessionStorage.summoner_name);
             
             // SVG creation. This only happens once.
-            var svg = d3.select("svg")
+            var svg = d3.select("#graph svg")
                     .attr("width", width)
                     .attr("height", height);
-            $("svg").empty();
+            $("#graph svg").empty();
             
             /* 
              * Bar Graph of Filtered Statistics
@@ -218,7 +217,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 var num_filters = 0;
             }
             var num_values = data.length;
-            var filters = $.parseJSON($.cookie('filters'));
+            var filters = $.parseJSON(sessionStorage.filters);
             
             /** deal with "time" being the desired x value */
             if (x_field == 'gameId') {
@@ -254,7 +253,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     seriesData[i][j].x = x_arr[i][j];
                     seriesData[i][j].y = y_arr[i][j];
                 }
-                
             }
             
             /** domain and range */
@@ -343,9 +341,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     var second = oldest_game.substring(17,19);
                     
                     var d1 = new Date(month + " " + day + ", " + year + " " + hour +":"+minute+":"+second);
-                    console.log(d1);
                     var d2 = new Date(d1.getTime() - d1.getTimezoneOffset()*60*1000);
-                    console.log(d2.toDateString());
                     var ampm = 'am';
                     var ampmhour = d2.getHours();
                     if (d2.getHours() > 11) { // if it is past noon
@@ -418,11 +414,15 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
             /**
              * Line Graph of Winrate *
              */
+            
             $.ajax({
                 type: "POST",
                 url: "get_winrate.php",
                 data: { trendy: true,
-                        gameRange : gameRange
+                        summoner_name : sessionStorage.summoner_name,
+                        champId : champId,
+                        gameRange : gameRange,
+                        gameType : gameType
                       },
                 dataType: "json",
                 success: function(phpdata) {

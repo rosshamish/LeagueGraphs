@@ -6,6 +6,7 @@ body {
 
 path.winrate {
     stroke: steelblue;
+    stroke-dasharray: "1";
     stroke-width: 2;
     fill: none;
 }
@@ -14,7 +15,6 @@ path.wr_dotted {
     stroke: black;
     stroke-width: 1;
     fill: none;
-    stroke-dasharray: '1 0';
 }
  
 line {

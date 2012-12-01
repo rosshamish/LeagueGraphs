@@ -4,30 +4,13 @@ require_once('sensitive_data.php');
 require_once('PhpConsole.php');
 PhpConsole::start();
 
-/** Clean cookies mm cookies **/
-if (get_magic_quotes_gpc() == true) {
- foreach($_COOKIE as $key => $value) {
-   $_COOKIE[$key] = stripslashes($value);
-  }
+$gameRange = intval($_POST['gameRange']);
+if ($gameRange <= 0) { // if we're looking for all games
+  $gameRange = 1000000;
 }
-
-if (isset($_COOKIE['gameRange'])) {
-  $gameRange = $_COOKIE['gameRange'];
-} else {
-  $gameRange = 100000;
-}
-
-if (isset($_COOKIE['champId'])) {
-  $champId = $_COOKIE['champId'];
-} else {
-  $champId = '';
-}
-$name = $_COOKIE['summoner_name'];
-if (isset($_COOKIE['gameType'])) {
-  $gameType = $_COOKIE['gameType'];
-} else {
-  $gameType = $_POST['gameType'];
-}
+$champId = intval($_POST['champId']);
+$name = $_POST['summoner_name'];
+$gameType = $_POST['gameType'];
 
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);

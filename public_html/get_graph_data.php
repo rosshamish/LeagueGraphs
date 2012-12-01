@@ -10,53 +10,22 @@ PhpConsole::start();
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);
 
-/** Clean cookies mm cookies **/
-if (get_magic_quotes_gpc() == true) {
- foreach($_COOKIE as $key => $value) {
-   $_COOKIE[$key] = stripslashes($value);
-  }
-}
-
-//$name = $_POST['summonerName']; // this is the PASSED value
-
-//$y = $_POST['y_field']; // this is the PASSED value
-//$champId = $_POST['champId']; // this is the PASSED value
-
-$name = $_COOKIE['summoner_name']; // this is the COOKIE value
+$name = $_POST['summoner_name']; // this is the sessionStorage value
 $x = 'gameId'; // this is always gameId anyway, who gives a care.
-if (isset($_COOKIE['filters'])) {
-  $y_arr = json_decode($_COOKIE['filters'], true); // this is the COOKIE value
-} else {
-  $y_arr = array();
+$j = str_replace('\"', '"', $_POST['filters']); // why the FUCK is this necessary, what the fuck am I doing wrong with the JSON
+$y_arr = json_decode($j); // this is the sessionStorage value // working: "[\"championsKilled\"]"
+$champId = intval($_POST['champId']);
+$gameRange = intval($_POST['gameRange']);
+if ($gameRange <= 0) { // if we're looking for all games
+  $gameRange = 1000000;
 }
-
-if (isset($_COOKIE['champId'])) {
-  $champId = $_COOKIE['champId']; // this is the COOKIE value
-} else {
-  $champId = '';
-}
-if (isset($_COOKIE['gameRange'])) {
-  $gameRange = $_COOKIE['gameRange'];
-} else {
-  $gameRange = 100000;
-}
-if (isset($_COOKIE['gameType'])) {
-  $gameType = $_COOKIE['gameType'];
-} else {
-  $gameType = $_POST['gameType'];
-}
-
+$gameType = $_POST['gameType'];
 
 $query = "SELECT *"; // select all the data
-
 $query .= " FROM games WHERE summonerName='$name' "; // filter by the current summoner
-
-if ($gameType != null) { // gametype exists
-  if ($gameType != 'all' && $gameType != '') { // if we are actually filtering a gametype
-    $query .= " AND queueType='$gameType' ";
-  }
+if ($gameType != 'all' && $gameType != '') { // if we are actually filtering a gametype
+  $query .= " AND queueType='$gameType' ";
 }
-
 $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it
 
 //echo "query: $query"; // query is working k on Nov 8, 2012 @ 10:51pm

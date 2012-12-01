@@ -39,10 +39,10 @@ function checkbox(name, id, checked) {
 // All the onload stuff
 $(document).ready(function() {
     
-    /** Clear Cookies **/
-    $.cookie('filters', null); // clear this pesky cookie, why do ipearned and sightwardsboughtingame always get set for some reason
-    $.cookie('champId', null);
-    $.cookie('gameType', 'all');
+    /** Clear session storage vars **/
+    sessionStorage.filters = JSON.stringify([]);
+    sessionStorage.champId = '';
+    sessionStorage.gameType = 'all';
     
     /** Input Focus **/
     $("input#summonerName").focus(); // focus on the important input, the name
@@ -192,7 +192,7 @@ $(document).ready(function() {
                 break;
         }
         $('#time_filter_label').text(t);
-        $.cookie('gameRange', gameRange);
+        sessionStorage.gameRange = gameRange;
         get_graph('', '', '', '');
     });
     
@@ -227,14 +227,14 @@ $(document).ready(function() {
         }
         var gameType = this.id;
         $('#gametype_filter_label').text(t);
-        $.cookie('gameType', gameType);
+        sessionStorage.gameType = gameType;
         get_graph('', '', '', '', '');
     });
     
         
     /** Set up default graph **/
     var defaultPlayer = 'SomePlayer';
-    $.cookie('summoner_name', defaultPlayer);
+    sessionStorage.summoner_name = defaultPlayer;
     $('input[type=checkbox]').tzCheckbox(defaultPlayer);
     $('#championsKilled').click(); // this click ALSO gets the initial graph
 });

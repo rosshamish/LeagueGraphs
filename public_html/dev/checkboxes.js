@@ -9,10 +9,10 @@
 				checkbox.toggleClass('checked');
 				var isChecked = checkbox.hasClass('checked');
 							
-				if ($.cookie('filters')) {
-				  var filters = $.parseJSON($.cookie('filters')); // get the filters cookie's current state
+				if (sessionStorage.filters) {
+				  var filters = $.parseJSON(sessionStorage.filters); // get the filters sessionStorage's current state
 				} else {
-				  var filters = []; // initialize the filters arr so that it can be made a cookie mm
+				  var filters = []; // initialize the filters arr so that it can be made a sessionStorage var mm
 				}
 				if (isChecked) {
 					// it has been deduced that checkbox.text() returns the SQL field. Hooray!
@@ -21,7 +21,7 @@
 					var idx = filters.indexOf(checkbox.attr('id'));
 					filters.splice(idx, 1);
 				}
-				$.cookie('filters', JSON.stringify(filters)); // update the filters cookie
+				sessionStorage.filters = JSON.stringify(filters); // update the filters sessionStorage
 				get_graph('', '', '', '');
 			});
 		});

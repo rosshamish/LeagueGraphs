@@ -15,7 +15,7 @@
 
 ---
 
-**The site is now in beta!**
+**The site is still in alpha development.**
 
 Please give it some slack as it is still in development :) 
 

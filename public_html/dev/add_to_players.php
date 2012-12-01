@@ -11,7 +11,8 @@ $summoner_name = $_POST['summonerName'];
 
 $query = "INSERT INTO players VALUES $summoner_name";
 
-$mysqli->query($query);
+$result = $mysqli->query($query);
+echo json_encode($result);
 
 $mysqli->close();
 

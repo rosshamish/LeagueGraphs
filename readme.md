@@ -61,7 +61,7 @@ If you notice something wrong, some weird formatting or data or wrong values, ho
 
 - Data currently only available for NA servers
     - This is easily fixable, but for now simplicity is king.
-- I am a student and don't have money to pay for server space or API calls to handle lots of people. Currently it looks like the max will be a little less than 10,a000 players.
+- I am a student and don't have money to pay for server space or API calls to handle lots of people. Currently it looks like the max will be a little less than 10,000 players.
     - This is easily fixable with [donations :)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5AK9LPZFB54L8&lc=CA&item_name=LeagueGraphs&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
 
 ---

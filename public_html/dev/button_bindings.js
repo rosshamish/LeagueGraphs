@@ -55,7 +55,7 @@ $(function() {
                     var month = months_arr[parseInt(monthnum)];
                     
                     // Make the graph
-                    get_graph(name, '', '', '');
+                    get_graph('', '', '', '');
                     
                     $(".title").remove();
                     $("#intro").remove();
@@ -83,9 +83,10 @@ $(function() {
             url: 'add_to_players.php',
             type: 'POST',
             data: {
-                summonerName : summonerName
+                summonerName : sessionStorage.summoner_name
             },
-            success: function() {
+            success: function(data) {
+                console.log(data);
                 // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
             }
         });

@@ -1,11 +1,12 @@
-// Form submission on button click
+/** Form submission on button click **/
 $(function() {
+    
+    /** Input selection **/
     $('.summoner_search_input').click(function() {
         $(this).select();
     });
-    $('.champ_filter_input').click(function() {
-        $(this).select();
-    });
+    
+    /** Player search **/
     $(".summoner_search_btn").click(function() {
         document.activeElement.blur();
         $this = $(this);
@@ -20,13 +21,13 @@ $(function() {
         sessionStorage.summoner_name = summonerName; // set the summoner_name, we're looking at a new player
         sessionStorage.gameType = 'all';
         sessionStorage.champId = '';
-        $('#gametype_filter_label').text('All Game Types');
+        $('.gametype_filter_label').text('All Game Types');
         sessionStorage.gameRange = '';
-        $("#time_filter_label").text('All Time');
-        $("#champ_filter_all_champs").addClass('active');
-        $("#champ_filter_btn").removeClass('active');
+        $(".time_filter_label").text('All Time');
+        $(".champ_filter_all_champs").addClass('active');
+        $(".champ_filter_btn").removeClass('active');
         $("input#champname").text('');
-        $("#champ_input_form").removeClass('success');
+        $(".champ_input_form").removeClass('success');
         
         summonerName = summonerName.replace(" ", "%20");
         // Use Ajax to process the form submission
@@ -96,18 +97,26 @@ $(function() {
     });
 });
 
-// Champ filter form submission
+/** Champ filter form submission **/
 $(function() {
-    $("button#champ_filter_btn").click(function() {
+    
+    $('.champ_filter_input').click(function() {
+        $(this).select();
+    });
+    
+    $("button.champ_filter_btn").click(function() {
         
         // Grab values from the form
-        var champname = $("input#champname").val();
+        var champname = $(this).siblings('.champ_filter_input').val();
+        $('.champ_filter_input').each(function() {
+            $(this).val(champname);
+        });
         if (champname == "") {
             $("input#champname").focus();
             return false;
         }
-        $("button#champ_filter_all_champs").removeClass('active');
-        $("button#champ_filter_btn").addClass('active');
+        $("button.champ_filter_all_champs").removeClass('active');
+        $("button.champ_filter_btn").addClass('active');
                 
         // Use Ajax to process the form submission
         $.ajax({  
@@ -119,14 +128,14 @@ $(function() {
             success: function(phpdata) {
                 if (!phpdata[0]) {
                     console.error('invalid champName "'+champname+'" given to get_champ.php');
-                    $('#champ_input_form').removeClass('success')
+                    $('.champ_input_form').removeClass('success')
                                           .addClass('error');
                                           
                     $('input#champname').focus().select();
                 } else {
                     var champId = phpdata[0];
                     sessionStorage.champId = champId;
-                    $("#champ_input_form").removeClass('error')
+                    $(".champ_input_form").removeClass('error')
                                           .addClass('success');
                     // Do the graphing and stuff
                     get_graph('', '', '', champId);
@@ -140,19 +149,14 @@ $(function() {
 
 /* Champ unfilter button */
 $(function() {
-    $("button#champ_filter_all_champs").click(function() {
-        // Grab values from the form
-        var champname = $("input#champname").val();
-        if (champname == "") {
-            $("input#champname").focus();
-            return false;
-        }
-        $("button#champ_filter_all_champs").addClass('active');
-        $("button#champ_filter_btn").removeClass('active');
+    $("button.champ_filter_all_champs").click(function() {
+        
+        $("button.champ_filter_all_champs").addClass('active');
+        $("button.champ_filter_btn").removeClass('active');
                 
         // Use Ajax to process the form submission
         
-        $("#champ_input_form").removeClass('error')
+        $(".champ_input_form").removeClass('error')
                               .addClass('success');
         
         // Do the graphing and stuff

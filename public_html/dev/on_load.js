@@ -191,7 +191,7 @@ $(document).ready(function() {
                 gameRange = 100000;
                 break;
         }
-        $('#time_filter_label').text(t);
+        $('.time_filter_label').text(t);
         sessionStorage.gameRange = gameRange;
         get_graph('', '', '', '');
     });
@@ -226,7 +226,7 @@ $(document).ready(function() {
                 break;
         }
         var gameType = this.id;
-        $('#gametype_filter_label').text(t);
+        $('.gametype_filter_label').text(t);
         sessionStorage.gameType = gameType;
         get_graph('', '', '', '', '');
     });

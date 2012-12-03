@@ -157,16 +157,15 @@
 							<h5>I'd Like to See My:</h5>
 							<form id="checkboxes" name="checkboxes" class="">
 							</form>
-						</div>
-						<!-- //span7 -->
+						</div> <!-- //span7 -->
 						<div class="span5">
 							<h3>Filters</h3>
 							<h5>When I Play As:</h5>
 							<div class="">
-								<div id="champ_input_form" class="input control-group btn-group" data-toggle="buttons-radio">
-									<button id="champ_filter_all_champs" class="btn span3 active" type="button">Anyone</button>
+								<div class="input control-group btn-group champ_input_form" data-toggle="buttons-radio">
+									<button class="btn span3 active champ_filter_all_champs" type="button">Anyone</button>
 									<form name="champ_input_form" class="form-inline" action="" method="">
-										<button id="champ_filter_btn" class="btn span3" type="submit" type="button">Only</button>
+										<button class="btn span3 champ_filter_btn" type="submit" type="button">Only</button>
 										<input class="span3 champ_filter_input" type="text" placeholder="Blitzcrank" id="champname"/>
 									</form>
 								</div>
@@ -174,7 +173,7 @@
 								<div class="btn-toolbar">
 									<div class="btn-group">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-											<span id="time_filter_label">All Time</span>
+											<span class="time_filter_label">All Time</span>
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
@@ -187,7 +186,7 @@
 									</div>
 									<div class="btn-group">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-											<span id="gametype_filter_label">All Game Types</span>
+											<span class="gametype_filter_label" id="gametype_filter_label">All Game Types</span>
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
@@ -202,8 +201,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- //span4 -->
+						</div> <!-- //span5 -->
 					</div>
 					<!-- //row-fluid TOP -->
 					<div class="row-fluid">
@@ -268,6 +266,52 @@
 					<!--/row-->
 				</div> <!--/tab #row_graph -->
 				<div class="tab-pane" id="row_champs">
+					<div class="span7">
+					</div> <!-- //span7 -->
+					<div class="span5">
+						<h3>Filters</h3>
+						<h5>When I Play As:</h5>
+						<div class="">
+							<div class="input control-group btn-group champ_input_form" data-toggle="buttons-radio">
+								<button class="btn span3 active champ_filter_all_champs" type="button">Anyone</button>
+								<form disabled="disabled" name="champ_input_form" class="form-inline" action="" method="">
+									<button disabled="disabled" class="btn span3 champ_filter_btn" type="submit" type="button">Only</button>
+									<input disabled="disabled" class="span3 champ_filter_input" type="text" placeholder="Blitzcrank" id="champname"/>
+								</form>
+							</div>
+							
+							<div class="btn-toolbar">
+								<div class="btn-group">
+									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										<span class="time_filter_label">All Time</span>
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a class="time_filter" id="ever" href="#">All Time</a></li>
+										<li><a class="time_filter" id="ten_games" href="#">Last 10 Games</a></li>
+										<li><a class="time_filter" id="twenty_games" href="#">Last 20 Games</a></li>
+										<li><a class="time_filter" id="thirty_games" href="#">Last 30 Games</a></li>
+										<li><a class="time_filter" id="sixty_games" href="#">Last 60 Games</a></li>
+									</ul>
+								</div>
+								<div class="btn-group">
+									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										<span class="gametype_filter_label" id="gametype_filter_label">All Game Types</span>
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a class="gametype_filter" id="all" href="#">All Game Types</a></li>
+										<li><a class="gametype_filter" id="NORMAL" href="#">Normal 5v5</a></li>
+										<li><a class="gametype_filter" id="NORMAL_3x3" href="#">Normal 3v3</a></li>
+										<li><a class="gametype_filter" id="RANKED_SOLO_5x5" href="#">Ranked Solo Queue</a></li>
+										<li><a class="gametype_filter" id="RANKED_TEAM_5x5" href="#">Ranked Team 5v5</a></li>
+										<li><a class="gametype_filter" id="RANKED_TEAM_3x3" href="#">Ranked Team 3v3</a></li>
+										<li><a class="gametype_filter" id="ODIN_UNRANKED" href="#">Dominion</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div> <!-- //span5 -->
 					<div class="row-fluid">
 						<div class="span12">
 							<h2><span id="pie_title"></span></h2>

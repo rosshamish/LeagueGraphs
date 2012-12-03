@@ -3,6 +3,9 @@ $(function() {
     $('.summoner_search_input').click(function() {
         $(this).select();
     });
+    $('.champ_filter_input').click(function() {
+        $(this).select();
+    });
     $(".summoner_search_btn").click(function() {
         document.activeElement.blur();
         $this = $(this);

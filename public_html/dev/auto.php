@@ -45,7 +45,6 @@ function updateNext() {
     url: "lol_processuser.php",
     data: { 'summonerName' : names_arr[count] },
     dataType: "json",
-    async: false,
     success: function(phpdata) {
         var parsed_games = phpdata['parsed_games'];
         var total_games = phpdata['total_games'];
@@ -73,14 +72,16 @@ function updateNext() {
                                     'NULL new games grabbed<br>  ' +
                                     'NULL total games now.</p><br>');
         
+    },
+    complete: function() {
+        count++;
+        if (count >= names_arr.length) {
+            count = 0;
+        }
+        $("#nextPlayer").html(names_arr[count]);
     }
     });
-    count++;
-    if (count >= names_arr.length) {
-        count = 0;
-    }
-    $("#nextPlayer").html(names_arr[count]);
-};
+}
 
 function updateTimer() {
     var minutes = Math.floor(timer / (1000 * 60));

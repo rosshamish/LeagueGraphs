@@ -121,7 +121,7 @@ function scale_on_filter(filter, y) {
 /**
  * Updates the current game stats in the table
  */
-function updateCurrentGameStats(gameData) {
+function updateCurrentGameStats(gameData, winrate) {
     /** Champ **/
     $('span#champ').html(gameData['champName']);  
     
@@ -135,6 +135,9 @@ function updateCurrentGameStats(gameData) {
     for (var i=0; i <= 5; i++) {
         $('span#item' + i).html(gameData['item' + i + '_name']);
     }
+    
+    /** Winrate **/
+    $('span#wr').html(Math.floor(winrate));
     
     /** Win/Loss **/
     if (Number(gameData['win']) > 0) { // it was a win
@@ -207,6 +210,77 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     .attr("width", width)
                     .attr("height", height);
             $("#graph svg").empty();
+            
+            /**
+             * Line Graph of Winrate *
+             */
+            
+            $.ajax({
+                type: "POST",
+                url: "get_winrate.php",
+                data: { trendy: true,
+                        summoner_name : sessionStorage.summoner_name,
+                        champId : champId,
+                        gameRange : gameRange,
+                        gameType : gameType
+                      },
+                dataType: "json",
+                success: function(phpdata) {
+                    window.winrate_arr = phpdata;
+                    var margin = 20,
+                    y = d3.scale.linear().domain([0, 100]).range([height - margin*2, 0 + margin*2]),
+                    x = d3.scale.linear().domain([0, winrate_arr.length-1]).range([0 + margin, width - margin]);
+                    
+                    var line = d3.svg.line()
+                        .x(function(d,i) { return xgScale(i) + (xsScale.rangeBand() * num_filters) / 2; }) // the stats graph x value plus half each bar group's width
+                        .y(function(d) { return y(d); })
+                        .interpolate('basis');
+                    
+                    var wr_50 = d3.svg.line()
+                        .x(function(d,i) { return d; })
+                        .y(function(d,i) { return height/2; });
+                    
+                    var wr_g = svg.append('g')
+                      .classed('wr_50', true);
+                      
+                    wr_g.append("svg:path")
+                      .classed('wr_dotted', true)
+                      .attr('stroke-dasharray', '10 10')
+                      .attr('d', wr_50([0, width]));
+                      
+                    wr_g.append("text")
+                      .classed('wr_50_text', true)
+                      .text('50% Winrate')
+                      .attr('x', width / 2)
+                      .attr('y', height / 2 - 10)
+                      .attr("text-anchor", "middle");
+                    
+                    var g = svg.append("g")
+                      .classed('winrate', true);
+                    var path = g.append("svg:path")
+                      .attr("d", line(winrate_arr))
+                      .attr('id', "winrate_line")
+                      .classed("winrate", true)
+                    
+                    /** Animate path drawing **/
+                    var totalLength = path.node().getTotalLength();
+                    path
+                      .attr("stroke-dasharray", totalLength + " " + totalLength)
+                      .attr("stroke-dashoffset", totalLength)
+                      .transition()
+                        .duration(2000)
+                        .ease("linear")
+                        .attr("stroke-dashoffset", 0);
+                },
+                error: function(error) {
+                    console.log('get_winrate errored out');
+                }
+            });
+            
+            /**
+             * End Line Graph *
+             */
+            
             
             /* 
              * Bar Graph of Filtered Statistics
@@ -381,7 +455,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                             for (var j=0; j <= 5; j++) {
                                 data[i]['item'+j+'_name'] = items[j];
                             }
-                            updateCurrentGameStats(data[i]);
+                            updateCurrentGameStats(data[i], winrate_arr[i]);
                         }
                     });
                     
@@ -409,79 +483,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 
             /**
              * End Bar Graph *
-             */
-            
-            /**
-             * Line Graph of Winrate *
-             */
-            
-            $.ajax({
-                type: "POST",
-                url: "get_winrate.php",
-                data: { trendy: true,
-                        summoner_name : sessionStorage.summoner_name,
-                        champId : champId,
-                        gameRange : gameRange,
-                        gameType : gameType
-                      },
-                dataType: "json",
-                success: function(phpdata) {
-                    var winrate_arr = phpdata;
-                    var margin = 20,
-                    y = d3.scale.linear().domain([0, 100]).range([height - margin*2, 0 + margin*2]),
-                    x = d3.scale.linear().domain([0, winrate_arr.length-1]).range([0 + margin, width - margin]);
-                    
-                    var line = d3.svg.line()
-                        .x(function(d,i) { return xgScale(i) + (xsScale.rangeBand() * num_filters) / 2; }) // the stats graph x value plus half each bar group's width
-                        .y(function(d) { return y(d); })
-                        .interpolate('basis');
-                    
-                    var wr_50 = d3.svg.line()
-                        .x(function(d,i) { return d; })
-                        .y(function(d,i) { return height/2; });
-                    
-                    var wr_g = svg.append('g')
-                      .classed('wr_50', true);
-                      
-                    wr_g.append("svg:path")
-                      .classed('wr_dotted', true)
-                      .attr('stroke-dasharray', '10 10')
-                      .attr('d', wr_50([0, width]));
-                      
-                    wr_g.append("text")
-                      .classed('wr_50_text', true)
-                      .text('50% Winrate')
-                      .attr('x', width / 2)
-                      .attr('y', height / 2 - 10)
-                      .attr("text-anchor", "middle");
-                    
-                    
-                    var g = svg.append("g")
-                      .classed('winrate', true);
-                      
-                    var path = g.append("svg:path")
-                      .attr("d", line(winrate_arr))
-                      .attr('id', "winrate_line")
-                      .classed("winrate", true)
-                    
-                      
-                    var totalLength = path.node().getTotalLength();
-
-                    path
-                      .attr("stroke-dasharray", totalLength + " " + totalLength)
-                      .attr("stroke-dashoffset", totalLength)
-                      .transition()
-                        .duration(2000)
-                        .ease("linear")
-                        .attr("stroke-dashoffset", 0);
-                },
-                error: function(error) {
-                    console.log('get_winrate errored out');
-                }
-            });
-            
-            /**
-             * End Line Graph *
              */
             
             /**

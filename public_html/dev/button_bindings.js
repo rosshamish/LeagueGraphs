@@ -61,9 +61,6 @@ $(function() {
                     // Make the graph
                     get_graph('', '', '', '');
                     
-                    $(".title").remove();
-                    $("#intro").remove();
-                    $("#updates").remove();
                     $('#search_form').addClass('success');
                     $("#summoner_name").html(name);
                     $("#games_tracked").html(total_games);
@@ -93,6 +90,11 @@ $(function() {
                 // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
             }
         });
+        
+        $('html, body').stop().animate({
+            scrollTop: $('#row_graph').offset().top
+        }, 1500);
+        
         return false;
     });
 });

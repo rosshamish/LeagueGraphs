@@ -214,7 +214,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
             /**
              * Line Graph of Winrate *
              */
-            
             $.ajax({
                 type: "POST",
                 url: "get_winrate.php",
@@ -276,11 +275,10 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     console.log('get_winrate errored out');
                 }
             });
-            
             /**
              * End Line Graph *
              */
-            
+        
             
             /* 
              * Bar Graph of Filtered Statistics
@@ -483,6 +481,86 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 
             /**
              * End Bar Graph *
+             */
+            
+            
+            /**
+             * Pie Charts
+             */
+            /** Get champ names **/
+            var champids = [];
+            var champnames = [];
+            for (var i=0; i < data.length; i++) {
+                champids[i] = data[i]['championId'];
+            }
+            $.ajax({
+                url: 'get_champ.php',
+                type: 'POST',
+                data: { identifier : champids,
+                        get : 'name'},
+                dataType: 'json',
+                async: false,
+                success: function(champNames) {
+                    champnames = champNames;
+                }
+            });
+            /** Build frequency array **/
+            var freq = {};
+            for (var i=0; i < data.length; i++) {
+                var thischamp = champnames[i];
+                freq[thischamp] = new Object();
+                freq[thischamp].value = 0; // set to int
+            }
+            for (var i=0; i < data.length; i++) {
+                var thischamp = champnames[i];
+                freq[thischamp].value++;
+            }
+            var freq_arr = [];
+            var idx = 0;
+            for (name in freq) {
+                freq_arr[idx] = {'label' : name, 'value' : freq[name].value};
+                idx++;
+            }
+            
+            /** Get winrates **/
+            $.ajax({
+                type: "POST",
+                url: "get_winrate.php",
+                data: { trendy: false,
+                        summoner_name : sessionStorage.summoner_name,
+                        champId : champId,
+                        gameRange : gameRange,
+                        gameType : gameType
+                      },
+                dataType: "json",
+                async: false,
+                success: function(phpdata) {
+                    /** Build relative winrate array **/
+                    var wr = {};
+                    for (var i=0; i < data.length; i++) {
+                        var thischamp = champnames[i];
+                        wr[thischamp] = new Object();
+                        if (wr[thischamp].value) {
+                            wr[thischamp].value = (wr[thischamp].value + phpdata[i]) / 2; // average
+                        } else {
+                            wr[thischamp].value = phpdata[i]; // set
+                        }
+                    }
+                    window.wr_arr = [];
+                    var idx = 0;
+                    for (name in wr) {
+                        wr_arr[idx] = {'label' : name, 'value' : wr[name].value};
+                        idx++;
+                    }
+                    console.log(wr_arr);
+                }
+            });            
+            
+            /** Get that pie mmm pie **/
+            getPie(freq_arr, wr_arr);
+            
+            /**
+             * End Pie Charts
              */
             
             /**

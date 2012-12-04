@@ -160,16 +160,7 @@
 						</div> <!-- //span7 -->
 						<div class="span5">
 							<h3>Filters</h3>
-							<h5>When I Play As:</h5>
-							<div class="">
-								<div class="input control-group btn-group champ_input_form" data-toggle="buttons-radio">
-									<button class="btn span3 active champ_filter_all_champs" type="button">Anyone</button>
-									<form name="champ_input_form" class="form-inline" action="" method="">
-										<button class="btn span3 champ_filter_btn" type="submit" type="button">Only</button>
-										<input class="span3 champ_filter_input" type="text" placeholder="Blitzcrank" id="champname"/>
-									</form>
-								</div>
-								
+							<div class="">								
 								<div class="btn-toolbar">
 									<div class="btn-group">
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -199,7 +190,15 @@
 											<li><a class="gametype_filter" id="ODIN_UNRANKED" href="#">Dominion</a></li>
 										</ul>
 									</div>
-								</div>
+								</div><!-- GameRange and GameType filters -->
+								<h5>When I Play As:</h5>
+								<div class="input control-group btn-group champ_input_form" data-toggle="buttons-radio">
+									<button class="btn span3 active champ_filter_all_champs" type="button">Anyone</button>
+									<form name="champ_input_form" class="form-inline" action="" method="">
+										<button class="btn span3 champ_filter_btn" type="submit" type="button">Only</button>
+										<input class="span3 champ_filter_input" type="text" placeholder="Blitzcrank" id="champname"/>
+									</form>
+								</div><!-- Champ filter -->
 							</div>
 						</div> <!-- //span5 -->
 					</div>
@@ -270,16 +269,7 @@
 					</div> <!-- //span7 -->
 					<div class="span5">
 						<h3>Filters</h3>
-						<h5>When I Play As:</h5>
 						<div class="">
-							<div class="input control-group btn-group champ_input_form" data-toggle="buttons-radio">
-								<button class="btn span3 active champ_filter_all_champs" type="button">Anyone</button>
-								<form disabled="disabled" name="champ_input_form" class="form-inline" action="" method="">
-									<button disabled="disabled" class="btn span3 champ_filter_btn" type="submit" type="button">Only</button>
-									<input disabled="disabled" class="span3 champ_filter_input" type="text" placeholder="Blitzcrank" id="champname"/>
-								</form>
-							</div>
-							
 							<div class="btn-toolbar">
 								<div class="btn-group">
 									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -308,13 +298,13 @@
 										<li><a class="gametype_filter" id="RANKED_TEAM_3x3" href="#">Ranked Team 3v3</a></li>
 										<li><a class="gametype_filter" id="ODIN_UNRANKED" href="#">Dominion</a></li>
 									</ul>
-								</div>
+								</div><!-- Gamerange and gametype filters -->
 							</div>
 						</div>
 					</div> <!-- //span5 -->
 					<div class="row-fluid">
 						<div class="span12">
-							<h2><span id="pie_title"></span></h2>
+							<h2><span id="pie_title">Most Played</span></h2>
 							<div id="pie" class="">
 								<svg></svg>
 							</div>
@@ -354,9 +344,9 @@
 </script>
 <script type="text/javascript" src="http://d3js.org/d3.v2.js">
 </script>
-<script type="text/javascript" src="grapher.js">
-</script>
 <script type="text/javascript" src="pie.js">
+</script>
+<script type="text/javascript" src="grapher.js">
 </script>
 <script type="text/javascript" src="button_bindings.js">
 </script>

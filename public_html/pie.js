@@ -1,18 +1,21 @@
-function getGraphWidth() {
-    return $(window).width() * 93/100; // an arbitrary percentage. Shoot me.
-}
-
-$(document).ready(function() {
-  
-  r = getGraphWidth() / 7,                            //radius
+  /**
+ * Makes two pie charts in #pie.
+ *     the chart on the LEFT represents the frequency with which each champ is played.
+ *     the chart on the RIGHT represents the total wins with each champ.
+ *  @param {Array} freq_arr freq_arr[i].label is the champ name, freq_arr[i].value is the games played
+ *  @param {Array} wins_arr wins_arr[i].label is the champ name, wins_arr[i].value is the relative winrate
+ */
+function getPie(freq_arr, wins_arr) {
+    
+  r = getGraphWidth() / 7,   //radius
   color = d3.scale.category20c();     //builtin range of colors
   
-  data = [{"label":"one", "value":20}, 
-          {"label":"two", "value":50}, 
-          {"label":"three", "value":30}];
-  
+  /**
+   * Champ Frequency
+   *     games with champ x / total games played
+   */  
   var vis = d3.select("#pie svg")            //create the SVG element inside the <body>
-      .data([data])
+      .data([freq_arr])
       .append("svg:g") //make a group to hold our pie chart
           .attr('id', 'champ_freq') 
           .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
@@ -41,16 +44,15 @@ $(document).ready(function() {
           return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
       })
       .attr("text-anchor", "middle")                          //center the text on it's origin
-      .text(function(d, i) { return data[i].label; });        //get the label from our original data array
+      .text(function(d, i) { return freq_arr[i].label; });        //get the label from our original data array
       
-  /** Do it all again for the champ winrate piechart **/
-  
-  data = [{"label":"four", "value":10}, 
-          {"label":"five", "value":70}, 
-          {"label":"six", "value":20}];
-  
+  /**
+   * Champ Total Wins
+   *     wins with champ x / total wins overall
+  **/
+  /*
   var vis = d3.select("#pie svg")            //create the SVG element inside the <body>
-      .data([data])
+      .data([wins_arr])
       .append("svg:g") //make a group to hold our pie chart
           .attr('id', 'champ_freq') 
           .attr("transform", "translate(" + r*4 + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
@@ -79,5 +81,7 @@ $(document).ready(function() {
           return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
       })
       .attr("text-anchor", "middle")                          //center the text on it's origin
-      .text(function(d, i) { return data[i].label; });        //get the label from our original data array
-});
+      .text(function(d, i) { return wins_arr[i].label; });        //get the label from our original data array
+      
+  */
+}

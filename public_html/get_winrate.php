@@ -71,6 +71,16 @@ if ($_POST['trendy']) { // if getting the trendy winrate
 } else { // if getting the overall winrate
   if ($result) {
     while ($row = $result->fetch_assoc()) {
+      if ($champId && $champId != '') { // if we're sorting by champ
+        if ($row['championId'] == $champId) { // if this is the right champ
+          $wins += $row['win'];
+          $gamesPlayed += 1;
+        }
+      } else { // not sorting by champ
+        $wins += $row['win'];
+        $gamesPlayed += 1;
+      }
+      
       $wins += $row['win'];
       $gamesPlayed += 1;
       $winrate = $wins / $gamesPlayed * 100; // winrate percentage
@@ -78,7 +88,6 @@ if ($_POST['trendy']) { // if getting the trendy winrate
     }
   }
 }
-
 
 $mysqli->close();
 

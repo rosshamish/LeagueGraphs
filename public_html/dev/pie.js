@@ -18,7 +18,7 @@ function getPie(freq_arr, wins_arr) {
       .data([freq_arr])
       .append("svg:g") //make a group to hold our pie chart
           .attr('id', 'champ_freq') 
-          .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+          .attr("transform", "translate(" + r + "," + r*8/7 + ")")    //move the center of the pie chart from 0, 0 to radius, radius
 
   var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
       .outerRadius(r);

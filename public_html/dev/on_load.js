@@ -188,14 +188,33 @@ $(document).ready(function() {
     
     /** Page hit coming from a share link **/
     if (sessionStorage.share == 'true') {
+        // Defaults if unspecified
+        if (!sessionStorage.summoner_name) {
+            sessionStorage.summoner_name = 'SomePlayer';
+        }
+        if (!sessionStorage.champId) {
+            sessionStorage.champId = '';
+        }
+        if (!sessionStorage.filters) {
+            sessionStorage.filters = ["championsKilled"];
+        }
+        if (!sessionStorage.gameRange) {
+            sessionStorage.gameRange = 20000;
+        }
+        if (!sessionStorage.gameType) {
+            sessionStorage.gameType = '';
+        }
+        
         /** Summoner name **/
         $('.summoner_search_input').val(sessionStorage.summoner_name);
         
         /** Set up filters **/
         $('input[type=checkbox]').tzCheckbox(sessionStorage.summoner_name); 
         var f = $.parseJSON(sessionStorage.filters);
-        for (var i=0; i < f.length; i++) {
-            $('#'+f[i]).attr('checked', 'checked'); // visually check these boxes HEYO
+        if (f) {
+            for (var i=0; i < f.length; i++) {
+                $('#'+f[i]).attr('checked', 'checked'); // visually check these boxes HEYO
+            }
         }
         
         /** gameRange **/

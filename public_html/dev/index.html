@@ -4,8 +4,13 @@
 <meta charset="utf-8">
 <title>League Graphs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta name="description" content="
+	This is LeagueGraphs, a free statistics tracker for League of Legends.
+	Finally, a way to see your normal stats over time, prove how good you are with Teemo, and brag to your friends.
+	All with no download, no installation and no hassle.
+	Get tracking today.
+">
+<meta name="author" content="Ross Anderson">
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'/>
 
 <!-- Le styles -->
@@ -42,9 +47,6 @@
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
 			</a>
 			<a class="brand" href="#">LeagueGraphs</a>
 			<div class="nav-collapse collapse">
@@ -76,9 +78,9 @@
 		<p>
 			Hi, my name is Ross. I'm the lead dev here at LeagueGraphs.<br>
 			<br>
-			 I made this cool website that does LoL stuff. But first I should point out that I don't like kittens. I was offered to parent one with a friend of mine, but I declined because I am heartless and self-centered. This friend has, for the better part of his life, wanted a pet to take care of, but was unable to due to other commitments that consumed his time. He still doesn't have that much time, but combined, we would have been capable of taking care of a cute kitten. Still though, I rejected this offer. I hope you find it in yourself to get over this fact and still use my website that will only track TEN GAMES AT A TIME. So if you played 1000 games before entering your name in here, well... you're dog gone pooched. <br>
+			I made this cool website that does LoL stuff. But first I should point out that I don't like kittens. I was offered to parent one with a friend of mine, but I declined because I am heartless and self-centered. This friend has, for the better part of his life, wanted a pet to take care of, but was unable to due to other commitments that consumed his time. He still doesn't have that much time, but combined, we would have been capable of taking care of a cute kitten. Still though, I rejected this offer. I hope you find it in yourself to get over this fact and still use my website that will only track TEN GAMES AT A TIME. So if you played 1000 games before entering your name in here, well... you're dog gone pooched. <br>
 			<br>
-			 But it <strong>will</strong> track your last ten games and then every game from then on until forever, automatically. YAY! Anyway, have fun with this thing. Btw, I have a <a href="http://www.github.com/rosshamish/leaguegraphs">github page</a> for you to suggest <a href="http://github.com/rosshamish/leaguegraphs/issues">issues.</a> Alternatively, you could use the issues feature to just tell me a joke or a cool story. Whichever tickles your fancy.<br>
+			But it <strong>will</strong> track your last ten games and then every game from then on until forever, automatically. YAY! Anyway, have fun with this thing. Btw, I have a <a href="http://www.github.com/rosshamish/leaguegraphs">github page</a> for you to suggest <a href="http://github.com/rosshamish/leaguegraphs/issues">issues.</a> Alternatively, you could use the issues feature to just tell me a joke or a cool story. Whichever tickles your fancy.<br>
 			<br>
 			<strong>- RossHamish ('s friend)</strong>
 		</p>
@@ -108,6 +110,8 @@
 	<div class="modal-footer">
 	</div>
 </div>
+
+<!-- Main container -->
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -147,6 +151,8 @@
 			  <ul class="nav nav-tabs" id="tabs">
 				<li class="active"><a href="#row_graph" data-toggle="tab">Games</a></li>
 				<li><a href="#row_champs" data-toggle="tab">Champions</a></li>
+				<li><p class="sharelink_label">Share: </p></li>
+				<li><input class="sharelink" value="http://www.leaguegraphs.com/dev/share.php?n=&c=&r=20000&f=[]&t=all" type="text" /></li>
 			  </ul>
 			   
 			  <div class="tab-content">
@@ -168,11 +174,11 @@
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a class="time_filter" id="ever" href="#">All Time</a></li>
-											<li><a class="time_filter" id="ten_games" href="#">Last 10 Games</a></li>
-											<li><a class="time_filter" id="twenty_games" href="#">Last 20 Games</a></li>
-											<li><a class="time_filter" id="thirty_games" href="#">Last 30 Games</a></li>
-											<li><a class="time_filter" id="sixty_games" href="#">Last 60 Games</a></li>
+											<li><a class="time_filter" id="ever" href="#" data-range="20000">All Time</a></li>
+											<li><a class="time_filter" id="ten_games" href="#" data-range="10">Last 10 Games</a></li>
+											<li><a class="time_filter" id="twenty_games" href="#" data-range="20">Last 20 Games</a></li>
+											<li><a class="time_filter" id="thirty_games" href="#" data-range="30">Last 30 Games</a></li>
+											<li><a class="time_filter" id="sixty_games" href="#" data-range="60">Last 60 Games</a></li>
 										</ul>
 									</div>
 									<div class="btn-group">
@@ -215,7 +221,7 @@
 					<!--/row-->
 					<div class="row-fluid">
 						<div class="span12">
-							<table class="table">
+							<table class="table table-bordered">
 							<thead id="selected_game_table"><h4>Selected Game: <span id="selected_game_date"></span></h4></thead>
 							<tbody>
 							<tr id="selected_game_row" class="">
@@ -265,52 +271,6 @@
 					<!--/row-->
 				</div> <!--/tab #row_graph -->
 				<div class="tab-pane" id="row_champs">
-					<div class="span7">
-					</div> <!-- //span7 -->
-					<div class="span5">
-						<h3>Filters</h3>
-						<div class="">
-							<div class="btn-toolbar">
-								<div class="btn-group">
-									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-										<span class="time_filter_label">All Time</span>
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a class="time_filter" id="ever" href="#">All Time</a></li>
-										<li><a class="time_filter" id="ten_games" href="#">Last 10 Games</a></li>
-										<li><a class="time_filter" id="twenty_games" href="#">Last 20 Games</a></li>
-										<li><a class="time_filter" id="thirty_games" href="#">Last 30 Games</a></li>
-										<li><a class="time_filter" id="sixty_games" href="#">Last 60 Games</a></li>
-									</ul>
-								</div>
-								<div class="btn-group">
-									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-										<span class="gametype_filter_label" id="gametype_filter_label">All Game Types</span>
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a class="gametype_filter" id="all" href="#">All Game Types</a></li>
-										<li><a class="gametype_filter" id="NORMAL" href="#">Normal 5v5</a></li>
-										<li><a class="gametype_filter" id="NORMAL_3x3" href="#">Normal 3v3</a></li>
-										<li><a class="gametype_filter" id="RANKED_SOLO_5x5" href="#">Ranked Solo Queue</a></li>
-										<li><a class="gametype_filter" id="RANKED_TEAM_5x5" href="#">Ranked Team 5v5</a></li>
-										<li><a class="gametype_filter" id="RANKED_TEAM_3x3" href="#">Ranked Team 3v3</a></li>
-										<li><a class="gametype_filter" id="ODIN_UNRANKED" href="#">Dominion</a></li>
-									</ul>
-								</div><!-- Gamerange and gametype filters -->
-							</div>
-						</div>
-					</div> <!-- //span5 -->
-					<div class="row-fluid">
-						<div class="span12">
-							<h2><span class="graph_title"></span><span class="pie_title">: Most Played Champions</span><span class="gametype_title"></span></h2>
-							<div id="pie" class="">
-								<svg></svg>
-							</div>
-						</div>
-					</div>
-				</div> <!--/tab #row_champs--->
 			  </div>
 				<hr>
 				<footer class="footer">

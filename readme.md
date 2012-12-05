@@ -40,14 +40,16 @@ If you notice something wrong, some weird formatting or data or wrong values, ho
  - Last 10, 20, 30 etc games
 - Tabbed browsing
  - Each tab is a completely independant instance now, leading to easy player comparisons (open one up in each tab)
-
+- Most played champions
+ - Pie chart of champion frequency
 
 ---
 
 **Planned Features:**
 
+- Link sharing
+ - Show off to your friends
 - Data availability via tables and custom searching.
-- Champions played data - pie charts of how often you play and win with each champ.
 - Interactive graphs - zoom, pan, extra data on mouseover.
 - Filter by teammate.
 - Teammate & Enemy data crawling

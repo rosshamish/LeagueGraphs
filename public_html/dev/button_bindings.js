@@ -1,3 +1,48 @@
+/**  Link sharing **/
+$(function() {
+   $('.sharelink').click(function() {
+    $(this).select();
+   });
+   
+   $('.summoner_search_btn').click(function() {
+    var link = $('.sharelink').val();
+    console.log('oldlink: ' + link);
+    var newval = $(this).siblings('.summoner_search_input').val();
+    console.log('newval: ' + newval);
+    link = link.replace("n=", "n="+newval);
+    console.log('newlink: ' + link);
+    $('.sharelink').val(link);
+   });
+   
+   $('.time_filter').click(function(e) {
+    e.preventDefault();
+    var link = $('.sharelink').val();
+    console.log('oldlink: ' + link);
+    var newval = $(this).attr('data-range');
+    console.log('newval: ' + newval);
+    link = link.replace("r=", "r="+newval);
+    console.log('newlink: ' + link);
+    $('.sharelink').val(link);
+   });
+   
+   $('.gametype_filter').click(function(e) {
+    e.preventDefault();
+    var oldval = $('.sharelink').val();
+   });
+   
+   $("button.champ_filter_btn").click(function() {
+    var oldval = $('.sharelink').val();
+   });
+   
+   $("button.champ_filter_all_champs").click(function() {
+    var oldval = $('.sharelink').val();
+   });
+   
+   // deal with filters
+   
+   
+});
+
 /** Form submission on button click **/
 $(function() {
     

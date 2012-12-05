@@ -99,6 +99,79 @@ $(function() {
     });
 });
 
+/** Gamerange and gametype filter click events **/
+$(function() {
+    /** Set up time filter click events **/
+    $('.time_filter').click(function(e) {
+        e.preventDefault();
+        var gameRange = 100000;
+        switch(this.id) {
+            case 'ever':
+                t = 'All Time';
+                gameRange = 100000;
+                break;
+            case 'ten_games':
+                t = 'Last 10 Games';
+                gameRange = 10;
+                break;
+            case 'twenty_games':
+                t = 'Last 20 Games';
+                gameRange = 20;
+                break;
+            case 'thirty_games':
+                t = 'Last 30 Games';
+                gameRange = 30;
+                break;
+            case 'sixty_games':
+                t = 'Last 60 Games';
+                gameRange = 60;
+                break;
+            default:
+                t = '??'
+                gameRange = 100000;
+                break;
+        }
+        $('.time_filter_label').text(t);
+        sessionStorage.gameRange = gameRange;
+        get_graph('', '', '', '');
+    });
+    
+    /** Set up game type filter click events **/
+    $('.gametype_filter').click(function(e) {
+        e.preventDefault();
+        switch(this.id) {
+            case 'all':
+                t = 'All Game Types';
+                break;
+            case 'NORMAL':
+                t = 'Normal 5v5';
+                break;
+            case 'NORMAL_3x3':
+                t = 'Normal 3v3';
+                break;
+            case 'RANKED_SOLO_5x5':
+                t = 'Ranked Solo Queue';
+                break;
+            case 'RANKED_TEAM_5x5':
+                t = 'Ranked Team 5v5';
+                break;
+            case 'RANKED_TEAM_3x3':
+                t = 'Ranked Team 3v3';
+                break;
+            case 'ODIN_UNRANKED':
+                t = 'Dominion';
+                break;
+            default:
+                t = 'All Game Types'
+                break;
+        }
+        var gameType = this.id;
+        $('.gametype_filter_label').text(t);
+        sessionStorage.gameType = gameType;
+        get_graph('', '', '', '', '');
+    });
+});
+
 /** Champ filter form submission **/
 $(function() {
     

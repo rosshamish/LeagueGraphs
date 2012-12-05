@@ -4,28 +4,28 @@ require_once('sensitive_data.php');
 require_once('PhpConsole.php');
 PhpConsole::start();
 
-mysql_connect($host, $username, $password);
-mysql_selectdb($database);
+$mysqli = new mysqli($host, $username, $password);
+$mysqli->select_db($database);
 
 $query = "SELECT summonerName FROM players";
 
-$result = mysql_query($query);
+$result = $mysqli->query($query);
 
 if ($result) {
-    $numRows = mysql_num_rows($result);
+    $numRows = $result->num_rows;
 }
 $ret_obj['currently_tracking'] = $numRows;
 
 $query = 'SELECT gameId FROM games';
 
-$result = mysql_query($query);
+$result = $mysqli->query($query);
 if ($result) {
-  $numRows = mysql_num_rows($result);
+  $numRows = $result->num_rows;
 }
 $ret_obj['games_in_database'] = $numRows;
 
 echo json_encode($ret_obj);
 
-mysql_close();
+$mysqli->close();
 
 ?>

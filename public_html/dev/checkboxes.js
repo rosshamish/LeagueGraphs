@@ -5,7 +5,8 @@
 			var checkbox = $(this);
 	
 			checkbox.unbind('change');
-			checkbox.change(function(){
+			/** update_graph is a bool of whether or not to update the graph */
+			checkbox.change(function(update_graph){
 				checkbox.toggleClass('checked');
 				var isChecked = checkbox.hasClass('checked');
 							
@@ -22,7 +23,9 @@
 					filters.splice(idx, 1);
 				}
 				sessionStorage.filters = JSON.stringify(filters); // update the filters sessionStorage
-				get_graph('', '', '', '');
+				if (update_graph == null || update_graph == true) {
+				    get_graph('', '', '', '');
+				}
 			});
 		});
 	};

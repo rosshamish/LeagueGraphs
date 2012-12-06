@@ -173,7 +173,7 @@ $(document).ready(function() {
     }
     
     /** Normal page-hit, no share link **/
-    if (sessionStorage.share == 'false') {
+    if (sessionStorage.share != 'true') {
         var defaultPlayer = 'SomePlayer';
         sessionStorage.filters = JSON.stringify([]); 
         sessionStorage.champId = '';
@@ -193,7 +193,7 @@ $(document).ready(function() {
             sessionStorage.summoner_name = 'SomePlayer';
         }
         if (!sessionStorage.champId) {
-            sessionStorage.champId = '';
+            // nothing 
         }
         if (!sessionStorage.filters) {
             sessionStorage.filters = ["championsKilled"];
@@ -209,13 +209,13 @@ $(document).ready(function() {
         $('.summoner_search_input').val(sessionStorage.summoner_name);
         
         /** Set up filters **/
-        $('input[type=checkbox]').tzCheckbox(sessionStorage.summoner_name); 
         var f = $.parseJSON(sessionStorage.filters);
         if (f) {
             for (var i=0; i < f.length; i++) {
                 $('#'+f[i]).attr('checked', 'checked'); // visually check these boxes HEYO
             }
         }
+        $('input[type=checkbox]').tzCheckbox(sessionStorage.summoner_name); 
         
         /** gameRange **/
         switch (parseInt(sessionStorage.gameRange)) {

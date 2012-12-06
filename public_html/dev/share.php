@@ -21,12 +21,12 @@
       
       /* Set default params */
       $summoner_name = 'SomePlayer';
-      $champId = 0;
+      $champId = '';
       $gameRange = 50000;
-      $filters = '';
+      $filters = '["championsKilled"]';
       $gameType = '';
       
-      /* Get the passed params */
+      /* Get the passed params */ 
       foreach ($_GET as $key => $value) {
         debug("key: $key, value: $value");
         switch ($key) {
@@ -55,13 +55,13 @@
       
       <!-- Set the session variables with js -->
       <script type="text/javascript">
-        sessionStorage.share = true;
-        sessionStorage.summoner_name = "<?php echo $summoner_name ?>";
-        sessionStorage.champId = <?php echo $champId ?>;
-        sessionStorage.gameRange = <?php echo $gameRange ?>;
-        sessionStorage.filters = "<?php echo $filters ?>";
-        console.log(sessionStorage.filters);
-        sessionStorage.gameType = "<?php echo $gameType ?>";
+        sessionStorage.share = 'true';
+        sessionStorage.summoner_name = '<?php echo $summoner_name ?>';
+        sessionStorage.champId = '<?php echo $champId ?>';
+        sessionStorage.gameRange = '<?php echo $gameRange ?>';
+        sessionStorage.filters = '<?php echo $filters ?>';
+        console.log('share: ' + sessionStorage.share);
+        sessionStorage.gameType = '<?php echo $gameType ?>';
       </script>
       
       <?php      

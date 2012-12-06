@@ -4,7 +4,7 @@ $(function() {
     $(this).select();
    });
    
-   $('.summoner_search_btn').click(function() {
+   $('.summoner_search_btn').on('click', function() {
     var link = $('.sharelink').val();
     console.log('oldlink: ' + link);
     var newval = $(this).siblings('.summoner_search_input').val();
@@ -14,7 +14,7 @@ $(function() {
     $('.sharelink').val(link);
    });
    
-   $('.time_filter').click(function(e) {
+   $('.time_filter').on('click', function(e) {
     e.preventDefault();
     var link = $('.sharelink').val();
     console.log('oldlink: ' + link);
@@ -25,16 +25,16 @@ $(function() {
     $('.sharelink').val(link);
    });
    
-   $('.gametype_filter').click(function(e) {
+   $('.gametype_filter').on('click', function(e) {
     e.preventDefault();
     var oldval = $('.sharelink').val();
    });
    
-   $("button.champ_filter_btn").click(function() {
+   $("button.champ_filter_btn").on('click', function() {
     var oldval = $('.sharelink').val();
    });
    
-   $("button.champ_filter_all_champs").click(function() {
+   $("button.champ_filter_all_champs").on('click', function() {
     var oldval = $('.sharelink').val();
    });
    

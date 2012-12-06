@@ -1,12 +1,12 @@
 (function($){
-	$.fn.tzCheckbox = function(summ_name){
+	$.fn.tzCheckbox = function(summ_name, update_graph){
 		
 		return this.each(function(){
 			var checkbox = $(this);
 	
 			checkbox.unbind('change');
 			/** update_graph is a bool of whether or not to update the graph */
-			checkbox.change(function(update_graph){
+			checkbox.change(function(){
 				checkbox.toggleClass('checked');
 				var isChecked = checkbox.hasClass('checked');
 							
@@ -23,9 +23,7 @@
 					filters.splice(idx, 1);
 				}
 				sessionStorage.filters = JSON.stringify(filters); // update the filters sessionStorage
-				if (update_graph == null || update_graph == true) {
-				    get_graph('', '', '', '');
-				}
+				get_graph('', '', '', '', '', '');
 			});
 		});
 	};

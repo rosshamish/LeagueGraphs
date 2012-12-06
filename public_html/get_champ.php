@@ -2,8 +2,8 @@
 
 require_once("sensitive_data.php");
 
-mysql_connect($host, $username, $password);
-mysql_selectdb($database);
+$mysqli = new mysqli($host, $username, $password);
+$mysqli->select_db($database);
 
 $req = $_POST['get'];
 $ret_arr = array();
@@ -13,9 +13,9 @@ if ($req == 'id') {
   for ($i=0; $i<count($champ_name); $i++) {
     $query = "SELECT id FROM champs WHERE name='$champ_name'";
   
-    $result = mysql_query($query);
+    $result = $mysqli->query($query);
     if ($result) {
-      $row = mysql_fetch_array($result);
+      $row = $result->fetch_assoc();
       $cur_id = $row['id'];
       if ($cur_id != '') {
         array_push($ret_arr, $cur_id);
@@ -24,14 +24,17 @@ if ($req == 'id') {
   }
 } else if ($req == 'name') {
   $champ_id = $_POST['identifier'];
+  if (intval($champ_id) <= 0) {
+    return json_encode();
+  }
   
   for ($i=0; $i<count($champ_id); $i++) {
     $cur = $champ_id[$i];
     $query = "SELECT name FROM champs WHERE id='$cur'";
     
-    $result = mysql_query($query);
+    $result = $mysqli->query($query);
     if ($result) {
-      $row = mysql_fetch_array($result);
+      $row = $result->fetch_assoc();
       $cur_name = $row['name'];
       if ($cur_name != '') {
         array_push($ret_arr,$cur_name);
@@ -42,7 +45,7 @@ if ($req == 'id') {
   console.error("In get_champ.php: You need to specify a get paramater. It can be either 'name' or 'id'");
 }
 
-mysql_close();
+$mysqli->close();
 
 if (count($ret_arr) <= 0) {
   echo json_encode('');

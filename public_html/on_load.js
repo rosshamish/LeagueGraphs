@@ -39,11 +39,6 @@ function checkbox(name, id, checked) {
 // All the onload stuff
 $(document).ready(function() {
     
-    /** Clear session storage vars **/
-    sessionStorage.filters = JSON.stringify([]);
-    sessionStorage.champId = '';
-    sessionStorage.gameType = 'all';
-    
     /** Input Focus **/
     $("input#summonerName").focus(); // focus on the important input, the name
     
@@ -73,7 +68,7 @@ $(document).ready(function() {
             $('.summoner_search_input').each(function(i,el) {
                 $(el).typeahead({
                     source: names_arr,
-                    updater:function (item) {
+                    updater: function (item) {
                         //item = selected item
                         $(el).val(item);
                         $(el).siblings('.summoner_search_btn').click();
@@ -161,45 +156,100 @@ $(document).ready(function() {
         }
     });
     
-    /** Set up time filter click events **/
-    $('.time_filter').click(function(e) {
-        e.preventDefault();
-        var gameRange = 100000;
-        switch(this.id) {
-            case 'ever':
-                t = 'All Time';
-                gameRange = 100000;
-                break;
-            case 'ten_games':
+    
+    
+    /**
+     *
+     * Set up pageload graph
+     * 
+    **/
+    
+    /**
+     * Set sessionStorage.share to an appropriate value.
+     *     .share represents whether or not we came from a share link.
+     */
+    if (sessionStorage.share != 'true') {
+        sessionStorage.share = false;
+    }
+    
+    /** Normal page-hit, no share link **/
+    if (sessionStorage.share != 'true') {
+        var defaultPlayer = 'SomePlayer';
+        sessionStorage.filters = JSON.stringify([]); 
+        sessionStorage.champId = '';
+        sessionStorage.gameRange = 200000;
+        sessionStorage.gameType = 'all';
+        sessionStorage.summoner_name = defaultPlayer;
+        
+        $('input[type=checkbox]').tzCheckbox(defaultPlayer);
+        $('input#championsKilled').click();
+        get_graph('', '', '', '');
+    }
+    
+    /** Page hit coming from a share link **/
+    if (sessionStorage.share == 'true') {
+        // Defaults if unspecified
+        if (!sessionStorage.summoner_name) {
+            sessionStorage.summoner_name = 'SomePlayer';
+        }
+        if (!sessionStorage.champId) {
+            // nothing 
+        }
+        if (!sessionStorage.filters) {
+            sessionStorage.filters = ["championsKilled"];
+        }
+        if (!sessionStorage.gameRange) {
+            sessionStorage.gameRange = 20000;
+        }
+        if (!sessionStorage.gameType) {
+            sessionStorage.gameType = '';
+        }
+        
+        /** Summoner name **/
+        $('.summoner_search_input').val(sessionStorage.summoner_name);
+        
+        /** Set up filters **/
+        var f = $.parseJSON(sessionStorage.filters);
+        if (f) {
+            for (var i=0; i < f.length; i++) {
+                $('#'+f[i]).attr('checked', 'checked'); // visually check these boxes HEYO
+            }
+        }
+        $('input[type=checkbox]').tzCheckbox(sessionStorage.summoner_name); 
+        
+        /** gameRange **/
+        switch (parseInt(sessionStorage.gameRange)) {
+            case 10:
                 t = 'Last 10 Games';
+                id = 'ten_games';
                 gameRange = 10;
                 break;
-            case 'twenty_games':
+            case 20:
                 t = 'Last 20 Games';
+                id = 'twenty_games';
                 gameRange = 20;
                 break;
-            case 'thirty_games':
+            case 30:
                 t = 'Last 30 Games';
+                id = 'thirty_games';
                 gameRange = 30;
                 break;
-            case 'sixty_games':
+            case 60:
                 t = 'Last 60 Games';
+                id = 'sixty_games';
                 gameRange = 60;
                 break;
             default:
-                t = '??'
-                gameRange = 100000;
+                t = 'All Time';
+                id = 'ever';
+                gameRange = 200000;
                 break;
         }
+        console.log(id);
         $('.time_filter_label').text(t);
-        sessionStorage.gameRange = gameRange;
-        get_graph('', '', '', '');
-    });
-    
-    /** Set up game type filter click events **/
-    $('.gametype_filter').click(function(e) {
-        e.preventDefault();
-        switch(this.id) {
+        
+        /** gameType **/
+        switch(sessionStorage.gameType) {
             case 'all':
                 t = 'All Game Types';
                 break;
@@ -225,16 +275,41 @@ $(document).ready(function() {
                 t = 'All Game Types'
                 break;
         }
-        var gameType = this.id;
         $('.gametype_filter_label').text(t);
-        sessionStorage.gameType = gameType;
-        get_graph('', '', '', '', '');
-    });
-    
         
-    /** Set up default graph **/
-    var defaultPlayer = 'SomePlayer';
-    sessionStorage.summoner_name = defaultPlayer;
-    $('input[type=checkbox]').tzCheckbox(defaultPlayer);
-    $('#championsKilled').click(); // this click ALSO gets the initial graph
+        /** champId **/
+        $.ajax({  
+            type: "POST",
+            url: "get_champ.php",
+            data: {identifier: [sessionStorage.champId],
+                   get: "name"},
+            dataType: "json",
+            success: function(phpdata) {
+                if (!phpdata[0]) {
+                    console.error('invalid champId "'+sessionStorage.champId+'" given to get_champ.php');
+                    $('.champ_input_form').removeClass('success')
+                                          .addClass('error');
+                                          
+                    $('input#champname').focus().select();
+                } else {
+                    var champname = phpdata[0];
+                    if (champname != 'N/A' && champname != '') {
+                        $(".champ_input_form").removeClass('error')
+                                              .addClass('success');
+                        $(".champ_filter_input").val(champname);
+                        $(".champ_filter_btn").addClass('active');
+                        $(".champ_filter_all_champs").removeClass('active');
+                    }
+                }
+            }
+        });
+        
+        /** Get the graph **/
+        get_graph('', '', '', '');
+        
+        $('html, body').stop().animate({
+            scrollTop: $('.nav-tabs').offset().top
+        }, 1500);
+    }
+    
 });

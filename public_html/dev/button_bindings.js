@@ -1,15 +1,107 @@
 /**  Link sharing **/
-$(function() {
+$(function() {   
+   /*
+    *This is using the pattern "click the link, update the link"
+    */
    $('.sharelink').click(function() {
-    $(this).select();
+    $input = $('input.sharelink');
+    var link = $input.val();
+    var n = sessionStorage.summoner_name;
+    var r = sessionStorage.gameRange;
+    var c = sessionStorage.champId;
+    var t = sessionStorage.gameType;
+    var f = sessionStorage.filters;
+    
+    // n
+    index = link.indexOf('n=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/n=.+?&/gi, 'n='+n+'&');
+        } else { // it's the last param
+            link = link.replace(/n=.+/gi, 'n='+n);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&n='+n;
+        } else { // this is the first param
+            link += '?n='+n;
+        }
+    }
+    // r
+    index = link.indexOf('r=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/r=.+?&/gi, 'r='+r+'&');
+        } else { // it's the last param
+            link = link.replace(/r=.+/gi, 'r='+r);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&r='+r;
+        } else { // this is the first param
+            link += '?r='+r;
+        }
+    }
+    // c
+    index = link.indexOf('c=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/c=.+?&/gi, 'c='+c+'&');
+        } else { // it's the last param
+            link = link.replace(/c=.+/gi, 'c='+c);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&c='+c;
+        } else { // this is the first param
+            link += '?c='+c;
+        }
+    }
+    // t
+    index = link.indexOf('t=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/t=.+?&/gi, 't='+t+'&');
+        } else { // it's the last param
+            link = link.replace(/t=.+/gi, 't='+t);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&t='+t;
+        } else { // this is the first param
+            link += '?t='+t;
+        }
+    }
+    // f
+    index = link.indexOf('f=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/f=.+?&/gi, 'n='+f+'&');
+        } else { // it's the last param
+            link = link.replace(/f=.+/gi, 'f='+n);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&f='+f;
+        } else { // this is the first param
+            link += '?f='+f;
+        }
+    }
+    
+    // Select it for easier copy and paste
+    $input.val(link);
+    $input.select();
    });
    
+   /*
+    *All of these are of the pattern "click a button, change the link"
+    *
    $('.summoner_search_btn').on('click', function() {
     var link = $('.sharelink').val();
     console.log('oldlink: ' + link);
     var newval = $(this).siblings('.summoner_search_input').val();
     console.log('newval: ' + newval);
-    link = link.replace("n=", "n="+newval);
+    link = link.replace(/n=*&/gi, "n="+newval+"&");
     console.log('newlink: ' + link);
     $('.sharelink').val(link);
    });
@@ -37,6 +129,7 @@ $(function() {
    $("button.champ_filter_all_champs").on('click', function() {
     var oldval = $('.sharelink').val();
    });
+   */
    
    // deal with filters
    
@@ -137,7 +230,7 @@ $(function() {
         });
         
         $('html, body').stop().animate({
-            scrollTop: $('#row_graph').offset().top
+            scrollTop: $('.nav-tabs').offset().top
         }, 1500);
         
         return false;

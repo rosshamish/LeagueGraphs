@@ -3,6 +3,19 @@ body {
    /* background-image: url('http://rosshamish.netau.net/dev/images/fabric_1.png'); */
 }
 
+.sharelink {
+    position: relative;
+    top: 5px;
+    left: 30px;
+}
+
+.sharelink_label {
+    font-weight: bold;
+    position: relative;
+    top: 10px;
+    left: 25px;
+}
+
 
 path.winrate {
     stroke: steelblue;

@@ -1,3 +1,141 @@
+/**  Link sharing **/
+$(function() {   
+   /*
+    *This is using the pattern "click the link, update the link"
+    */
+   $('.sharelink').click(function() {
+    $input = $('input.sharelink');
+    var link = $input.val();
+    var n = sessionStorage.summoner_name;
+    var r = sessionStorage.gameRange;
+    var c = sessionStorage.champId;
+    var t = sessionStorage.gameType;
+    var f = sessionStorage.filters;
+    
+    // n
+    index = link.indexOf('n=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/n=.+?&/gi, 'n='+n+'&');
+        } else { // it's the last param
+            link = link.replace(/n=.+/gi, 'n='+n);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&n='+n;
+        } else { // this is the first param
+            link += '?n='+n;
+        }
+    }
+    // r
+    index = link.indexOf('r=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/r=.+?&/gi, 'r='+r+'&');
+        } else { // it's the last param
+            link = link.replace(/r=.+/gi, 'r='+r);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&r='+r;
+        } else { // this is the first param
+            link += '?r='+r;
+        }
+    }
+    // c
+    index = link.indexOf('c=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/c=.+?&/gi, 'c='+c+'&');
+        } else { // it's the last param
+            link = link.replace(/c=.+/gi, 'c='+c);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&c='+c;
+        } else { // this is the first param
+            link += '?c='+c;
+        }
+    }
+    // t
+    index = link.indexOf('t=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/t=.+?&/gi, 't='+t+'&');
+        } else { // it's the last param
+            link = link.replace(/t=.+/gi, 't='+t);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&t='+t;
+        } else { // this is the first param
+            link += '?t='+t;
+        }
+    }
+    // f
+    index = link.indexOf('f=');
+    if (index != -1) { // if this param is already present
+        if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
+            link = link.replace(/f=.+?&/gi, 'n='+f+'&');
+        } else { // it's the last param
+            link = link.replace(/f=.+/gi, 'f='+n);
+        }
+    } else { // add this param in
+        if (link.indexOf('?') != -1) { // if there are other params already
+            link += '&f='+f;
+        } else { // this is the first param
+            link += '?f='+f;
+        }
+    }
+    
+    // Select it for easier copy and paste
+    $input.val(link);
+    $input.select();
+   });
+   
+   /*
+    *All of these are of the pattern "click a button, change the link"
+    *
+   $('.summoner_search_btn').on('click', function() {
+    var link = $('.sharelink').val();
+    console.log('oldlink: ' + link);
+    var newval = $(this).siblings('.summoner_search_input').val();
+    console.log('newval: ' + newval);
+    link = link.replace(/n=*&/gi, "n="+newval+"&");
+    console.log('newlink: ' + link);
+    $('.sharelink').val(link);
+   });
+   
+   $('.time_filter').on('click', function(e) {
+    e.preventDefault();
+    var link = $('.sharelink').val();
+    console.log('oldlink: ' + link);
+    var newval = $(this).attr('data-range');
+    console.log('newval: ' + newval);
+    link = link.replace("r=", "r="+newval);
+    console.log('newlink: ' + link);
+    $('.sharelink').val(link);
+   });
+   
+   $('.gametype_filter').on('click', function(e) {
+    e.preventDefault();
+    var oldval = $('.sharelink').val();
+   });
+   
+   $("button.champ_filter_btn").on('click', function() {
+    var oldval = $('.sharelink').val();
+   });
+   
+   $("button.champ_filter_all_champs").on('click', function() {
+    var oldval = $('.sharelink').val();
+   });
+   */
+   
+   // deal with filters
+   
+   
+});
+
 /** Form submission on button click **/
 $(function() {
     
@@ -92,10 +230,83 @@ $(function() {
         });
         
         $('html, body').stop().animate({
-            scrollTop: $('#row_graph').offset().top
+            scrollTop: $('.nav-tabs').offset().top
         }, 1500);
         
         return false;
+    });
+});
+
+/** Gamerange and gametype filter click events **/
+$(function() {
+    /** Set up time filter click events **/
+    $('.time_filter').click(function(e) {
+        e.preventDefault();
+        var gameRange = 100000;
+        switch(this.id) {
+            case 'ever':
+                t = 'All Time';
+                gameRange = 100000;
+                break;
+            case 'ten_games':
+                t = 'Last 10 Games';
+                gameRange = 10;
+                break;
+            case 'twenty_games':
+                t = 'Last 20 Games';
+                gameRange = 20;
+                break;
+            case 'thirty_games':
+                t = 'Last 30 Games';
+                gameRange = 30;
+                break;
+            case 'sixty_games':
+                t = 'Last 60 Games';
+                gameRange = 60;
+                break;
+            default:
+                t = '??'
+                gameRange = 100000;
+                break;
+        }
+        $('.time_filter_label').text(t);
+        sessionStorage.gameRange = gameRange;
+        get_graph('', '', '', '');
+    });
+    
+    /** Set up game type filter click events **/
+    $('.gametype_filter').click(function(e) {
+        e.preventDefault();
+        switch(this.id) {
+            case 'all':
+                t = 'All Game Types';
+                break;
+            case 'NORMAL':
+                t = 'Normal 5v5';
+                break;
+            case 'NORMAL_3x3':
+                t = 'Normal 3v3';
+                break;
+            case 'RANKED_SOLO_5x5':
+                t = 'Ranked Solo Queue';
+                break;
+            case 'RANKED_TEAM_5x5':
+                t = 'Ranked Team 5v5';
+                break;
+            case 'RANKED_TEAM_3x3':
+                t = 'Ranked Team 3v3';
+                break;
+            case 'ODIN_UNRANKED':
+                t = 'Dominion';
+                break;
+            default:
+                t = 'All Game Types'
+                break;
+        }
+        var gameType = this.id;
+        $('.gametype_filter_label').text(t);
+        sessionStorage.gameType = gameType;
+        get_graph('', '', '', '', '');
     });
 });
 

@@ -5,12 +5,12 @@
 <title>League Graphs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
-This is LeagueGraphs, a free statistics tracker for League of Legends.
+	This is LeagueGraphs, a free statistics tracker for League of Legends.
 	Finally, a way to see your normal stats over time, prove how good you are with Teemo, and brag to your friends.
 	All with no download, no installation and no hassle.
 	Get tracking today.
 ">
-<meta name="author" content="">
+<meta name="author" content="Ross Anderson">
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'/>
 
 <!-- Le styles -->
@@ -47,9 +47,6 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
 			</a>
 			<a class="brand" href="#">LeagueGraphs</a>
 			<div class="nav-collapse collapse">
@@ -81,9 +78,9 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 		<p>
 			Hi, my name is Ross. I'm the lead dev here at LeagueGraphs.<br>
 			<br>
-			 I made this cool website that does LoL stuff. But first I should point out that I don't like kittens. I was offered to parent one with a friend of mine, but I declined because I am heartless and self-centered. This friend has, for the better part of his life, wanted a pet to take care of, but was unable to due to other commitments that consumed his time. He still doesn't have that much time, but combined, we would have been capable of taking care of a cute kitten. Still though, I rejected this offer. I hope you find it in yourself to get over this fact and still use my website that will only track TEN GAMES AT A TIME. So if you played 1000 games before entering your name in here, well... you're dog gone pooched. <br>
+			I made this cool website that does LoL stuff. But first I should point out that I don't like kittens. I was offered to parent one with a friend of mine, but I declined because I am heartless and self-centered. This friend has, for the better part of his life, wanted a pet to take care of, but was unable to due to other commitments that consumed his time. He still doesn't have that much time, but combined, we would have been capable of taking care of a cute kitten. Still though, I rejected this offer. I hope you find it in yourself to get over this fact and still use my website that will only track TEN GAMES AT A TIME. So if you played 1000 games before entering your name in here, well... you're dog gone pooched. <br>
 			<br>
-			 But it <strong>will</strong> track your last ten games and then every game from then on until forever, automatically. YAY! Anyway, have fun with this thing. Btw, I have a <a href="http://www.github.com/rosshamish/leaguegraphs">github page</a> for you to suggest <a href="http://github.com/rosshamish/leaguegraphs/issues">issues.</a> Alternatively, you could use the issues feature to just tell me a joke or a cool story. Whichever tickles your fancy.<br>
+			But it <strong>will</strong> track your last ten games and then every game from then on until forever, automatically. YAY! Anyway, have fun with this thing. Btw, I have a <a href="http://www.github.com/rosshamish/leaguegraphs">github page</a> for you to suggest <a href="http://github.com/rosshamish/leaguegraphs/issues">issues.</a> Alternatively, you could use the issues feature to just tell me a joke or a cool story. Whichever tickles your fancy.<br>
 			<br>
 			<strong>- RossHamish ('s friend)</strong>
 		</p>
@@ -113,6 +110,8 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 	<div class="modal-footer">
 	</div>
 </div>
+
+<!-- Main container -->
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -152,6 +151,8 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 			  <ul class="nav nav-tabs" id="tabs">
 				<li class="active"><a href="#row_graph" data-toggle="tab">Games</a></li>
 				<li><a href="#row_champs" data-toggle="tab">Champions</a></li>
+				<li><p class="sharelink_label">Share: </p></li>
+				<li><input class="sharelink" value="http://leaguegraphs.com/dev/share.php?" type="text" /></li>
 			  </ul>
 			   
 			  <div class="tab-content">
@@ -173,11 +174,11 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a class="time_filter" id="ever" href="#">All Time</a></li>
-											<li><a class="time_filter" id="ten_games" href="#">Last 10 Games</a></li>
-											<li><a class="time_filter" id="twenty_games" href="#">Last 20 Games</a></li>
-											<li><a class="time_filter" id="thirty_games" href="#">Last 30 Games</a></li>
-											<li><a class="time_filter" id="sixty_games" href="#">Last 60 Games</a></li>
+											<li><a class="time_filter" id="ever" href="#" data-range="20000">All Time</a></li>
+											<li><a class="time_filter" id="ten_games" href="#" data-range="10">Last 10 Games</a></li>
+											<li><a class="time_filter" id="twenty_games" href="#" data-range="20">Last 20 Games</a></li>
+											<li><a class="time_filter" id="thirty_games" href="#" data-range="30">Last 30 Games</a></li>
+											<li><a class="time_filter" id="sixty_games" href="#" data-range="60">Last 60 Games</a></li>
 										</ul>
 									</div>
 									<div class="btn-group">
@@ -210,7 +211,7 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 					<!-- //row-fluid TOP -->
 					<div class="row-fluid">
 						<div class="span12">
-							<h2><span id="graph_title"></span><span id="gametype_title"></span></h2>
+							<h2><span class="graph_title"></span><span class="gametype_title"></span></h2>
 							<div id="graph" class="">
 								<svg></svg>
 							</div>
@@ -220,7 +221,7 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 					<!--/row-->
 					<div class="row-fluid">
 						<div class="span12">
-							<table class="table">
+							<table class="table table-bordered">
 							<thead id="selected_game_table"><h4>Selected Game: <span id="selected_game_date"></span></h4></thead>
 							<tbody>
 							<tr id="selected_game_row" class="">
@@ -316,6 +317,7 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 						</div>
 					</div>
 				</div> <!--/tab #row_champs--->
+			  </div>
 				<hr>
 				<footer class="footer">
 					<form class="form-inline" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -324,7 +326,7 @@ This is LeagueGraphs, a free statistics tracker for League of Legends.
 					<input type="hidden" name="cmd" value="_s-xclick">
 					<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHLwYJKoZIhvcNAQcEoIIHIDCCBxwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAKtOWubSkJlCEWrJ+CG3e64VBfLQpclRWH+QGMg0ehq6rE4kqcd+ylBwPMPM/cmLOSYa5KJhcE5xKduUnCxce6guvLgmTW1Sqe1Flhz47KzA7ohkFxWzuCz5X6zrkunZJJNSOS5wOiSb5aIHmUZM2wRutkDRSkb3Xsgc7uFf9R1jELMAkGBSsOAwIaBQAwgawGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIbe6YJ+DBt9yAgYjXZojNOwmFMNtG5slbRw+GoDn8AlEQ1CwUcyVWVKgwdwa6o2a3h/j7h9QNBD06HA8KCqg9Rui31za9mYsU2yal58LHNAnEmJ+UPOI7aBOO2tDid1tOTrtitGxpEvyJPSMQa664wslZLoev7Sxv4Ha6GCBjCW9gRi58AUMTnTxO+q2MZQWdLTkRoIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTIxMjAxMDYzNzE5WjAjBgkqhkiG9w0BCQQxFgQUU+eo2zLNK99UBDx5ZLPIbVIxEsEwDQYJKoZIhvcNAQEBBQAEgYBNpBBsD3JahMwA4ORYoT25sR2Qa0WA02evi4r6bVKSE4Mk2+vlAoVby4R1w2rSgIjheNsnmdP0RVJ63iDXDNcD4VcClF/AJ4YYx5EzwNcZ1IlHd6kyg1r4KhQ/onjJufiVgwjLmqcxfmvPdqozzTgPGQRqcrRCObQ2SerlZzekvw==-----END PKCS7-----
 					">
-					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+					<input class="pull-right" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 					<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 					</form>
 				</footer>

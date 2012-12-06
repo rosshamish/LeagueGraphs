@@ -297,13 +297,19 @@ $(document).ready(function() {
                         $(".champ_input_form").removeClass('error')
                                               .addClass('success');
                         $(".champ_filter_input").val(champname);
-                    }                    
+                        $(".champ_filter_btn").addClass('active');
+                        $(".champ_filter_all_champs").removeClass('active');
+                    }
                 }
             }
         });
         
         /** Get the graph **/
         get_graph('', '', '', '');
+        
+        $('html, body').stop().animate({
+            scrollTop: $('.nav-tabs').offset().top
+        }, 1500);
     }
     
 });

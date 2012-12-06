@@ -190,7 +190,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
         gameType = sessionStorage.gameType;
     }
     //console.log('received game type "' + gameType + '" in grapher.js');
-    $('#gametype_title').html(' - ' + $('#gametype_filter_label').text());
+    $('.gametype_title').html(' - ' + $('#gametype_filter_label').text());
     
     // get the data from x_field and y_field from an ajax post request to get_graph_data.php
     $.ajax({
@@ -203,7 +203,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                 gameType : gameType },
         dataType: "json",
         success: function(data) {
-            $("#graph_title").html(sessionStorage.summoner_name);
+            $(".graph_title").html(sessionStorage.summoner_name);
             
             // SVG creation. This only happens once.
             var svg = d3.select("#graph svg")
@@ -552,7 +552,6 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                         wr_arr[idx] = {'label' : name, 'value' : wr[name].value};
                         idx++;
                     }
-                    console.log(wr_arr);
                 }
             });            
             
@@ -580,10 +579,10 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     var champName = '';
                     if (names[0] != "N/A") { // if we're filtering by champ, and not just set on All Champs
                         champName = names[0];
-                        $("#graph_title").html(summoner_name + ' (' + champName + ')');
+                        $(".graph_title").html(summoner_name + ' (' + champName + ')');
                     } else {
                         champName = 'any champion';
-                        $("#graph_title").html(summoner_name);
+                        $(".graph_title").html(summoner_name);
                     }
                     if (!game_found) {
                         noGamesFound(svg, champName);

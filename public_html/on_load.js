@@ -213,6 +213,7 @@ $(document).ready(function() {
         if (f) {
             for (var i=0; i < f.length; i++) {
                 $('#'+f[i]).attr('checked', 'checked'); // visually check these boxes HEYO
+                $('#'+f[i]).addClass('checked');
             }
         }
         $('input[type=checkbox]').tzCheckbox(sessionStorage.summoner_name); 

@@ -76,7 +76,7 @@ $(function() {
     index = link.indexOf('f=');
     if (index != -1) { // if this param is already present
         if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
-            link = link.replace(/f=.+?&/gi, 'n='+f+'&');
+            link = link.replace(/f=.+?&/gi, 'f='+f+'&');
         } else { // it's the last param
             link = link.replace(/f=.+/gi, 'f='+f);
         }

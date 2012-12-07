@@ -314,7 +314,7 @@ $(function() {
         $.ajax({  
             type: "POST",
             url: "get_champ.php",
-            data: {identifier: champname,
+            data: {identifier: [champname],
                    get: "id"},
             dataType: "json",
             success: function(phpdata) {

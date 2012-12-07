@@ -25,7 +25,7 @@ if ($result) {
     } else { // we've reached the player cap
       echo json_encode(array('capped' => true,
                              'cap' => $playerCap));
-    }
+    } 
 } else {
   echo json_encode(array('capped' => false,
                              'cap' => $playerCap));

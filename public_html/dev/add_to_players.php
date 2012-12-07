@@ -7,7 +7,7 @@ PhpConsole::start();
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);
 
-$summoner_name = $_POST['summonerName'];
+$summoner_name = $mysqli->real_escape_string($_POST['summonerName']);
 
 $query = "INSERT INTO players VALUES ('$summoner_name')";
 

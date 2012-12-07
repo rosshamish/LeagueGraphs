@@ -190,8 +190,17 @@ $(function() {
             data: {
                 summonerName : sessionStorage.summoner_name
             },
+            dataType: 'json',
             success: function(data) {
                 // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
+                // only thing to do is check if the player cap was hit
+                if (data['capped'] == true) {
+                    $("#tracking_since").html('today');
+                    $('<p>').html('Unfortunately, the auto-tracker\'s player cap has been reached. Budget currently allows for <i>'+data['cap']+'</i> players. <br>' +
+                                  'You can support LeagueGraphs and increase the cap by making a small donation at the bottom of this page')
+                            .appendTo('#tracking_since');
+                }
+                console.log(data);
             },
             error: function(a,b,c) {
                 console.error('add_to_players.php error, called from button_bindings.js');

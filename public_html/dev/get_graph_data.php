@@ -22,8 +22,10 @@ if ($gameRange <= 0) { // if we're looking for all games
 $gameType = $_POST['gameType'];
 
 $query = "SELECT *"; // select all the data
+$name = $mysqli->real_escape_string($name);
 $query .= " FROM games WHERE summonerName='$name' "; // filter by the current summoner
 if ($gameType != 'all' && $gameType != '') { // if we are actually filtering a gametype
+  $gameType = $mysqli->real_escape_string($gameType);
   $query .= " AND queueType='$gameType' ";
 }
 $query .= " ORDER BY gameID ASC"; // finish off the query by ordering it

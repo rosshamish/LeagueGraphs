@@ -201,7 +201,6 @@ $(function() {
                                   'In the meantime, here are your 10 latest games. Enjoy!')
                             .appendTo('#tracking_since');
                 }
-                console.log(data);
             },
             error: function(a,b,c) {
                 console.error('add_to_players.php error, called from button_bindings.js');

@@ -83,6 +83,7 @@ function updateAllGamesForOnePlayer($region, $key, $base_url, $host, $username, 
    $mysqli = new mysqli($host, $username, $password);
    $mysqli->select_db($database);
    $na = urldecode($_POST['summonerName']);
+   $na = $mysqli->real_escape_string($na);
    $qu = "SELECT createDate,gameId FROM games WHERE summonerName='$na' ORDER BY gameId ASC";
    $result = $mysqli->query($qu);
    if ($result) {
@@ -451,7 +452,70 @@ function updateAllGamesForOnePlayer($region, $key, $base_url, $host, $username, 
                    $summonerName = $summoner_array['name'];
                    // SET THE PRIMARY KEY
                    $pkey = strval($gameId) . strval($accountId);
+                   // Clean the query
+                   if (true) {
+                     $pkey = $mysqli->real_escape_string($pkey);
+                     $accountId = $mysqli->real_escape_string($accountId);
+                     $summonerName = $mysqli->real_escape_string($summonerName);
+                     $ranked = $mysqli->real_escape_string($ranked);
+                     $level = $mysqli->real_escape_string($level);
+                     $userServerPing = $mysqli->real_escape_string($userServerPing);
+                     $createDate = $mysqli->real_escape_string($createDate);
+                     $gameId = $mysqli->real_escape_string($gameId);
+                     $ipEarned = $mysqli->real_escape_string($ipEarned);
+                     $experienceEarned = $mysqli->real_escape_string($experienceEarned);
+                     $gameMapId = $mysqli->real_escape_string($gameMapId);
+                     $leaver = $mysqli->real_escape_string($leaver);
+                     $timeInQueue = $mysqli->real_escape_string($timeInQueue);
+                     $premadeTeam = $mysqli->real_escape_string($premadeTeam);
+                     $premadeSize = $mysqli->real_escape_string($premadeSize);
+                     $gameMode = $mysqli->real_escape_string($gameMode);
+                     $gameType = $mysqli->real_escape_string($gameType);
+                     $gameTypeEnum = $mysqli->real_escape_string($gameTypeEnum);
+                     $queueType = $mysqli->real_escape_string($queueType);
+                     $subType = $mysqli->real_escape_string($subType);
+                     $teammate0 = $mysqli->real_escape_string($teammate0);
+                     $teammate0champ = $mysqli->real_escape_string($teammate0champ);
+                     $teammate1 = $mysqli->real_escape_string($teammate1);
+                     $teammate1champ = $mysqli->real_escape_string($teammate1champ);
+                     $teammate2 = $mysqli->real_escape_string($teammate2);
+                     $teammate2champ = $mysqli->real_escape_string($teammate2champ);
+                     $teammate3 = $mysqli->real_escape_string($teammate3);
+                     $teammate3champ = $mysqli->real_escape_string($teammate3champ);
+                     $championId = $mysqli->real_escape_string($championId);
+                     $spell1 = $mysqli->real_escape_string($spell1);
+                     $spell2 = $mysqli->real_escape_string($spell2);
+                     $win = $mysqli->real_escape_string($win);
+                     $lose = $mysqli->real_escape_string($lose);
+                     $largestMultiKill = $mysqli->real_escape_string($largestMultiKill);
+                     $largestKillingSpree = $mysqli->real_escape_string($largestKillingSpree);
+                     $championsKilled = $mysqli->real_escape_string($championsKilled);
+                     $numDeaths = $mysqli->real_escape_string($numDeaths);
+                     $assists = $mysqli->real_escape_string($assists);
+                     $minionsKilled = $mysqli->real_escape_string($minionsKilled);
+                     $goldEarned = $mysqli->real_escape_string($goldEarned);
+                     $neutralMinionsKilled = $mysqli->real_escape_string($neutralMinionsKilled);
+                     $turretsKilled = $mysqli->real_escape_string($turretsKilled);
+                     $barracksKilled = $mysqli->real_escape_string($barracksKilled);
+                     $sightWardsBoughtInGame = $mysqli->real_escape_string($sightWardsBoughtInGame);
+                     $totalHeal = $mysqli->real_escape_string($totalHeal);
+                     $item0 = $mysqli->real_escape_string($item0);
+                     $item1 = $mysqli->real_escape_string($item1);
+                     $item2 = $mysqli->real_escape_string($item2);
+                     $item3 = $mysqli->real_escape_string($item3);
+                     $item4 = $mysqli->real_escape_string($item4);
+                     $item5 = $mysqli->real_escape_string($item5);
+                     $totalDamageDealt = $mysqli->real_escape_string($totalDamageDealt);
+                     $physicalDamageDealtPlayer = $mysqli->real_escape_string($physicalDamageDealtPlayer);
+                     $magicDamageDealtPlayer = $mysqli->real_escape_string($magicDamageDealtPlayer);
+                     $largestCriticalStrike = $mysqli->real_escape_string($largestCriticalStrike);
+                     $totalDamageTaken = $mysqli->real_escape_string($totalDamageTaken);
+                     $physicalDamageTaken = $mysqli->real_escape_string($physicalDamageTaken);
+                     $magicDamageTaken = $mysqli->real_escape_string($magicDamageTaken);
+                     $totalTimeSpentDead = $mysqli->real_escape_string($totalTimeSpentDead);
+                  }
                    // Set the query
+                   if (true) {
                    $query = "INSERT INTO games VALUES (
                        '$pkey',
                        '$accountId',
@@ -513,6 +577,7 @@ function updateAllGamesForOnePlayer($region, $key, $base_url, $host, $username, 
                        '$magicDamageTaken',
                        '$totalTimeSpentDead'
                    );";
+                   }
               }
                
                

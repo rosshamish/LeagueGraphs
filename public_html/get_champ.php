@@ -1,6 +1,8 @@
 <?php
 
 require_once("sensitive_data.php");
+require_once("PhpConsole.php");
+PhpConsole::start();
 
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);
@@ -11,7 +13,9 @@ if ($req == 'id') {
   $champ_name = $_POST['identifier'];
   
   for ($i=0; $i<count($champ_name); $i++) {
-    $query = "SELECT id FROM champs WHERE name='$champ_name'";
+    $cur = $champ_name[$i];
+    $cur = $mysqli->real_escape_string($cur);
+    $query = "SELECT id FROM champs WHERE name='$cur'";
   
     $result = $mysqli->query($query);
     if ($result) {
@@ -24,12 +28,14 @@ if ($req == 'id') {
   }
 } else if ($req == 'name') {
   $champ_id = $_POST['identifier'];
+  
   if (intval($champ_id) <= 0) {
     return json_encode();
   }
   
   for ($i=0; $i<count($champ_id); $i++) {
     $cur = $champ_id[$i];
+    $cur = $mysqli->real_escape_string($cur);
     $query = "SELECT name FROM champs WHERE id='$cur'";
     
     $result = $mysqli->query($query);

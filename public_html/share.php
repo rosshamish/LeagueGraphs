@@ -52,10 +52,15 @@
         sessionStorage.gameRange = '<?php echo $gameRange ?>';
         sessionStorage.filters = '<?php echo $filters ?>';
         sessionStorage.gameType = '<?php echo $gameType ?>';
+        // redirect
+        var dir = window.location.pathname;
+        var re = '/';
+        if (dir.indexOf('dev') == -1) { // production
+          re = '/';
+        } else { // debug&dev
+          re = '/dev/';
+        }
+        top.location = re;
       </script>
-      
-      <?php      
-        echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.html">';
-      ?>
   </head>
 </html>

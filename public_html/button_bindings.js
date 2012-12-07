@@ -76,9 +76,9 @@ $(function() {
     index = link.indexOf('f=');
     if (index != -1) { // if this param is already present
         if (link.substring(index).indexOf('&') != -1) { // if it isn't the last param
-            link = link.replace(/f=.+?&/gi, 'n='+f+'&');
+            link = link.replace(/f=.+?&/gi, 'f='+f+'&');
         } else { // it's the last param
-            link = link.replace(/f=.+/gi, 'f='+n);
+            link = link.replace(/f=.+/gi, 'f='+f);
         }
     } else { // add this param in
         if (link.indexOf('?') != -1) { // if there are other params already
@@ -91,48 +91,7 @@ $(function() {
     // Select it for easier copy and paste
     $input.val(link);
     $input.select();
-   });
-   
-   /*
-    *All of these are of the pattern "click a button, change the link"
-    *
-   $('.summoner_search_btn').on('click', function() {
-    var link = $('.sharelink').val();
-    console.log('oldlink: ' + link);
-    var newval = $(this).siblings('.summoner_search_input').val();
-    console.log('newval: ' + newval);
-    link = link.replace(/n=*&/gi, "n="+newval+"&");
-    console.log('newlink: ' + link);
-    $('.sharelink').val(link);
-   });
-   
-   $('.time_filter').on('click', function(e) {
-    e.preventDefault();
-    var link = $('.sharelink').val();
-    console.log('oldlink: ' + link);
-    var newval = $(this).attr('data-range');
-    console.log('newval: ' + newval);
-    link = link.replace("r=", "r="+newval);
-    console.log('newlink: ' + link);
-    $('.sharelink').val(link);
-   });
-   
-   $('.gametype_filter').on('click', function(e) {
-    e.preventDefault();
-    var oldval = $('.sharelink').val();
-   });
-   
-   $("button.champ_filter_btn").on('click', function() {
-    var oldval = $('.sharelink').val();
-   });
-   
-   $("button.champ_filter_all_champs").on('click', function() {
-    var oldval = $('.sharelink').val();
-   });
-   */
-   
-   // deal with filters
-   
+   });   
    
 });
 
@@ -188,13 +147,15 @@ $(function() {
                     var total_games = phpdata['total_games'];
                     var name = phpdata['name'];
                     var oldest_game = phpdata['oldest_game'];
-                    var date = oldest_game.substring(0, 10);
-                    var day = date.substring(8, 10);
-                    var monthnum = date.substring(5, 7);
-                    var year = date.substring(0, 4);
-                    var months_arr = ["Zeroth", "January", "February", "March", "April", "May", "June", "July",
-                                      "August", "September", "October", "November", "December"];
-                    var month = months_arr[parseInt(monthnum)];
+                    if (oldest_game != null) { // if this isn't their first time
+                        var date = oldest_game.substring(0, 10);
+                        var day = date.substring(8, 10);
+                        var monthnum = date.substring(5, 7);
+                        var year = date.substring(0, 4);
+                        var months_arr = ["Zeroth", "January", "February", "March", "April", "May", "June", "July",
+                                          "August", "September", "October", "November", "December"];
+                        var month = months_arr[parseInt(monthnum)];
+                    }
                     
                     // Make the graph
                     get_graph('', '', '', '');
@@ -202,7 +163,12 @@ $(function() {
                     $('#search_form').addClass('success');
                     $("#summoner_name").html(name);
                     $("#games_tracked").html(total_games);
-                    $("#tracking_since").html(month + " " + day + ", " + year);
+                    if (oldest_game != null) { // if this isn't their first time 
+                        $("#tracking_since").html(month + " " + day + ", " + year);
+                    } else {
+                        // this IS their first time
+                        $('#tracking_since').html('today');
+                    }
                     $('#player_stats').show();
                     $("button#submit_btn").removeClass('btn-primary')
                                 .removeClass('btn-danger')
@@ -224,8 +190,20 @@ $(function() {
             data: {
                 summonerName : sessionStorage.summoner_name
             },
+            dataType: 'json',
             success: function(data) {
                 // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
+                // only thing to do is check if the player cap was hit
+                if (data['capped'] == true) {
+                    $("#tracking_since").html('<i>cap reached</i>');
+                    $('<p>').html('Unfortunately, the auto-tracker\'s player cap has been reached. Budget currently allows for <i>'+data['cap']+'</i> players. <br>' +
+                                  'You can support LeagueGraphs and increase the cap by making a small donation at the bottom of this page.<br>'+
+                                  'In the meantime, here are your 10 latest games. Enjoy!')
+                            .appendTo('#tracking_since');
+                }
+            },
+            error: function(a,b,c) {
+                console.error('add_to_players.php error, called from button_bindings.js');
             }
         });
         
@@ -335,7 +313,7 @@ $(function() {
         $.ajax({  
             type: "POST",
             url: "get_champ.php",
-            data: {identifier: champname,
+            data: {identifier: [champname],
                    get: "id"},
             dataType: "json",
             success: function(phpdata) {

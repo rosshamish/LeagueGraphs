@@ -11,7 +11,9 @@ if ($req == 'id') {
   $item_name = $_POST['identifier'];
   
   for ($i=0; $i<count($item_name); $i++) {
-    $query = "SELECT id FROM items WHERE name='$item_name'";
+    $cur = $item_name[$i];
+    $cur = $mysqli->real_escape_string($cur);
+    $query = "SELECT id FROM items WHERE name='$cur'";
   
     $result = $mysqli->query($query);
     if ($result) {
@@ -27,6 +29,7 @@ if ($req == 'id') {
   
   for ($i=0; $i<count($item_id); $i++) {
     $cur = $item_id[$i];
+    $cur = $mysqli->real_escape_string($cur);
     $query = "SELECT name FROM items WHERE id='$cur'";
     
     $result = $mysqli->query($query);

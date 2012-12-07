@@ -35,7 +35,7 @@ for ($i=0; $i < count($champs); $i++) {
     $query = "INSERT INTO champs VALUES (
                             '$id',
                             '$name'
-                        );";
+                        );"; 
     $mysqli->query($query) or die('Error in MySql: ' . $mysqli->error);
 }
 

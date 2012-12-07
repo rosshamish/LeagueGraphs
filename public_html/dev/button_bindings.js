@@ -195,9 +195,10 @@ $(function() {
                 // nothing to do here, the insert takes place in add_to_players, nothing has to actually be done on the frontend side.
                 // only thing to do is check if the player cap was hit
                 if (data['capped'] == true) {
-                    $("#tracking_since").html('today');
+                    $("#tracking_since").html('<i>cap reached</i>');
                     $('<p>').html('Unfortunately, the auto-tracker\'s player cap has been reached. Budget currently allows for <i>'+data['cap']+'</i> players. <br>' +
-                                  'You can support LeagueGraphs and increase the cap by making a small donation at the bottom of this page')
+                                  'You can support LeagueGraphs and increase the cap by making a small donation at the bottom of this page.<br>'+
+                                  'In the meantime, here are your 10 latest games. Enjoy!');
                             .appendTo('#tracking_since');
                 }
                 console.log(data);

@@ -1,7 +1,7 @@
 <html>
   <head>
     <?php
-      require_once('sensitive_data.php'); # $host, $username, $password, $database
+      require_once('sensitive_data.php'); # $host, $username, $password, $database, $r_region, $r_key, $r_base_url
       require_once('PhpConsole.php');
       PhpConsole::start();
       

@@ -1,5 +1,5 @@
 <?php    
-    require_once('sensitive_data.php');
+    require_once('sensitive_data.php'); # $host, $username, $password, $database
     $mysqli = new mysqli($host, $username, $password);
     $mysqli->select_db($database);
     

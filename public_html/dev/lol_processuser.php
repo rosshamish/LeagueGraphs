@@ -1,6 +1,6 @@
 <?php
 // get the keys, passes and such
-require_once('sensitive_data.php');
+require_once('sensitive_data.php'); # $host, $username, $password, $database
 require_once('PhpConsole.php');
 PhpConsole::start();
 

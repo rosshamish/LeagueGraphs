@@ -1,7 +1,7 @@
 #[LeagueGraphs](http://www.leaguegraphs.com)
 
 ####A free online statistics tracker for ranked **and normal** queues in [League of Legends](http://www.leagueoflegends.com)
-####Readme last updated Nov 30, 2012
+####Readme last updated Dec 9, 2012
 
 ---
 
@@ -9,7 +9,7 @@
 
 1. Your 10 most recent games are always available from Riot in high detail.  
 2. There is a glorious auto-update php machine that is always running. Once your name has been entered *once* on [LeagueGraphs](http://www.leaguegraphs.com), it is added to the machine's list of names.  
-3. Each player is updated every 6 hours, minimum. If you can play more than 10 games in 6 hours, I applaud you, and I also recommend you visit the site during your marathon to let the database manually grab your game statistics.  
+3. Each player is updated every 8 hours, minimum. If you can play more than 10 games in 8 hours, I applaud you, and I also recommend you visit the site during your marathon to let the database manually grab your game statistics.  
 4. A manual update happens whenever you look yourself up, so graphs and data are also guaranteed up-to-date.
 5. Profit.
 
@@ -19,12 +19,15 @@
 
 Please give it some slack as it is still in development :) 
 
-If you notice something wrong, some weird formatting or data or wrong values, horrible errors, crashes, seriously anything, please [email me!](mailto:ross.anderson87@gmail.com?subject=[GitHub] [LeagueGraphs] Bug Report)
+If you notice something wrong, some weird formatting or data or wrong values, horrible errors, crashes, seriously anything, please [email me!](mailto:ross@leaguegraphs.com?subject=Bug Report)
+Email: *ross@leaguegraphs.com*
 
 ---
 
 **Implemented Features:**
 
+- Link sharing
+ - Show off to your friends
 - Database consistency and stability
 - Automatic database updates, minimum every 6 hours per player
 - Data availability in graph format
@@ -47,8 +50,6 @@ If you notice something wrong, some weird formatting or data or wrong values, ho
 
 **Planned Features:**
 
-- Link sharing
- - Show off to your friends
 - Data availability via tables and custom searching.
 - Interactive graphs - zoom, pan, extra data on mouseover.
 - Filter by teammate.

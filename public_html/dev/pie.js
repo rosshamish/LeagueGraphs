@@ -44,7 +44,15 @@ function getPie(freq_arr, wins_arr) {
           return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
       })
       .attr("text-anchor", "middle")                          //center the text on it's origin
-      .text(function(d, i) { return freq_arr[i].label; });        //get the label from our original data array
+      .text(function(d, i) {
+        var arcangle = Math.abs(d.endAngle - d.startAngle);
+        if (arcangle > 0.15) {
+            ret = freq_arr[i].label;
+        } else {
+            ret = '';
+        }
+        return ret;
+        });        //get the label from our original data array
       
   /**
    * Champ Total Wins

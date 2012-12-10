@@ -208,9 +208,11 @@ $(function() {
             }
         });
         
-        $('html, body').stop().animate({
-            scrollTop: $('.nav-tabs').offset().top
-        }, 1500);
+        if (this.id == 'submit_btn') {
+            $('html, body').stop().animate({
+                scrollTop: $('.nav-tabs').offset().top
+            }, 1500);
+        }
         
         return false;
     });

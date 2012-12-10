@@ -188,6 +188,7 @@ $(document).ready(function() {
     
     /** Page hit coming from a share link **/
     if (sessionStorage.share == 'true') {
+        _gaq.push(['_trackEvent', 'Share', 'True']);
         // Defaults if unspecified
         if (!sessionStorage.summoner_name) {
             sessionStorage.summoner_name = 'SomePlayer';

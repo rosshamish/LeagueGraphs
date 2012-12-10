@@ -115,6 +115,7 @@ $(function() {
             input.focus();
             return false;
         }
+        _gaq.push(['_trackEvent', 'Player', 'Search']);
         sessionStorage.summoner_name = summonerName; // set the summoner_name, we're looking at a new player
         sessionStorage.gameType = 'all';
         sessionStorage.champId = '';
@@ -219,6 +220,7 @@ $(function() {
 $(function() {
     /** Set up time filter click events **/
     $('.time_filter').click(function(e) {
+        _gaq.push(['_trackEvent', 'Filter', 'Time']);
         e.preventDefault();
         var gameRange = 100000;
         switch(this.id) {
@@ -254,6 +256,7 @@ $(function() {
     
     /** Set up game type filter click events **/
     $('.gametype_filter').click(function(e) {
+        _gaq.push(['_trackEvent', 'Filter', 'Gametype']);
         e.preventDefault();
         switch(this.id) {
             case 'all':
@@ -296,7 +299,7 @@ $(function() {
     });
     
     $("button.champ_filter_btn").click(function() {
-        
+        _gaq.push(['_trackEvent', 'Filter', 'Champion']);
         // Grab values from the form
         var champname = $(this).siblings('.champ_filter_input').val();
         $('.champ_filter_input').each(function() {

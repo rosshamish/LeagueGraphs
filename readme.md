@@ -19,8 +19,8 @@
 
 Please give it some slack as it is still in development :) 
 
-If you notice something wrong, some weird formatting or data or wrong values, horrible errors, crashes, seriously anything, please [email me!](mailto:ross@leaguegraphs.com?subject=Bug Report)
-Email: *ross@leaguegraphs.com*
+If you notice something wrong, some weird formatting or data or wrong values, horrible errors, crashes, seriously anything, please [email me!](mailto:ross@leaguegraphs.com?subject=Bug Report)  
+Email: **ross@leaguegraphs.com**
 
 ---
 

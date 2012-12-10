@@ -17,3 +17,5 @@ RewriteRule ^lol/$ http://rosshamish.netau.net [R=301,L]
 # Do not remove this line, otherwise mod_rewrite rules will stop working
 RewriteBase /
 
+ErrorDocument 404 /
+

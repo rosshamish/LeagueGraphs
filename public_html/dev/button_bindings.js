@@ -3,7 +3,8 @@ $(function() {
    /*
     *This is using the pattern "click the link, update the link"
     */
-   $('.sharelink').click(function() {
+   $('.sharelink').click(function(e) {
+    e.preventDefault();
     $input = $('input.sharelink');
     var link = $input.val();
     var n = sessionStorage.summoner_name;
@@ -99,12 +100,14 @@ $(function() {
 $(function() {
     
     /** Input selection **/
-    $('.summoner_search_input').click(function() {
+    $('.summoner_search_input').click(function(e) {
+        e.preventDefault();
         $(this).select();
     });
     
     /** Player search **/
-    $(".summoner_search_btn").click(function() {
+    $(".summoner_search_btn").click(function(e) {
+        e.preventDefault();
         document.activeElement.blur();
         $this = $(this);
         // Grab values from the form
@@ -222,8 +225,8 @@ $(function() {
 $(function() {
     /** Set up time filter click events **/
     $('.time_filter').click(function(e) {
-        _gaq.push(['_trackEvent', 'Filter', 'Time']);
         e.preventDefault();
+        _gaq.push(['_trackEvent', 'Filter', 'Time']);
         var gameRange = 100000;
         switch(this.id) {
             case 'ever':
@@ -258,8 +261,8 @@ $(function() {
     
     /** Set up game type filter click events **/
     $('.gametype_filter').click(function(e) {
-        _gaq.push(['_trackEvent', 'Filter', 'Gametype']);
         e.preventDefault();
+        _gaq.push(['_trackEvent', 'Filter', 'Gametype']);
         switch(this.id) {
             case 'all':
                 t = 'All Game Types';
@@ -296,11 +299,13 @@ $(function() {
 /** Champ filter form submission **/
 $(function() {
     
-    $('.champ_filter_input').click(function() {
+    $('.champ_filter_input').click(function(e) {
+        e.preventDefault();
         $(this).select();
     });
     
-    $("button.champ_filter_btn").click(function() {
+    $("button.champ_filter_btn").click(function(e) {
+        e.preventDefault();
         _gaq.push(['_trackEvent', 'Filter', 'Champion']);
         // Grab values from the form
         var champname = $(this).siblings('.champ_filter_input').val();
@@ -345,13 +350,13 @@ $(function() {
 
 /* Champ unfilter button */
 $(function() {
-    $("button.champ_filter_all_champs").click(function() {
+    $("button.champ_filter_all_champs").click(function(e) {
+        e.preventDefault();
         
         $("button.champ_filter_all_champs").addClass('active');
         $("button.champ_filter_btn").removeClass('active');
                 
         // Use Ajax to process the form submission
-        
         $(".champ_input_form").removeClass('error')
                               .addClass('success');
         

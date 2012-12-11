@@ -36,6 +36,7 @@ function updateNext() {
     url: "lol_processuser.php",
     data: { 'summonerName' : names_arr[count] },
     dataType: "json",
+    async: false,
     success: function(phpdata) {        
         if (!phpdata || phpdata == null) {
         
@@ -89,7 +90,7 @@ var fiveminutes = oneminute * 5;
 var tenminutes = oneminute * 10;
 var thirtyminutes = oneminute * 30;
 var hour = oneminute * 60;
-var interval = onesecond;
+var interval = onesecond * 2;
 updateNext(); // call it the first time
 var updateInterval = setInterval(updateNext, interval); // set up the interval
 

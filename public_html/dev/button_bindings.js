@@ -385,7 +385,7 @@ $(function() {
         
         // Do the graphing and stuff
         sessionStorage.champId = '';
-        get_graph('', "", '', 'all');
+        get_graph('', '', '', 'all');
         
         return false;
     });

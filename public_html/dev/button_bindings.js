@@ -334,11 +334,8 @@ $(function() {
         
         // Grab values from the form
         var champname = $(this).siblings('.champ_filter_input').val();
-        $('.champ_filter_input').each(function() {
-            $(this).val(champname);
-        });
+        // If they didn't supply anything, just don't do anything and return.
         if (champname == "") {
-            // If they didn't supply anything, just don't do anything and return.
             $("input#champname").focus();
             return false;
         }

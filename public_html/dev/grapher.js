@@ -584,7 +584,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                         champName = 'any champion';
                         $(".graph_title").html(summoner_name);
                     }
-                    $(".pie_title").html(summoner_name);
+                    $(".pie_title").html(summoner_name + ' - ');
                     if (!game_found) {
                         noGamesFound(svg, champName);
                         console.log('no game found');

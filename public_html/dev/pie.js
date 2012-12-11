@@ -46,9 +46,9 @@ function getPie(freq_arr, wins_arr) {
       .attr("text-anchor", "middle")                          //center the text on it's origin
       .text(function(d, i) {
         var arcangle = Math.abs(d.endAngle - d.startAngle);
-        if (arcangle > 0.15) {
+        if (arcangle > 0.15) { // as long as its more substantial than 0.15 radians, show it
             ret = freq_arr[i].label;
-        } else {
+        } else { // otherwise don't show it
             ret = '';
         }
         return ret;

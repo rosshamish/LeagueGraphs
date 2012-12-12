@@ -5,3 +5,4 @@ Introducing LeagueGraphs: a free, online, open-source normal game statistics tra
 
 Content:
 
+No download, no install, no hassle. 

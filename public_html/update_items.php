@@ -17,11 +17,8 @@ curl_close($ch);
 
 // For each field, insert a value into the items table
 $items = (array)json_decode($json_response);
-// BUT FIRST, truncate (empty) the table.
 // If no data was returned, just leave the table as it is
-if (count($items) > 0) {
-    $mysqli->query("TRUNCATE TABLE items") or die("Error in MySql: " . $mysqli->error);
-} else {
+if (!(count($items) > 0)) {
     echo "Item lookup failed. No data was returned from Elophant.";
     return;
 }
@@ -32,7 +29,7 @@ for ($i=0; $i < count($items); $i++) {
     // it was having problems with things like Cho 'Gath
     $name = $mysqli->real_escape_string($cur_item['name']);
     echo "id: $id, name: $name <br>";
-    $query = "INSERT INTO items VALUES (
+    $query = "REPLACE INTO items VALUES (
                             '$id',
                             '$name'
                         );"; 

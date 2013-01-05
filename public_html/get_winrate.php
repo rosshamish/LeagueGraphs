@@ -1,8 +1,6 @@
 <?php
 
-require_once('sensitive_data.php');
-require_once('PhpConsole.php');
-PhpConsole::start();
+require_once('sensitive_data.php'); # $host, $username, $password, $database, $r_region, $r_key, $r_base_url
 
 $gameRange = intval($_POST['gameRange']);
 if ($gameRange <= 0) { // if we're looking for all games

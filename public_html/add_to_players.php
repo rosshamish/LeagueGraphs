@@ -1,8 +1,6 @@
 <?php
 
-require_once('sensitive_data.php');
-require_once('PhpConsole.php');
-PhpConsole::start();
+require_once('sensitive_data.php'); # $host, $username, $password, $database, $r_region, $r_key, $r_base_url
 $playerCap = 5000;
 
 $mysqli = new mysqli($host, $username, $password);

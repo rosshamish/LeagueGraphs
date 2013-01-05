@@ -45,10 +45,7 @@ function updateNext() {
     url: "lol_processuser.php",
     data: { 'summonerName' : names_arr[count] },
     dataType: "json",
-    success: function(phpdata) {
-        var parsed_games = phpdata['parsed_games'];
-        var total_games = phpdata['total_games'];
-        
+    success: function(phpdata) {        
         if (!phpdata || phpdata == null) {
         
             $("#playerUpdates").prepend('--<br>');

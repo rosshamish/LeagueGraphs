@@ -399,20 +399,9 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                     $.powerTip.closeTip();
                 })
                 .on('click', function(d, i) {
-                    var oldest_game = data[i]['createDate'];
-                    var date = oldest_game.substring(0, 10);
-                    var day = Number(date.substring(8, 10));
-                    var monthnum = Number(date.substring(5, 7));
-                    var year = date.substring(0, 4);
-                    var months_arr = ["Zeroth", "January", "February", "March", "April", "May", "June", "July",
-                                      "August", "September", "October", "November", "December"];
-                    var month = months_arr[monthnum];
+                    var timestamp = parseInt(data[i]['createDate']);
                     
-                    var hour = oldest_game.substring(11, 13);
-                    var minute = oldest_game.substring(14,16);
-                    var second = oldest_game.substring(17,19);
-                    
-                    var d1 = new Date(month + " " + day + ", " + year + " " + hour +":"+minute+":"+second);
+                    var d1 = new Date(timestamp);
                     var d2 = new Date(d1.getTime() - d1.getTimezoneOffset()*60*1000);
                     var ampm = 'am';
                     var ampmhour = d2.getHours();
@@ -584,6 +573,7 @@ function get_graph(summoner_name, x_field, y_field, champId, gameRange, gameType
                         champName = 'any champion';
                         $(".graph_title").html(summoner_name);
                     }
+                    $(".pie_title").html(summoner_name + ' - ');
                     if (!game_found) {
                         noGamesFound(svg, champName);
                         console.log('no game found');

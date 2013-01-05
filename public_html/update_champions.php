@@ -2,7 +2,7 @@
 /**
  * Resetting the `champions` table after patches and champ releases and stuff
  */
-require('sensitive_data.php');
+require('sensitive_data.php'); # $host, $username, $password, $database, $r_region, $r_key, $r_base_url
 
 // Connect and select the database
 $mysqli = new mysqli($host, $username,$password) or die('Could not connect to database');

@@ -1,8 +1,6 @@
 <?php
 
-require_once("sensitive_data.php");
-require_once("PhpConsole.php");
-PhpConsole::start();
+require_once('sensitive_data.php'); # $host, $username, $password, $database, $r_region, $r_key, $r_base_url
 
 $mysqli = new mysqli($host, $username, $password);
 $mysqli->select_db($database);

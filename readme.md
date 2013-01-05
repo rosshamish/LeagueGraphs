@@ -1,7 +1,7 @@
 #[LeagueGraphs](http://www.leaguegraphs.com)
 
 ####A free online statistics tracker for ranked **and normal** queues in [League of Legends](http://www.leagueoflegends.com)
-####Readme last updated Dec 9, 2012
+####Readme last updated Jan 5, 2013
 
 ---
 
@@ -15,10 +15,6 @@
 
 ---
 
-**The site is still in alpha development.**
-
-Please give it some slack as it is still in development :) 
-
 If you notice something wrong, some weird formatting or data or wrong values, horrible errors, crashes, seriously anything, please [email me!](mailto:ross@leaguegraphs.com?subject=Bug Report)  
 Email: **ross@leaguegraphs.com**
 
@@ -29,7 +25,7 @@ Email: **ross@leaguegraphs.com**
 - Link sharing
  - Show off to your friends
 - Database consistency and stability
-- Automatic database updates, minimum every 6 hours per player
+- Automatic database updates, minimum every 8 hours per player
 - Data availability in graph format
  - using [d3.js](http://www.d3js.org), initially learned from [Dan Foreman-Mackey](http://dan.iel.fm/)'s very cool [xkcd.js](http://dan.iel.fm/xkcd/)
 - Winrate line graph overlay
@@ -50,7 +46,6 @@ Email: **ross@leaguegraphs.com**
 
 **Planned Features:**
 
-- Data availability via tables and custom searching.
 - Interactive graphs - zoom, pan, extra data on mouseover.
 - Filter by teammate.
 - Teammate & Enemy data crawling
@@ -63,9 +58,9 @@ Email: **ross@leaguegraphs.com**
 **Known deficiencies:**
 
 - Data currently only available for NA servers
-    - This is easily fixable, but for now simplicity is king.
+  - This is easily fixable, but for now simplicity is king.
 - I am a student and don't have money to pay for server space or API calls to handle lots of people. Currently it looks like the max will be a little less than 10,000 players.
-    - This is easily fixable with [donations :)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5AK9LPZFB54L8&lc=CA&item_name=LeagueGraphs&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
+  - This is easily fixable with [donations :)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5AK9LPZFB54L8&lc=CA&item_name=LeagueGraphs&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
 
 ---
 

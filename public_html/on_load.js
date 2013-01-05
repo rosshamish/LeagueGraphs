@@ -165,9 +165,17 @@ $(document).ready(function() {
     **/
     
     /**
-     * Set sessionStorage.share to an appropriate value.
-     *     .share represents whether or not we came from a share link.
+     * Link share handling
      */
+    var dir = window.location.pathname;
+    var re = '/';
+    if (dir.indexOf('dev') == -1) { // production
+      re = '/';
+    } else { // debug&dev
+      re = '/dev/';
+    }
+    $('.sharelink').val('http://leaguegraphs.com'+re+'share.php');
+    
     if (sessionStorage.share != 'true') {
         sessionStorage.share = false;
     }

@@ -93,7 +93,7 @@ function updateAllGamesForOnePlayer($region, $key, $base_url, $host, $username, 
      $oldest_row = $result->fetch_assoc(); 
      $oldest_game = $oldest_row['createDate'];
    } else {
-     debug("no result in finding the num old games and oldest game date");
+     # debug("no result in finding the num old games and oldest game date");
    }
    $result->free();
    
@@ -702,6 +702,10 @@ $summoner_data = getEloData($r_base_url, $r_region, $r_key, 'getSummonerByName',
 
 // Make sure this summoner actually has data that returned
 $summoner_arr = json_decode($summoner_data, true);
+if (!$summoner_arr) {
+   echo 'null';
+   return;
+}
 $keys = array_keys($summoner_arr);
 if (!$keys) {
    echo 'null';

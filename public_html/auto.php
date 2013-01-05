@@ -108,7 +108,7 @@ $.ajax({
         
         var min_update_time = hour * 6; // 6 hours between updates minimum
         window.interval = Math.floor(min_update_time / names_arr.length / 1000) * 1000;
-        console.log('num players: ' + names_arr.length + ', window.interval: ' + window.interval);
+        // console.log('num players: ' + names_arr.length + ', window.interval: ' + window.interval);
         updateNext(); // call it the first time
         setInterval(updateNext, window.interval); // set up the interval
         timer = window.interval;

@@ -144,14 +144,14 @@ $(function() {
         // and it doesn't matter enough to find out
         summonerName = summonerName.replace(" ", "%20");
         // Use Ajax to process the user
-        console.log('summonerName: ' + summonerName);
+        // console.log('summonerName: ' + summonerName);
         $.ajax({  
             type: "POST",
             url: "lol_processuser.php",
             data: {summonerName : summonerName},
             dataType: "json", // tell ajax that we expect json to come back
             success: function(phpdata) {
-                console.log(phpdata);
+                // console.log(phpdata);
                 if (phpdata == 'null'|| !phpdata) {
                     /* If we got back bad data.
                      * This typically means that the Elophant API is down.

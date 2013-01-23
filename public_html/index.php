@@ -12,7 +12,7 @@
 <meta name="author" content="Ross Anderson">
 <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'/>
 
-<!-- Le styles -->
+<!-- Styles -->
 <link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 <style type="text/css">
       body {
@@ -22,12 +22,15 @@
       .sidebar-nav {
         padding: 9px 0;
       }
+      rect:hover {
+      	cursor: pointer;
+      }
 </style>
 <link href="extra.css" type="text/css" rel="stylesheet">
 <link href="jquery.powertip/jquery.powertip.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="css/prettyLoader.css" type="text/css" media="screen" charset="utf-8" />
 <link href="bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet">
-<!-- /le styles -->
+<!-- /Styles -->
 
 <!-- Start Google Analytics Code -->
 <script type="text/javascript">
@@ -353,7 +356,7 @@
 			<hr>
 			<footer class="footer">
 				<form class="form-inline" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				&copy; <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a> 2012. Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">elophant.com</a>
+				&copy; <a href="http://www.github.com/RossHamish" target="_blank" title="github.com/RossHamish">RossHamish</a> 2012-<?php echo date("Y") ?> | Powered by <a href="http://www.elophant.com" target="_blank" title="elophant.com">elophant.com</a>
 				&nbsp&nbsp&nbsp&nbsp
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
@@ -364,15 +367,12 @@
 			</footer>
 		</div> <!--/.fluid-container-->
 			
-<!-- Le scripts -->
+<!-- Scripts -->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
       <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js">
 	  </script>
     <![endif]-->
-	
-
-<!-- Le javascript -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
 </script>
 <script type="text/javascript" src="jquery.powertip/jquery.powertip.js">
@@ -408,15 +408,15 @@
 	});
 </script>
 
-<!-- le less -->
+<!-- Less -->
 <link rel="stylesheet/less" type="text/css" href="less/variables.less">
 <link rel="stylesheet/less" type="text/css" href="less/bootswatch.less">
 <script type="text/javascript" src="less/less-1.3.1.min.js"></script>
 
-<!-- le favicon -->
+<!-- Favicon -->
 <link rel="shortcut icon" href="/favicon.ico?v=2">
 	
-<!-- le check IE -->
+<!-- Check IE -->
 <script type="text/javascript" src="check_ie.js">
 </script>
 			</body>

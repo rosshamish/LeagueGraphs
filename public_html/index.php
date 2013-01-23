@@ -129,7 +129,7 @@
 					<p>
 					Once your summoner name is entered here <b>once</b>, your stats will be tracked automatically forever and ever afterwards.
 					Every player <em>known to the site</em> gets updated at least once every 8 hours.
-					<small>Note: If you play more than 10 games in 8 hours, just come enter your name and your profile will be nommed manually.</small><br>
+					<small>Note: If you play more than 10 games in 8 hours, just come enter your name and your profile will be updated manually.</small><br>
 					</p>
 				</div> <!-- /#intro -->
 				<div id="updates" class="alert alert-error" hidden>
